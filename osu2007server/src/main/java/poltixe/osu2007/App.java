@@ -9,7 +9,7 @@ public class App {
         get("/web/osu-getscores.php", (req, res) -> Handlers.getScores(req));
         get("/web/osu-submit.php", (req, res) -> Handlers.submit(req));
         get("/web/osu-getreplay.php", (req, res) -> Handlers.getReplay(req));
-        get("/", (req, res) -> "1");
-        get("/web", (req, res) -> "1");
+        get("/", (req, res) -> "Home page or whatever");
+        get("/web", (req, res) -> "why are you here?");
     }
 }
