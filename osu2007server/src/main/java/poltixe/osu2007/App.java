@@ -1,13 +1,15 @@
 package poltixe.osu2007;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+import static spark.Spark.*;
+
+public class App {
+    public static void main(String[] args) {
+        port(80);
+        get("/web/osu-login.php", (req, res) -> Handlers.login(req));
+        get("/web/osu-getscores.php", (req, res) -> Handlers.getScores(req));
+        get("/web/osu-submit.php.php", (req, res) -> Handlers.submit(req));
+        get("/web/osu-getreplay.php.php", (req, res) -> Handlers.getReplay(req));
+        get("/", (req, res) -> "1");
+        get("/web", (req, res) -> "1");
     }
 }
