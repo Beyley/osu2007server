@@ -32,7 +32,7 @@ public class Handlers {
 
     public static String submit(Request req) {
         String scoreDetails = req.queryParams("score");
-        String password = req.queryParams("score");
+        String password = req.queryParams("pass");
 
         System.out.println(req.contentType());
         System.out.println(req.params());
