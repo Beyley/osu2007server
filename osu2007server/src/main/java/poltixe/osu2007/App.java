@@ -3,6 +3,13 @@ package poltixe.osu2007;
 import static spark.Spark.*;
 
 import java.io.*;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.mysql.jdbc.*;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 
 public class App {
     public static String mySqlServer;
@@ -10,9 +17,13 @@ public class App {
     public static String mySqlUser;
     public static String mySqlPass;
 
+    public static MySqlHandler sqlHandler = new MySqlHandler();
+
     public static void main(String[] args) throws IOException {
         GetPropertyValues properties = new GetPropertyValues();
         properties.getPropValues();
+
+        System.out.println("MySQL Server version : " + sqlHandler.getVersion());
 
         port(80);
         get("/web/osu-login.php", (req, res) -> Handlers.login(req));
