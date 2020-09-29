@@ -7,7 +7,6 @@ public class App {
         port(80);
         get("/web/osu-login.php", (req, res) -> Handlers.login(req));
         get("/web/osu-getscores.php", (req, res) -> Handlers.getScores(req));
-        get("/web/osu-submit.php", (req, res) -> Handlers.submit(req));
         post("/web/osu-submit.php", (req, res) -> Handlers.submit(req));
         get("/web/osu-getreplay.php", (req, res) -> Handlers.getReplay(req));
         get("/", (req, res) -> "Home page or whatever");
