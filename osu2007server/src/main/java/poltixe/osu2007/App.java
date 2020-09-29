@@ -2,8 +2,18 @@ package poltixe.osu2007;
 
 import static spark.Spark.*;
 
+import java.io.*;
+
 public class App {
-    public static void main(String[] args) {
+    public static String mySqlServer;
+    public static String mySqlPort;
+    public static String mySqlUser;
+    public static String mySqlPass;
+
+    public static void main(String[] args) throws IOException {
+        GetPropertyValues properties = new GetPropertyValues();
+        properties.getPropValues();
+
         port(80);
         get("/web/osu-login.php", (req, res) -> Handlers.login(req));
         get("/web/osu-getscores.php", (req, res) -> Handlers.getScores(req));
