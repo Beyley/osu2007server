@@ -1,17 +1,9 @@
 package poltixe.osu2007;
 
-import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import javax.servlet.ServletException;
 
 import spark.Request;
 
