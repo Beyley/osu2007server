@@ -66,6 +66,17 @@ public class MySqlHandler {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+
+        query = "CREATE TABLE `osu2007`.`scores` (`id` INT NOT NULL AUTO_INCREMENT, `scoredata` VARCHAR(200) NULL, PRIMARY KEY (`id`));";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement()) {
+
+            boolean rs = st.execute(query);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
     }
 
     public void addUser(String newUsersName, String newUsersPassword) {
@@ -86,7 +97,26 @@ public class MySqlHandler {
         }
     }
 
-    public User checkForUser(String usersName) {
+    public void addScore(Score score, byte[] replayData) {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        String query = "INSERT INTO scores(scoredata) VALUES('" + score.asSubmitString() + "');";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement()) {
+
+            boolean rs = st.execute(query);
+
+            FileHandler.saveReplayToFile(score, replayData);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public User checkUserData(String usersName) {
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 
         String user = App.mySqlUser;
@@ -95,6 +125,7 @@ public class MySqlHandler {
         String query = "SELECT * FROM users";
 
         boolean userExist = false;
+        String userPassword = "";
 
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement();
@@ -103,12 +134,13 @@ public class MySqlHandler {
             while (rs.next()) {
                 if (rs.getString(2).equals(usersName)) {
                     userExist = true;
+                    userPassword = rs.getString(3);
                 }
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
-        return new User(usersName, userExist);
+        return new User(usersName, userPassword, userExist);
     }
 }
