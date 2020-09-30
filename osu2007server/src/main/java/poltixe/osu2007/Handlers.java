@@ -8,11 +8,19 @@ import java.io.IOException;
 import spark.Request;
 
 public class Handlers {
+    public static MySqlHandler sqlHandler = new MySqlHandler();
+
     public static String login(Request req) {
         String returnString = "1";
 
         String username = req.queryParams("username");
         String password = req.queryParams("password");
+
+        if (sqlHandler.checkForUser(username).userExists) {
+
+        } else {
+            sqlHandler.addUser(username, password);
+        }
 
         return returnString;
     }

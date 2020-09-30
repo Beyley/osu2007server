@@ -24,6 +24,8 @@ public class App {
         properties.getPropValues();
 
         System.out.println("MySQL Server version : " + sqlHandler.getVersion());
+        sqlHandler.checkForDatabase();
+        sqlHandler.checkForTables();
 
         port(80);
         get("/web/osu-login.php", (req, res) -> Handlers.login(req));
