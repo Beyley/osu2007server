@@ -66,7 +66,7 @@
               <manifest>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>lib/</classpathPrefix>
-                <mainClass>com.poltixe.App</mainClass>
+                <mainClass>poltixe.osu2007.App</mainClass>
               </manifest>
             </archive>
           </configuration>
