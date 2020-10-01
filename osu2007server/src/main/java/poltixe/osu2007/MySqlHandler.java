@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 public class MySqlHandler {
 
@@ -110,10 +112,65 @@ public class MySqlHandler {
 
             boolean rs = st.execute(query);
 
-            FileHandler.saveReplayToFile(score, replayData);
+            // FileHandler.saveReplayToFile(score, replayData);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+
+        query = "SELECT * FROM scores";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement();
+                ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                Score currentScore = new Score(rs.getString(2), rs.getInt(1));
+
+                if (currentScore.asSubmitString().equals(score.asSubmitString())) {
+                    FileHandler.saveReplayToFile(currentScore, replayData);
+                }
+            }
+
+            // FileHandler.saveReplayToFile(score, replayData);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public List<Score> getAllMapScores(String mapHash) {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        String query = "SELECT * FROM scores";
+
+        List<Score> scores = new ArrayList<Score>();
+
+        boolean userExist = false;
+        String userPassword = "";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement();
+                ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                Score currentScore = new Score(rs.getString(2), rs.getInt(1));
+
+                System.out.println(currentScore.osuFileHash);
+                System.out.println(mapHash);
+
+                if (currentScore.osuFileHash.equals(mapHash)) {
+                    scores.add(currentScore);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        // System.out.println(scores[0].asGetScoresString());
+
+        return scores;
     }
 
     public User checkUserData(String usersName) {

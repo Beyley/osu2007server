@@ -40,6 +40,26 @@ public class Score {
         this.scoreId = scoreId;
     }
 
+    Score(String scoreString) {
+        String[] splitString = scoreString.split(":");
+
+        this.osuFileHash = splitString[0];
+        this.playerUsername = splitString[1];
+        this.scoreHash = splitString[2];
+        this.hit300Count = Integer.parseInt(splitString[3]);
+        this.hit100Count = Integer.parseInt(splitString[4]);
+        this.hit50Count = Integer.parseInt(splitString[5]);
+        this.hitGekiCount = Integer.parseInt(splitString[6]);
+        this.hitKatuCount = Integer.parseInt(splitString[7]);
+        this.hitMissCount = Integer.parseInt(splitString[8]);
+        this.score = Integer.parseInt(splitString[9]);
+        this.maxCombo = Integer.parseInt(splitString[10]);
+        this.perfectCombo = Boolean.parseBoolean(splitString[11]);
+        this.grade = splitString[12].charAt(0);
+        this.mods = Integer.parseInt(splitString[13]);
+        this.pass = Boolean.parseBoolean(splitString[14]);
+    }
+
     public String asSubmitString() {
         String combinedString = "";
 

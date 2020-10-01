@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import spark.Request;
 
@@ -29,9 +30,21 @@ public class Handlers {
     }
 
     public static String getScores(Request req) {
-        String returnString = "0:PoltixeTheDerg:766124:200:2:25:167:0:17:24:False:0\n";
+        String returnString = "";
         // a5b99395a42bd55bc5eb1d2411cbdf8b:PoltixeTheDerg:f07e856520cefc0b8b0c5cfe1b619e8e:167:25:2:24:17:0:766124:200:False:A:0:True
-        String mapId = req.queryParams("c");
+        String mapHash = req.queryParams("c");
+
+        // System.out.println("Getting all map scores!");
+        List<Score> mapScores = sqlHandler.getAllMapScores(mapHash);
+
+        // System.out.println(mapScores.length);
+
+        for (Score score : mapScores) {
+            returnString += score.asGetScoresString();
+            // System.out.println(returnString);
+        }
+
+        System.out.println(returnString);
 
         return returnString;
     }
@@ -39,13 +52,13 @@ public class Handlers {
     public static byte[] getReplay(Request req) {
         byte[] returnString = {};
 
-        try (FileInputStream fos = new FileInputStream("testreplay")) {
+        String scoreId = req.queryParams("c");
+
+        try (FileInputStream fos = new FileInputStream("replays/" + scoreId + ".osr")) {
             // returnString = new String(fos.readAllBytes());
             returnString = fos.readAllBytes();
         } catch (IOException e) {
         }
-
-        String scoreId = req.queryParams("c");
 
         return returnString;
     }
@@ -58,7 +71,15 @@ public class Handlers {
 
         byte[] rawBodyBytes = req.bodyAsBytes();
 
-        Score score = new Score(scoreDetails, 0);
+        byte[] replayData = FileHandler.parseBody(rawBodyBytes);
+
+        Score score = new Score(scoreDetails);
+
+        User user = sqlHandler.checkUserData(score.playerUsername);
+
+        if (score.pass && user.userPassword.equals(password)) {
+            sqlHandler.addScore(score, replayData);
+        }
 
         // System.out.println(String.valueOf(rawBodyBytes));
 

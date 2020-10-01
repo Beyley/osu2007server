@@ -4,17 +4,19 @@ import java.io.*;
 
 public class FileHandler {
     public static void saveReplayToFile(Score score, byte[] replayData) {
+        String filePath = "replays/" + score.scoreId + ".osr";
+
         try {
-            File myObj = new File("replays/" + score.scoreId);
+            File myObj = new File(filePath);
             if (myObj.createNewFile()) {
-                // System.out.println("File created: " + myObj.getName());
+                System.out.println("File created: " + myObj.getName());
             } else {
-                // System.out.println("File already exists.");
+                System.out.println("File already exists.");
             }
         } catch (IOException e) {
         }
 
-        try (FileOutputStream fos = new FileOutputStream("testreplay")) {
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
             fos.write(replayData);
         } catch (IOException e) {
         }
