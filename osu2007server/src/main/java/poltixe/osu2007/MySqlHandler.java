@@ -2,11 +2,9 @@ package poltixe.osu2007;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -166,9 +164,6 @@ public class MySqlHandler {
 
         List<Score> scores = new ArrayList<Score>();
 
-        boolean userExist = false;
-        String userPassword = "";
-
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement();
                 ResultSet rs = st.executeQuery(query)) {
@@ -183,8 +178,6 @@ public class MySqlHandler {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
-        // System.out.println(scores[0].asGetScoresString());
 
         return scores;
     }

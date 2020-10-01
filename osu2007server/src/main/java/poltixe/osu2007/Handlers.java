@@ -1,8 +1,6 @@
 package poltixe.osu2007;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -31,20 +29,13 @@ public class Handlers {
 
     public static String getScores(Request req) {
         String returnString = "";
-        // a5b99395a42bd55bc5eb1d2411cbdf8b:PoltixeTheDerg:f07e856520cefc0b8b0c5cfe1b619e8e:167:25:2:24:17:0:766124:200:False:A:0:True
         String mapHash = req.queryParams("c");
 
-        // System.out.println("Getting all map scores!");
         List<Score> mapScores = sqlHandler.getAllMapScores(mapHash);
-
-        // System.out.println(mapScores.length);
 
         for (Score score : mapScores) {
             returnString += score.asGetScoresString();
-            // System.out.println(returnString);
         }
-
-        System.out.println(returnString);
 
         return returnString;
     }
@@ -93,9 +84,6 @@ public class Handlers {
             if (newTopOnMap)
                 sqlHandler.addScore(scoreToSubmit, replayData);
         }
-
-        // System.out.println(String.valueOf(rawBodyBytes));
-
         return "";
     }
 }
