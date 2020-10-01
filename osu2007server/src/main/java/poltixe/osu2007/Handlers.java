@@ -67,8 +67,6 @@ public class Handlers {
         String scoreDetails = req.queryParams("score");
         String password = req.queryParams("pass");
 
-        System.out.println(scoreDetails);
-
         byte[] rawBodyBytes = req.bodyAsBytes();
 
         byte[] replayData = FileHandler.parseBody(rawBodyBytes);

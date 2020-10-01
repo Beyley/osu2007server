@@ -157,9 +157,6 @@ public class MySqlHandler {
             while (rs.next()) {
                 Score currentScore = new Score(rs.getString(2), rs.getInt(1));
 
-                System.out.println(currentScore.osuFileHash);
-                System.out.println(mapHash);
-
                 if (currentScore.osuFileHash.equals(mapHash)) {
                     scores.add(currentScore);
                 }
