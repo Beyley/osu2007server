@@ -99,6 +99,25 @@ public class MySqlHandler {
         }
     }
 
+    public void removeScore(Score score) {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        String query = "DELETE FROM scores WHERE id='" + score.scoreId + "';";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement()) {
+
+            boolean rs = st.execute(query);
+
+            // FileHandler.saveReplayToFile(score, replayData);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public void addScore(Score score, byte[] replayData) {
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 

@@ -71,12 +71,27 @@ public class Handlers {
 
         byte[] replayData = FileHandler.parseBody(rawBodyBytes);
 
-        Score score = new Score(scoreDetails);
+        Score scoreToSubmit = new Score(scoreDetails);
 
-        User user = sqlHandler.checkUserData(score.playerUsername);
+        List<Score> mapScores = sqlHandler.getAllMapScores(scoreToSubmit.osuFileHash);
 
-        if (score.pass && user.userPassword.equals(password)) {
-            sqlHandler.addScore(score, replayData);
+        boolean newTopOnMap = true;
+
+        for (Score scoreToCheck : mapScores) {
+            if (scoreToCheck.playerUsername.equals(scoreToSubmit.playerUsername)) {
+                if (scoreToSubmit.score < scoreToCheck.score) {
+                    newTopOnMap = false;
+                } else {
+                    sqlHandler.removeScore(scoreToCheck);
+                }
+            }
+        }
+
+        User user = sqlHandler.checkUserData(scoreToSubmit.playerUsername);
+
+        if (scoreToSubmit.pass && user.userPassword.equals(password)) {
+            if (newTopOnMap)
+                sqlHandler.addScore(scoreToSubmit, replayData);
         }
 
         // System.out.println(String.valueOf(rawBodyBytes));
