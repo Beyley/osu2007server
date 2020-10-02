@@ -86,7 +86,9 @@ public class Handlers {
                     if (score.playerUsername.equals(player.username)) {
                         // Adds the score of the play we are iterating on to the player we are currently
                         // iterating on
-                        allPlayers.set(playerI, new Player(player.username, player.score + score.score));
+                        if (score.score < 12000000) {
+                            allPlayers.set(playerI, new Player(player.username, player.score + score.score));
+                        }
                     }
                 }
             }
