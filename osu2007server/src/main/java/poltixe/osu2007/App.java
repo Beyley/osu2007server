@@ -26,6 +26,8 @@ public class App {
         sqlHandler.checkForDatabase();
         sqlHandler.checkForTables();
 
+        staticFiles.location("/statichtml"); // Static files
+
         // Sets the webserver port
         port(80);
         // Registers the requests
@@ -33,7 +35,7 @@ public class App {
         get("/web/osu-getscores.php", (req, res) -> Handlers.getScores(req));
         post("/web/osu-submit.php", (req, res) -> Handlers.submit(req));
         get("/web/osu-getreplay.php", (req, res) -> Handlers.getReplay(req));
-        get("/", (req, res) -> Handlers.getTopPlayers(req));
+        // get("/", (req, res) -> Handlers.getTopPlayers(req));
         get("/top", (req, res) -> Handlers.getTopPlayers(req));
     }
 }
