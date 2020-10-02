@@ -182,6 +182,32 @@ public class MySqlHandler {
         return scores;
     }
 
+    public List<Score> getAllScores() {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        String query = "SELECT * FROM scores";
+
+        List<Score> scores = new ArrayList<Score>();
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement();
+                ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                Score currentScore = new Score(rs.getString(2), rs.getInt(1));
+
+                scores.add(currentScore);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return scores;
+    }
+
     public User checkUserData(String usersName) {
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 

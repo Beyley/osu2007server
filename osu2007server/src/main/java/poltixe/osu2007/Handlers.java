@@ -2,6 +2,9 @@ package poltixe.osu2007;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import spark.Request;
@@ -27,11 +30,53 @@ public class Handlers {
         return returnString;
     }
 
+    public static String getTopPlayers(Request req) {
+        String returnString = "Top players!<br>";
+
+        List<Score> allScores = sqlHandler.getAllScores();
+
+        List<Player> allPlayers = new ArrayList<Player>();
+
+        for (int i = 0; i < allScores.size(); i++) {
+            Score score = allScores.get(i);
+
+            boolean playerInList = false;
+            for (Player player : allPlayers) {
+                if (score.playerUsername.equals(player.username)) {
+                    playerInList = true;
+                }
+            }
+
+            if (!playerInList) {
+                allPlayers.add(new Player(score.playerUsername, score.score));
+            } else {
+                for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
+                    Player player = allPlayers.get(playerI);
+                    if (score.playerUsername.equals(player.username)) {
+                        allPlayers.set(playerI, new Player(player.username, player.score + score.score));
+                    }
+                }
+            }
+
+            // returnString += score.playerUsername + "<br>";
+        }
+
+        Collections.sort(allPlayers, new ScoreSorter());
+
+        for (Player player : allPlayers) {
+            returnString += player.username + ":" + player.score + "<br>";
+        }
+
+        return returnString;
+    }
+
     public static String getScores(Request req) {
         String returnString = "";
         String mapHash = req.queryParams("c");
 
         List<Score> mapScores = sqlHandler.getAllMapScores(mapHash);
+
+        Collections.sort(mapScores, new MapLeaderBoardSorter());
 
         for (Score score : mapScores) {
             returnString += score.asGetScoresString();

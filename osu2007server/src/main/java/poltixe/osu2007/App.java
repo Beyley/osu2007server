@@ -26,6 +26,6 @@ public class App {
         post("/web/osu-submit.php", (req, res) -> Handlers.submit(req));
         get("/web/osu-getreplay.php", (req, res) -> Handlers.getReplay(req));
         get("/", (req, res) -> "Home page or whatever");
-        get("/web", (req, res) -> "why are you here?");
+        get("/top", (req, res) -> Handlers.getTopPlayers(req));
     }
 }
