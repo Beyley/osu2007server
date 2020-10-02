@@ -4,69 +4,104 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import spark.Request;
 
 public class Handlers {
+    // Gets a new instance of the MySQL handler
     public static MySqlHandler sqlHandler = new MySqlHandler();
 
+    // Handles a login request
     public static String login(Request req) {
+        // The string to be returned to the osu! client, in this case has a default
+        // value of "1", to indicate the login was sucsessful
         String returnString = "1";
 
+        // Gets the parameters for the login, in this case the username and the password
         String username = req.queryParams("username");
         String password = req.queryParams("password");
 
+        // Gets the users data of the person the client is attempting to sign in as
         User userData = sqlHandler.checkUserData(username);
 
+        // Checks if the user exists in the database or not
         if (userData.userExists) {
+            // Checks if the password is wrong, if so, tell the client that the password was
+            // incorrect
             if (!userData.userPassword.equals(password))
                 returnString = "0";
         } else {
+            // If the user does not exist, create a new user with the specified username and
+            // password
             sqlHandler.addUser(username, password);
         }
 
+        // Returns the string to be sent to the client
         return returnString;
     }
 
+    // Handles a request to get all the top players
     public static String getTopPlayers(Request req) {
+        // The string to be returned to the osu! client, in this case has the title text
+        // to be added on to
         String returnString = "Top players!<br>";
 
+        // Creates a list of all scores submitted
         List<Score> allScores = sqlHandler.getAllScores();
 
+        // Creates a list to store all unique players and their ranked score
         List<Player> allPlayers = new ArrayList<Player>();
 
+        // Loops through all submitted scores
         for (int i = 0; i < allScores.size(); i++) {
+            // Gets the score we are currently on
             Score score = allScores.get(i);
 
+            // Creates a variable with a default value of false to store whether the player
+            // is already in the player list
             boolean playerInList = false;
+            // Loops through all players
             for (Player player : allPlayers) {
+                // Checks if the current player we are iterating on is equal to the playername
+                // in the score
                 if (score.playerUsername.equals(player.username)) {
+                    // Sets the variable to show that the player is in fact inside of the playerlist
                     playerInList = true;
                 }
             }
 
+            // Checks if the player is or is not in the list
             if (!playerInList) {
+                // If they are not add them to the list with the score of the current score we
+                // are iterating on
                 allPlayers.add(new Player(score.playerUsername, score.score));
             } else {
+                // If they are in the list, iterate through all the known players
                 for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
+                    // Gets the player we are currently iterating on
                     Player player = allPlayers.get(playerI);
+                    // Checks if the username in the score we are currently iterating on matches the
+                    // playername of the player we are currently interating on
                     if (score.playerUsername.equals(player.username)) {
+                        // Adds the score of the play we are iterating on to the player we are currently
+                        // iterating on
                         allPlayers.set(playerI, new Player(player.username, player.score + score.score));
                     }
                 }
             }
-
-            // returnString += score.playerUsername + "<br>";
         }
 
+        // Sorts the players in the correct order
         Collections.sort(allPlayers, new ScoreSorter());
 
+        // Iterates through all the players
         for (Player player : allPlayers) {
+            // Adds the player info to the string to be sent to the client
             returnString += player.username + ":" + player.score + "<br>";
         }
 
+        // Returns the string to the client
         return returnString;
     }
 
@@ -91,7 +126,6 @@ public class Handlers {
         String scoreId = req.queryParams("c");
 
         try (FileInputStream fos = new FileInputStream("replays/" + scoreId + ".osr")) {
-            // returnString = new String(fos.readAllBytes());
             returnString = fos.readAllBytes();
         } catch (IOException e) {
         }

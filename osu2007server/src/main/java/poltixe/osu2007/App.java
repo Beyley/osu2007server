@@ -5,27 +5,35 @@ import static spark.Spark.*;
 import java.io.*;
 
 public class App {
+    // Global MySQL settings
     public static String mySqlServer;
     public static String mySqlPort;
     public static String mySqlUser;
     public static String mySqlPass;
 
+    // Creates a new MySqlHandler
     public static MySqlHandler sqlHandler = new MySqlHandler();
 
     public static void main(String[] args) throws IOException {
+        // Gets a new properties value
         GetPropertyValues properties = new GetPropertyValues();
+        // Gets the properties file
         properties.getPropValues();
 
+        // Gets the MySQL version, and if something is wrong, print an error
         System.out.println("MySQL Server version : " + sqlHandler.getVersion());
+        // Sets up the databases and tables
         sqlHandler.checkForDatabase();
         sqlHandler.checkForTables();
 
+        // Sets the webserver port
         port(80);
+        // Registers the requests
         get("/web/osu-login.php", (req, res) -> Handlers.login(req));
         get("/web/osu-getscores.php", (req, res) -> Handlers.getScores(req));
         post("/web/osu-submit.php", (req, res) -> Handlers.submit(req));
         get("/web/osu-getreplay.php", (req, res) -> Handlers.getReplay(req));
-        get("/", (req, res) -> "Home page or whatever");
+        get("/", (req, res) -> Handlers.getTopPlayers(req));
         get("/top", (req, res) -> Handlers.getTopPlayers(req));
     }
 }
