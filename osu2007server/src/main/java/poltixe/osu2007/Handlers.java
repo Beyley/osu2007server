@@ -53,6 +53,8 @@ public class Handlers {
         // Creates a list to store all unique players and their ranked score
         List<Player> allPlayers = new ArrayList<Player>();
 
+        List<BeatMap> allMaps = new ArrayList<BeatMap>();
+
         // Loops through all submitted scores
         for (int i = 0; i < allScores.size(); i++) {
             // Gets the score we are currently on
@@ -75,7 +77,7 @@ public class Handlers {
             if (!playerInList) {
                 // If they are not add them to the list with the score of the current score we
                 // are iterating on
-                allPlayers.add(new Player(score.playerUsername, score.score));
+                allPlayers.add(new Player(score.playerUsername, score.score, 0));
             } else {
                 // If they are in the list, iterate through all the known players
                 for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
@@ -87,8 +89,47 @@ public class Handlers {
                         // Adds the score of the play we are iterating on to the player we are currently
                         // iterating on
                         if (score.score < 12000000) {
-                            allPlayers.set(playerI, new Player(player.username, player.score + score.score));
+                            allPlayers.set(playerI,
+                                    new Player(player.username, player.score + score.score, player.amountOfNumberOnes));
                         }
+                    }
+                }
+            }
+
+            boolean mapInList = false;
+            // Loops through all players
+            for (BeatMap map : allMaps) {
+                // Checks if the current player we are iterating on is equal to the playername
+                // in the score
+                if (score.osuFileHash.equals(map.hash)) {
+                    // Sets the variable to show that the player is in fact inside of the playerlist
+                    playerInList = true;
+                }
+            }
+
+            if (mapInList) {
+                for (int mapI = 0; mapI < allMaps.size(); mapI++) {
+                    BeatMap map = allMaps.get(mapI);
+
+                    if (map.topScore.score < score.score && map.hash.equals(score.osuFileHash)) {
+                        allMaps.set(mapI, new BeatMap(map.hash, score));
+
+                        for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
+                            Player player = allPlayers.get(playerI);
+                            if (score.playerUsername.equals(player.username)) {
+                                allPlayers.set(playerI,
+                                        new Player(player.username, player.score, player.amountOfNumberOnes + 1));
+                            }
+                        }
+                    }
+                }
+            } else {
+                allMaps.add(new BeatMap(score.osuFileHash, score));
+                for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
+                    Player player = allPlayers.get(playerI);
+                    if (score.playerUsername.equals(player.username)) {
+                        allPlayers.set(playerI,
+                                new Player(player.username, player.score, player.amountOfNumberOnes + 1));
                     }
                 }
             }
@@ -103,7 +144,7 @@ public class Handlers {
             // Adds the player info to the string to be sent to the client
             // <p class="lead">ranking go brrrrrrrr</p>
             returnString += "<p class\"lead\"> #" + (i + 1) + " : " + player.username + ", Total Ranked Score : "
-                    + player.score + "</p>";
+                    + player.score + ", " + player.amountOfNumberOnes + " #1's</p>";
         }
 
         returnString += "</div></div> <script src=\"assets/js/jquery.min.js\"></script> <script src=\"bootstrap/js/bootstrap.min.js\"></script> <script src=\"assets/js/ie10-viewport-bug-workaround.js\"></script> </body></html>";

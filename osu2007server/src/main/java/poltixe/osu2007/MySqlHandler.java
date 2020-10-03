@@ -45,7 +45,7 @@ public class MySqlHandler {
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement()) {
 
-            boolean rs = st.execute(query);
+            st.execute(query);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -62,7 +62,7 @@ public class MySqlHandler {
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement()) {
 
-            boolean rs = st.execute(query);
+            st.execute(query);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -72,7 +72,7 @@ public class MySqlHandler {
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement()) {
 
-            boolean rs = st.execute(query);
+            st.execute(query);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -91,7 +91,7 @@ public class MySqlHandler {
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement()) {
 
-            boolean rs = st.execute(query);
+            st.execute(query);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -108,9 +108,7 @@ public class MySqlHandler {
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement()) {
 
-            boolean rs = st.execute(query);
-
-            // FileHandler.saveReplayToFile(score, replayData);
+            st.execute(query);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -127,9 +125,7 @@ public class MySqlHandler {
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement()) {
 
-            boolean rs = st.execute(query);
-
-            // FileHandler.saveReplayToFile(score, replayData);
+            st.execute(query);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
