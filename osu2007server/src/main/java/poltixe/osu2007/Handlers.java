@@ -96,6 +96,9 @@ public class Handlers {
                 }
             }
 
+        }
+        for (int i = 0; i < allScores.size(); i++) {
+            Score score = allScores.get(i);
             boolean mapInList = false;
             // Loops through all players
             for (BeatMap map : allMaps) {
@@ -103,7 +106,7 @@ public class Handlers {
                 // in the score
                 if (score.osuFileHash.equals(map.hash)) {
                     // Sets the variable to show that the player is in fact inside of the playerlist
-                    playerInList = true;
+                    mapInList = true;
                 }
             }
 
@@ -112,6 +115,7 @@ public class Handlers {
                     BeatMap map = allMaps.get(mapI);
 
                     if (map.topScore.score < score.score && map.hash.equals(score.osuFileHash)) {
+                        BeatMap oldTop = allMaps.get(mapI);
                         allMaps.set(mapI, new BeatMap(map.hash, score));
 
                         for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
@@ -119,6 +123,11 @@ public class Handlers {
                             if (score.playerUsername.equals(player.username)) {
                                 allPlayers.set(playerI,
                                         new Player(player.username, player.score, player.amountOfNumberOnes + 1));
+                            }
+
+                            if (oldTop.topScore.playerUsername.equals(player.username)) {
+                                allPlayers.set(playerI,
+                                        new Player(player.username, player.score, player.amountOfNumberOnes - 1));
                             }
                         }
                     }
