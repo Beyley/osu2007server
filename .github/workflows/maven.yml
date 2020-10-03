@@ -21,6 +21,6 @@ jobs:
       with:
         java-version: 1.8
     - name: Debug thing
-      run: cd..
+      run: cd ..
     - name: Build with Maven
       run: mvn install
