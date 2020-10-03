@@ -12,3 +12,5 @@ buildNumber.properties
 *.code-workspace
 replays/
 config.properties
+.vscode/
+.settings/
