@@ -57,7 +57,7 @@ public class Handlers {
 
         // Loops through all submitted scores
         for (int i = 0; i < allScores.size(); i++) {
-            // Gets the score we are currently on
+            // Gets the score we are currently iterating on
             Score score = allScores.get(i);
 
             // Creates a variable with a default value of false to store whether the player
@@ -95,8 +95,8 @@ public class Handlers {
                     }
                 }
             }
-
         }
+
         for (int i = 0; i < allScores.size(); i++) {
             Score score = allScores.get(i);
             boolean mapInList = false;
@@ -220,6 +220,7 @@ public class Handlers {
             if (newTopOnMap)
                 sqlHandler.addScore(scoreToSubmit, replayData);
         }
+
         return "";
     }
 }
