@@ -11,6 +11,8 @@ public class App {
     public static String mySqlUser;
     public static String mySqlPass;
 
+    public static String httpPort;
+
     // Creates a new MySqlHandler
     public static MySqlHandler sqlHandler = new MySqlHandler();
 
@@ -29,7 +31,7 @@ public class App {
         staticFiles.location("/statichtml"); // Static files
 
         // Sets the webserver port
-        port(80);
+        port(Integer.parseInt(httpPort));
         // Registers the requests
         get("/web/osu-login.php", (req, res) -> Handlers.login(req));
         get("/web/osu-getscores.php", (req, res) -> Handlers.getScores(req));

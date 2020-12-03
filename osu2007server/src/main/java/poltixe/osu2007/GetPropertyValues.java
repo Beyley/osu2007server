@@ -20,6 +20,8 @@ public class GetPropertyValues {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found");
             }
 
+            App.httpPort = prop.getProperty("mysqlserver");
+
             App.mySqlServer = prop.getProperty("mysqlserver");
             App.mySqlPort = prop.getProperty("mysqlport");
             App.mySqlUser = prop.getProperty("mysqluser");
