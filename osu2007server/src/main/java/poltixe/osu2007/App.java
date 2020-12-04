@@ -40,11 +40,5 @@ public class App {
         get("/web/osu-getreplay.php", (req, res) -> Handlers.getReplay(req));
         // get("/", (req, res) -> Handlers.getTopPlayers(req));
         get("/web/top", (req, res) -> Handlers.getTopPlayers(req));
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Press enter to stop the server");
-
-        scanner.next();
     }
 }
