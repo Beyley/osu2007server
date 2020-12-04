@@ -39,7 +39,7 @@ public class App {
         post("/web/osu-submit.php", (req, res) -> Handlers.submit(req));
         get("/web/osu-getreplay.php", (req, res) -> Handlers.getReplay(req));
         // get("/", (req, res) -> Handlers.getTopPlayers(req));
-        get("/top", (req, res) -> Handlers.getTopPlayers(req));
+        get("/web/top", (req, res) -> Handlers.getTopPlayers(req));
 
         Scanner scanner = new Scanner(System.in);
 
