@@ -45,6 +45,6 @@ public class App {
 
         System.out.println("Press enter to stop the server");
 
-        scanner.nextLine();
+        scanner.next();
     }
 }
