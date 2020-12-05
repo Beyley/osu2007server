@@ -21,4 +21,4 @@ jobs:
         with:
           url: 'https://www.faithy3.moe/restart2007.php'
           method: 'POST'
-          data: ${{ secrets.UPDATE_KEY }}
+          username: ${{ secrets.UPDATE_KEY }}
