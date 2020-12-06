@@ -525,5 +525,7 @@ public class MySqlHandler {
             if (allPlayers.get(i) == thisPlayer)
                 return i + 1;
         }
+
+        return 0;
     }
 }
