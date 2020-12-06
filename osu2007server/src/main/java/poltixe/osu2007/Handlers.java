@@ -41,60 +41,39 @@ public class Handlers {
 
         if (req.queryParams("oldusername") != null && req.queryParams("newusername") != null
                 && req.queryParams("password") != null) {
-            List<Integer> allPlayerIds = sqlHandler.getAllPlayers();
+            Player player = sqlHandler.checkUserData(sqlHandler.getUserId(req.queryParams("oldusername")));
 
-            List<Player> allPlayers = new ArrayList<Player>();
+            // if (playerTaken) {
+            // returnString += "<br> That username is taken!";
+            // return returnString;
+            // }
 
-            for (int id : allPlayerIds) {
-                // allPlayers.add(sqlHandler.checkUserData(id));
+            // if (!playerExists) {
+            // returnString += "<br> That user does not exist!";
+            // return returnString;
+            // } else {
+            String password = req.queryParams("password");
+
+            String hashedPassword = "";
+
+            try {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                md.update(password.getBytes());
+                byte[] digest = md.digest();
+                hashedPassword = toHexString(digest).toLowerCase();
+            } catch (Exception ex) {
             }
 
-            boolean playerExists = false;
-            boolean playerTaken = false;
-
-            Player thisPlayer = null;
-
-            for (Player player : allPlayers) {
-                if (player.username.equals(req.queryParams("oldusername"))) {
-                    playerExists = true;
-                    thisPlayer = player;
-                }
-                if (player.username.equals("newusername")) {
-                    playerTaken = true;
-                }
-            }
-
-            if (playerTaken) {
-                returnString += "<br> That username is taken!";
-                return returnString;
-            }
-
-            if (!playerExists) {
-                returnString += "<br> That user does not exist!";
+            if (hashedPassword.equals(player.userPassword)) {
+                sqlHandler.changeUsername(player.userId, req.queryParams("newusername"));
+                returnString += "<br> Username changed!";
                 return returnString;
             } else {
-                String password = req.queryParams("password");
-
-                String hashedPassword = "";
-
-                try {
-                    MessageDigest md = MessageDigest.getInstance("MD5");
-                    md.update(password.getBytes());
-                    byte[] digest = md.digest();
-                    hashedPassword = toHexString(digest).toLowerCase();
-                } catch (Exception ex) {
-                }
-
-                if (hashedPassword.equals(thisPlayer.userPassword)) {
-                    sqlHandler.changeUsername(thisPlayer.userId, req.queryParams("newusername"));
-                    returnString += "<br> Username changed!";
-                    return returnString;
-                } else {
-                    returnString += "<br> That password is incorrect!";
-                    return returnString;
-                }
+                returnString += "<br> That password is incorrect!";
+                return returnString;
             }
         }
+        // }
 
         return returnString;
     }
