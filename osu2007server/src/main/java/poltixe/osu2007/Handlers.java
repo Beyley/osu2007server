@@ -25,10 +25,102 @@ public class Handlers {
 
         int userId = Integer.parseInt(req.queryParams("id"));
 
-        Player player = sqlHandler.checkUserData(userId);
+        Player thisPlayer = sqlHandler.checkUserData(userId);
 
-        returnString += player.displayUsername + " (#" + player.globalRank + ")<br>";
-        returnString += "Ranked Score : " + player.rankedScore + "<br>";
+        thisPlayer.globalRank = 0;
+
+        // Creates a list of all scores submitted
+        List<Score> allScores = sqlHandler.getAllScores();
+
+        // Creates a list to store all unique players and their ranked score
+        List<Player> allPlayers = new ArrayList<Player>();
+
+        List<BeatMap> allMaps = new ArrayList<BeatMap>();
+
+        // Loops through all submitted scores
+        for (int i = 0; i < allScores.size(); i++) {
+            // Gets the score we are currently iterating on
+            Score score = allScores.get(i);
+
+            // Creates a variable with a default value of false to store whether the player
+            // is already in the player list
+            boolean playerInList = false;
+            // Loops through all players
+            for (Player player : allPlayers) {
+                // Checks if the current player we are iterating on is equal to the playername
+                // in the score
+                if (score.userId == player.userId) {
+                    // Sets the variable to show that the player is in fact inside of the playerlist
+                    playerInList = true;
+                }
+            }
+
+            // Checks if the player is or is not in the list
+            if (!playerInList) {
+                // If they are not add them to the list with the score of the current score we
+                // are iterating on
+                allPlayers.add(new Player(score.userId, 0));
+            }
+        }
+
+        for (int i = 0; i < allScores.size(); i++) {
+            Score score = allScores.get(i);
+            boolean mapInList = false;
+            // Loops through all players
+            for (BeatMap map : allMaps) {
+                if (score.mapHash.equals(map.md5Hash)) {
+                    // Sets the variable to show that the player is in fact inside of the playerlist
+                    mapInList = true;
+                }
+            }
+
+            if (mapInList) {
+                for (int mapI = 0; mapI < allMaps.size(); mapI++) {
+                    BeatMap map = allMaps.get(mapI);
+
+                    if (map.topScore.score < score.score && map.md5Hash.equals(score.mapHash)) {
+                        BeatMap oldTop = allMaps.get(mapI);
+                        allMaps.set(mapI, new BeatMap(map.md5Hash, score));
+
+                        for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
+                            Player player = allPlayers.get(playerI);
+
+                            if (score.userId == player.userId) {
+                                allPlayers.get(playerI).amountOfNumberOnes += 1;
+                            }
+
+                            if (oldTop.topScore.userId == player.userId) {
+                                allPlayers.get(playerI).amountOfNumberOnes -= 1;
+                            }
+                        }
+                    }
+                }
+            } else {
+                allMaps.add(new BeatMap(score.mapHash, score));
+
+                for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
+                    Player player = allPlayers.get(playerI);
+
+                    if (score.userId == player.userId) {
+                        allPlayers.get(playerI).amountOfNumberOnes += 1;
+                    }
+                }
+            }
+        }
+
+        // Sorts the players in the correct order
+        Collections.sort(allPlayers, new ScoreSorter());
+
+        // Iterates through all the players
+        for (int i = 0; i < allPlayers.size(); i++) {
+            Player player = allPlayers.get(i);
+            if (player.userId == thisPlayer.userId) {
+                thisPlayer.globalRank = i + 1;
+            }
+        }
+
+        returnString += thisPlayer.displayUsername + " (#" + thisPlayer.globalRank + ")<br>";
+        returnString += "Ranked Score : " + thisPlayer.rankedScore + "<br>";
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 
