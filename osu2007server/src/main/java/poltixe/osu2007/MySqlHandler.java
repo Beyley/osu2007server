@@ -630,7 +630,7 @@ public class MySqlHandler {
         String user = App.mySqlUser;
         String password = App.mySqlPass;
 
-        String query = "UPDATE osu_users SET username='" + newUsername + "' WHERE id='" + userId + "'";
+        String query = "UPDATE `osu2007`.`osu_users` SET username='" + newUsername + "' WHERE id='" + userId + "'";
 
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement()) {

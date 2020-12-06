@@ -88,6 +88,7 @@ public class Handlers {
                 if (hashedPassword.equals(thisPlayer.userPassword)) {
                     sqlHandler.changeUsername(thisPlayer.userId, req.queryParams("newusername"));
                     returnString += "<br> Username changed!";
+                    return returnString;
                 } else {
                     returnString += "<br> That password is incorrect!";
                     return returnString;
