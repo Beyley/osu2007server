@@ -202,8 +202,6 @@ public class MySqlHandler {
 
         String query = "SELECT * FROM score_list WHERE userid = '" + userId + "'";
 
-        // List<Score> scores = new ArrayList<Score>();
-
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement();
                 ResultSet rs = st.executeQuery(query)) {
@@ -211,9 +209,8 @@ public class MySqlHandler {
             while (rs.next()) {
                 Score currentScore = new Score(rs);
 
-                score += currentScore.score;
-
-                // scores.add(currentScore);
+                if (currentScore.score < 12000000)
+                    score += currentScore.score;
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -350,13 +347,13 @@ public class MySqlHandler {
         }
     }
 
-    public List<Score> getAllMapScores(String mapHash) {
+    public List<Score> getMapLeaderboard(String mapHash) {
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 
         String user = App.mySqlUser;
         String password = App.mySqlPass;
 
-        String query = "SELECT * FROM score_list";
+        String query = "SELECT * FROM score_list WHERE maphash = '" + mapHash + "'";
 
         List<Score> scores = new ArrayList<Score>();
 
@@ -367,9 +364,7 @@ public class MySqlHandler {
             while (rs.next()) {
                 Score currentScore = new Score(rs);
 
-                if (currentScore.mapHash.equals(mapHash)) {
-                    scores.add(currentScore);
-                }
+                scores.add(currentScore);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

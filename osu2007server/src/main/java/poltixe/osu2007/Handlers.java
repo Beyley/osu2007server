@@ -104,23 +104,7 @@ public class Handlers {
             if (!playerInList) {
                 // If they are not add them to the list with the score of the current score we
                 // are iterating on
-                allPlayers.add(new Player(score.userId, score.score, 0));
-            } else {
-                // If they are in the list, iterate through all the known players
-                for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
-                    // Gets the player we are currently iterating on
-                    Player player = allPlayers.get(playerI);
-                    // Checks if the username in the score we are currently iterating on matches the
-                    // playername of the player we are currently interating on
-                    if (score.userId == player.userId) {
-                        // Adds the score of the play we are iterating on to the player we are currently
-                        // iterating on
-                        if (score.score < 12000000) {
-                            allPlayers.set(playerI,
-                                    new Player(player.userId, player.score + score.score, player.amountOfNumberOnes));
-                        }
-                    }
-                }
+                allPlayers.add(new Player(score.userId, 0));
             }
         }
 
@@ -129,8 +113,6 @@ public class Handlers {
             boolean mapInList = false;
             // Loops through all players
             for (BeatMap map : allMaps) {
-                // Checks if the current player we are iterating on is equal to the playername
-                // in the score
                 if (score.mapHash.equals(map.md5Hash)) {
                     // Sets the variable to show that the player is in fact inside of the playerlist
                     mapInList = true;
@@ -147,24 +129,25 @@ public class Handlers {
 
                         for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
                             Player player = allPlayers.get(playerI);
+
                             if (score.userId == player.userId) {
-                                allPlayers.set(playerI,
-                                        new Player(player.userId, player.score, player.amountOfNumberOnes + 1));
+                                allPlayers.set(playerI, new Player(player.userId, player.amountOfNumberOnes + 1));
                             }
 
                             if (oldTop.topScore.userId == player.userId) {
-                                allPlayers.set(playerI,
-                                        new Player(player.userId, player.score, player.amountOfNumberOnes - 1));
+                                allPlayers.set(playerI, new Player(player.userId, player.amountOfNumberOnes - 1));
                             }
                         }
                     }
                 }
             } else {
                 allMaps.add(new BeatMap(score.mapHash, score));
+
                 for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
                     Player player = allPlayers.get(playerI);
+
                     if (score.userId == player.userId) {
-                        allPlayers.set(playerI, new Player(player.userId, player.score, player.amountOfNumberOnes + 1));
+                        allPlayers.set(playerI, new Player(player.userId, player.amountOfNumberOnes + 1));
                     }
                 }
             }
@@ -192,7 +175,7 @@ public class Handlers {
         String returnString = "";
         String mapHash = req.queryParams("c");
 
-        List<Score> mapScores = sqlHandler.getAllMapScores(mapHash);
+        List<Score> mapScores = sqlHandler.getMapLeaderboard(mapHash);
 
         Collections.sort(mapScores, new MapLeaderBoardSorter());
 
@@ -226,7 +209,7 @@ public class Handlers {
 
         Score scoreToSubmit = new Score(scoreDetails);
 
-        List<Score> mapScores = sqlHandler.getAllMapScores(scoreToSubmit.mapHash);
+        List<Score> mapScores = sqlHandler.getMapLeaderboard(scoreToSubmit.mapHash);
 
         boolean newTopOnMap = true;
 

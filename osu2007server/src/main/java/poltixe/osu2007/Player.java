@@ -8,10 +8,10 @@ public class Player {
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
-    Player(int userId, int score, int amountOfNumberOnes) {
+    Player(int userId, int amountOfNumberOnes) {
         this.userId = userId;
         this.username = sqlHandler.getUsername(this.userId);
-        this.score = score;
+        this.score = sqlHandler.getRankedScoreOfUser(this.userId);
         this.amountOfNumberOnes = amountOfNumberOnes;
     }
 }
