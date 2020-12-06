@@ -59,7 +59,7 @@ public class Handlers {
             if (!playerInList) {
                 // If they are not add them to the list with the score of the current score we
                 // are iterating on
-                allPlayers.add(new Player(score.userId, 0));
+                allPlayers.add(new Player(score.userId));
             }
         }
 
@@ -206,7 +206,7 @@ public class Handlers {
             if (!playerInList) {
                 // If they are not add them to the list with the score of the current score we
                 // are iterating on
-                allPlayers.add(new Player(score.userId, 0));
+                allPlayers.add(new Player(score.userId));
             }
         }
 

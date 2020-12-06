@@ -3,6 +3,7 @@ package poltixe.osu2007;
 import static spark.Spark.*;
 
 import java.io.*;
+import java.util.*;
 
 public class App {
     // Global MySQL settings
@@ -12,6 +13,8 @@ public class App {
     public static String mySqlPass;
 
     public static String httpPort;
+
+    public static List<String> knownNames = new ArrayList<String>();
 
     // Creates a new MySqlHandler
     public static MySqlHandler sqlHandler = new MySqlHandler();

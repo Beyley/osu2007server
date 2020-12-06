@@ -333,6 +333,11 @@ public class MySqlHandler {
     public String getUsername(int userId) {
         String username = "";
 
+        if (App.knownNames.get(userId) != null) {
+            username = App.knownNames.get(userId);
+            return username;
+        }
+
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 
         String user = App.mySqlUser;
@@ -351,6 +356,10 @@ public class MySqlHandler {
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        }
+
+        if (App.knownNames.get(userId) == null) {
+            App.knownNames.set(userId, username);
         }
 
         return username;

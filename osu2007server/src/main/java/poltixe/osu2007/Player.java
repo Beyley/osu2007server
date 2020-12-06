@@ -12,12 +12,12 @@ public class Player {
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
-    Player(int userId, int amountOfNumberOnes) {
+    Player(int userId) {
         this.userId = userId;
         this.username = sqlHandler.getUsername(this.userId);
         this.displayUsername = "<a href=\"/web/u?id=" + this.userId + "\">" + this.username + "</a>";
         this.rankedScore = sqlHandler.getRankedScoreOfUser(this.userId);
-        this.amountOfNumberOnes = amountOfNumberOnes;
+        this.amountOfNumberOnes = 0;
     }
 
     Player(int userId, String userPassword, boolean userExists) {
