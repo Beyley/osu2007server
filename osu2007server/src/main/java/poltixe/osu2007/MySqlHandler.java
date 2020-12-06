@@ -192,6 +192,36 @@ public class MySqlHandler {
         }
     }
 
+    public int getRankedScoreOfUser(int userId) {
+        int score = 0;
+
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        String query = "SELECT * FROM score_list WHERE id = '" + userId + "'";
+
+        // List<Score> scores = new ArrayList<Score>();
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement();
+                ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                Score currentScore = new Score(rs);
+
+                score += currentScore.score;
+
+                // scores.add(currentScore);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return score;
+    }
+
     public void addUser(String newUsersName, String newUsersPassword) {
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 

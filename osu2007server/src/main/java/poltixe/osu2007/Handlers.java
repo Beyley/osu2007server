@@ -12,8 +12,12 @@ public class Handlers {
     // Gets a new instance of the MySQL handler
     public static MySqlHandler sqlHandler = new MySqlHandler();
 
-    public static boolean isValidMD5(String s) {
+    public static boolean isMD5(String s) {
         return s.matches("^[a-fA-F0-9]{32}$");
+    }
+
+    public static boolean isAlphaNumeric(String s) {
+        return s != null && s.matches("^[a-zA-Z0-9]*$");
     }
 
     public static String getUserPage(Request req) {
@@ -21,7 +25,8 @@ public class Handlers {
 
         int userId = Integer.parseInt(req.queryParams("id"));
 
-        returnString += sqlHandler.getUsername(userId);
+        returnString += sqlHandler.getUsername(userId) + "<br>";
+        returnString += sqlHandler.getRankedScoreOfUser(userId);
 
         return returnString;
     }
@@ -36,7 +41,11 @@ public class Handlers {
         String username = req.queryParams("username");
         String password = req.queryParams("password");
 
-        if (!isValidMD5(password)) {
+        if (!isMD5(password)) {
+            return "0";
+        }
+
+        if (!isAlphaNumeric(username)) {
             return "0";
         }
 
