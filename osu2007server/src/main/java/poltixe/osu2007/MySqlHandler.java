@@ -200,7 +200,7 @@ public class MySqlHandler {
         String user = App.mySqlUser;
         String password = App.mySqlPass;
 
-        String query = "SELECT * FROM score_list WHERE id = '" + userId + "'";
+        String query = "SELECT * FROM score_list WHERE userid = '" + userId + "'";
 
         // List<Score> scores = new ArrayList<Score>();
 
