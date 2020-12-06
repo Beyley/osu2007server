@@ -231,6 +231,7 @@ public class Handlers {
                 if (oldTopId == -1) {
                     sqlHandler.addScore(scoreToSubmit, replayData);
                 } else {
+                    scoreToSubmit.scoreId = oldTopId;
                     sqlHandler.updateScore(oldTopId, scoreToSubmit, replayData);
                 }
             }
