@@ -476,4 +476,51 @@ public class MySqlHandler {
 
         return new Player(userId, userPassword, userExist);
     }
+
+    public int getGlobalRankOfUser(int userId) {
+        List<Score> allScores = getAllScores();
+
+        List<Player> allPlayers = new ArrayList<Player>();
+
+        List<BeatMap> allMaps = new ArrayList<BeatMap>();
+
+        Player thisPlayer = new Player(userId, true);
+
+        for (Score score : allScores) {
+            boolean playerInTable = false;
+
+            for (Player player : allPlayers) {
+                if (player.userId == score.userId) {
+                    playerInTable = true;
+                }
+            }
+
+            if (!playerInTable) {
+                allPlayers.add(new Player(userId, true));
+            }
+
+            boolean mapInList = false;
+
+            for (BeatMap map : allMaps) {
+                if (score.mapHash.equals(map.md5Hash)) {
+                    mapInList = true;
+                }
+            }
+
+            if (!mapInList) {
+                allMaps.add(new BeatMap(score.mapHash, null));
+            }
+
+            for (Player player : allPlayers) {
+                if (score.userId == player.userId) {
+                    thisPlayer = player;
+                    player.rankedScore += score.score;
+                }
+            }
+        }
+
+        allPlayers.sort(new ScoreSorter());
+
+        return allPlayers.indexOf(thisPlayer) + 1;
+    }
 }

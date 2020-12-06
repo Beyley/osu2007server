@@ -27,8 +27,8 @@ public class Handlers {
 
         Player player = sqlHandler.checkUserData(userId);
 
-        returnString += player.displayUsername + "<br>";
-        returnString += player.rankedScore + "<br>";
+        returnString += player.displayUsername + " (#" + player.globalRank + ")<br>";
+        returnString += "Ranked Score : " + player.rankedScore + "<br>";
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 

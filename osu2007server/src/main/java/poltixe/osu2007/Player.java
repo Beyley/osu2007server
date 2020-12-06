@@ -8,6 +8,7 @@ public class Player {
     public int amountOfNumberOnes;
     public String userPassword;
     public boolean userExists;
+    public int globalRank;
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
@@ -17,6 +18,11 @@ public class Player {
         this.displayUsername = "<a href=\"/web/u?id=" + this.userId + "\">" + this.username + "</a>";
         this.rankedScore = sqlHandler.getRankedScoreOfUser(this.userId);
         this.amountOfNumberOnes = amountOfNumberOnes;
+        this.globalRank = sqlHandler.getGlobalRankOfUser(this.userId);
+    }
+
+    Player(int userId, boolean checkUseless) {
+        this.userId = userId;
     }
 
     Player(int userId, String userPassword, boolean userExists) {
@@ -26,5 +32,6 @@ public class Player {
         this.userPassword = userPassword;
         this.userExists = userExists;
         this.rankedScore = sqlHandler.getRankedScoreOfUser(this.userId);
+        this.globalRank = sqlHandler.getGlobalRankOfUser(this.userId);
     }
 }
