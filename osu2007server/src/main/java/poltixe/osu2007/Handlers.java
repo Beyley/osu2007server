@@ -16,6 +16,12 @@ public class Handlers {
         return s.matches("^[a-fA-F0-9]{32}$");
     }
 
+    public static String getUserPage(Request req) {
+        String returnString = "";
+
+        return returnString;
+    }
+
     // Handles a login request
     public static String login(Request req) {
         // The string to be returned to the osu! client, in this case has a default
@@ -112,7 +118,7 @@ public class Handlers {
             for (BeatMap map : allMaps) {
                 // Checks if the current player we are iterating on is equal to the playername
                 // in the score
-                if (score.mapHash.equals(map.hash)) {
+                if (score.mapHash.equals(map.md5Hash)) {
                     // Sets the variable to show that the player is in fact inside of the playerlist
                     mapInList = true;
                 }
@@ -122,9 +128,9 @@ public class Handlers {
                 for (int mapI = 0; mapI < allMaps.size(); mapI++) {
                     BeatMap map = allMaps.get(mapI);
 
-                    if (map.topScore.score < score.score && map.hash.equals(score.mapHash)) {
+                    if (map.topScore.score < score.score && map.md5Hash.equals(score.mapHash)) {
                         BeatMap oldTop = allMaps.get(mapI);
-                        allMaps.set(mapI, new BeatMap(map.hash, score));
+                        allMaps.set(mapI, new BeatMap(map.md5Hash, score));
 
                         for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
                             Player player = allPlayers.get(playerI);

@@ -3,7 +3,6 @@ package poltixe.osu2007;
 import static spark.Spark.*;
 
 import java.io.*;
-import java.util.Scanner;
 
 public class App {
     // Global MySQL settings
@@ -40,5 +39,8 @@ public class App {
         get("/web/osu-getreplay.php", (req, res) -> Handlers.getReplay(req));
         // get("/", (req, res) -> Handlers.getTopPlayers(req));
         get("/web/top", (req, res) -> Handlers.getTopPlayers(req));
+        get("/web/top/", (req, res) -> Handlers.getTopPlayers(req));
+        get("/u", (req, res) -> Handlers.getTopPlayers(req));
+        get("/u/", (req, res) -> Handlers.getTopPlayers(req));
     }
 }

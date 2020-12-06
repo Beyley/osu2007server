@@ -1,11 +1,11 @@
 package poltixe.osu2007;
 
 public class BeatMap {
-    public String hash;
+    public String md5Hash;
     public Score topScore;
 
-    BeatMap(String hash, Score topScore) {
-        this.hash = hash;
+    BeatMap(String md5Hash, Score topScore) {
+        this.md5Hash = md5Hash;
         this.topScore = topScore;
     }
 }
