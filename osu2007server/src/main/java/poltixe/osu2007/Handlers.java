@@ -30,6 +30,8 @@ public class Handlers {
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 
+        scores.sort(new MapLeaderBoardSorter());
+
         for (Score score : scores) {
             returnString += "<br>" + score.mapHash + ":" + score.score + ":" + score.grade + "<br>";
         }
