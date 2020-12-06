@@ -19,6 +19,10 @@ public class Handlers {
     public static String getUserPage(Request req) {
         String returnString = "";
 
+        int userId = Integer.parseInt(req.queryParams("id"));
+
+        returnString += sqlHandler.getUsername(userId);
+
         return returnString;
     }
 
