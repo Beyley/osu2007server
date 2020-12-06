@@ -61,34 +61,6 @@ public class MySqlHandler {
 
         String query = "";
 
-        boolean usersExist = false;
-
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
-
-            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
-
-            ResultSet rs1 = md.getTables(null, null, "osu_users", null);
-
-            while (rs1.next()) {
-                usersExist = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        if (!usersExist) {
-            query = "CREATE TABLE `osu2007`.`osu_users` (`id` INT NOT NULL AUTO_INCREMENT, `username` VARCHAR(50) NULL, `password` VARCHAR(500) NULL, PRIMARY KEY (`id`));";
-
-            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                    Statement st = (Statement) con.createStatement()) {
-
-                st.execute(query);
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-
         boolean scoreListExist = false;
 
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
@@ -181,6 +153,34 @@ public class MySqlHandler {
             }
 
             query = "DROP TABLE `osu2007`.`scores`;";
+
+            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                    Statement st = (Statement) con.createStatement()) {
+
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+        boolean usersExist = false;
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement()) {
+
+            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
+
+            ResultSet rs1 = md.getTables(null, null, "osu_users", null);
+
+            while (rs1.next()) {
+                usersExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        if (!usersExist) {
+            query = "CREATE TABLE `osu2007`.`osu_users` (`id` INT NOT NULL AUTO_INCREMENT, `username` VARCHAR(50) NULL, `password` VARCHAR(500) NULL, PRIMARY KEY (`id`));";
 
             try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                     Statement st = (Statement) con.createStatement()) {
