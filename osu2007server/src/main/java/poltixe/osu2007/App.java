@@ -33,7 +33,7 @@ public class App {
         sqlHandler.checkForTables();
 
         for (int i = 0; i < sqlHandler.getAllPlayers().size() + 1; i++) {
-            knownNames.set(i, null);
+            knownNames.add(null);
         }
 
         staticFiles.location("/statichtml"); // Static files
