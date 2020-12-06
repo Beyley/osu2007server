@@ -449,7 +449,7 @@ public class MySqlHandler {
         return scores;
     }
 
-    public User checkUserData(int userId) {
+    public Player checkUserData(int userId) {
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 
         String user = App.mySqlUser;
@@ -474,6 +474,6 @@ public class MySqlHandler {
             System.out.println(ex.getMessage());
         }
 
-        return new User(userId, userPassword, userExist);
+        return new Player(userId, userPassword, userExist);
     }
 }

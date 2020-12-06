@@ -25,8 +25,10 @@ public class Handlers {
 
         int userId = Integer.parseInt(req.queryParams("id"));
 
-        returnString += sqlHandler.getUsername(userId) + "<br>";
-        returnString += sqlHandler.getRankedScoreOfUser(userId) + "<br>";
+        Player player = sqlHandler.checkUserData(userId);
+
+        returnString += player.displayUsername + "<br>";
+        returnString += player.rankedScore + "<br>";
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 
@@ -58,7 +60,7 @@ public class Handlers {
         }
 
         // Gets the users data of the person the client is attempting to sign in as
-        User userData = sqlHandler.checkUserData(sqlHandler.getUserId(username));
+        Player userData = sqlHandler.checkUserData(sqlHandler.getUserId(username));
 
         // Checks if the user exists in the database or not
         if (userData.userExists) {
@@ -169,8 +171,8 @@ public class Handlers {
             Player player = allPlayers.get(i);
             // Adds the player info to the string to be sent to the client
             // <p class="lead">ranking go brrrrrrrr</p>
-            returnString += "<p class\"lead\"> #" + (i + 1) + " : " + player.username + ", Total Ranked Score : "
-                    + player.score + ", " + player.amountOfNumberOnes + " #1's</p>";
+            returnString += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername + ", Total Ranked Score : "
+                    + player.rankedScore + ", " + player.amountOfNumberOnes + " #1's</p>";
         }
 
         returnString += "</div></div> <script src=\"assets/js/jquery.min.js\"></script> <script src=\"bootstrap/js/bootstrap.min.js\"></script> <script src=\"assets/js/ie10-viewport-bug-workaround.js\"></script> </body></html>";
@@ -232,7 +234,7 @@ public class Handlers {
             }
         }
 
-        User user = sqlHandler.checkUserData(scoreToSubmit.userId);
+        Player user = sqlHandler.checkUserData(scoreToSubmit.userId);
 
         if (scoreToSubmit.pass && user.userPassword.equals(password)) {
             if (newTopOnMap) {
