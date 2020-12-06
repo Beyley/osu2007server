@@ -27,10 +27,10 @@ public class FileHandler {
 
         myReader.close();
 
-        if (!sqlHandler.checkForRankedTable()) {
-            System.out.println("Importing Ranked Songs database");
-            sqlHandler.addRankedMapsToTable(rankedMaps);
-        }
+        sqlHandler.checkForRankedTable();
+
+        System.out.println("Importing Ranked Songs database");
+        sqlHandler.addRankedMapsToTable(rankedMaps);
     }
 
     public static void saveReplayToFile(Score score, byte[] replayData) {

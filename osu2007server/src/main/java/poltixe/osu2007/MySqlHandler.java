@@ -76,7 +76,7 @@ public class MySqlHandler {
                 map.artist = "none";
             }
 
-            String regex = "[^a-zA-Z0-9 !&\\-(),.+]";
+            String regex = "[^a-zA-Z0-9 !&\\-(),.+~]";
 
             map.artist = map.artist.replaceAll(regex, "?");
             map.songName = map.songName.replaceAll(regex, "?");
@@ -97,7 +97,7 @@ public class MySqlHandler {
         }
     }
 
-    public boolean checkForRankedTable() {
+    public void checkForRankedTable() {
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 
         String user = App.mySqlUser;
@@ -119,7 +119,18 @@ public class MySqlHandler {
             System.out.println(ex.getMessage());
         }
 
-        return rankedTableExist;
+        // DROP TABLE `osu2007`.`ranked_maps`
+        if (rankedTableExist) {
+            String query = "DROP TABLE `osu2007`.`ranked_maps`";
+
+            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                    Statement st = (Statement) con.createStatement()) {
+
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
     public void checkForTables() {
