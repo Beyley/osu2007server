@@ -107,6 +107,18 @@ public class MySqlHandler {
 
         if (oldScoreListExist) {
             // CONVERT DATABASE TO NEW FORMAT
+
+            // Rename users table
+            query = "ALTER TABLE `osu2007`.`users` RENAME TO  `osu2007`.`osu_users`;";
+
+            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                    Statement st = (Statement) con.createStatement()) {
+
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+
             query = "SELECT * FROM scores";
 
             List<Score> scores = new ArrayList<Score>();
