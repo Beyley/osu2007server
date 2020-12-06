@@ -26,7 +26,13 @@ public class Handlers {
         int userId = Integer.parseInt(req.queryParams("id"));
 
         returnString += sqlHandler.getUsername(userId) + "<br>";
-        returnString += sqlHandler.getRankedScoreOfUser(userId);
+        returnString += sqlHandler.getRankedScoreOfUser(userId) + "<br>";
+
+        List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
+
+        for (Score score : scores) {
+            returnString += "<br>" + score.mapHash + ":" + score.score + ":" + score.grade + "<br>";
+        }
 
         return returnString;
     }
