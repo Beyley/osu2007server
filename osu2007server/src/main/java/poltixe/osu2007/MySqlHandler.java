@@ -521,6 +521,9 @@ public class MySqlHandler {
 
         allPlayers.sort(new ScoreSorter());
 
-        return allPlayers.indexOf(thisPlayer) + 1;
+        for (int i = 0; i < allPlayers.size(); i++) {
+            if (allPlayers.get(i) == thisPlayer)
+                return i + 1;
+        }
     }
 }
