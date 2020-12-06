@@ -53,6 +53,75 @@ public class MySqlHandler {
         }
     }
 
+    public void addRankedMapsToTable(List<BeatMap> rankedMaps) {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        String query = "CREATE TABLE `osu2007`.`ranked_maps` ( `id` INT NOT NULL AUTO_INCREMENT, `md5` VARCHAR(100) NULL, `artist` VARCHAR(250) NULL, `songname` VARCHAR(250) NULL, `diffname` VARCHAR(250) NULL, `creator` VARCHAR(250) NULL, PRIMARY KEY (`id`));";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement()) {
+
+            st.execute(query);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        query = "";
+
+        for (BeatMap map : rankedMaps) {
+            if (map.artist.equals("")) {
+                map.artist = "none";
+            }
+
+            String regex = "[^a-zA-Z0-9\s]";
+
+            map.artist = map.artist.replaceAll(regex, "?");
+            map.songName = map.songName.replaceAll(regex, "?");
+            map.diffName = map.diffName.replaceAll(regex, "?");
+            map.creator = map.creator.replaceAll(regex, "?");
+
+            query = "INSERT INTO `osu2007`.`ranked_maps` (`md5`, `artist`, `songname`, `diffname`, `creator`) VALUES ('"
+                    + map.md5 + "', '" + map.artist + "', '" + map.songName + "', '" + map.diffName + "', '"
+                    + map.creator + "');";
+
+            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                    Statement st = (Statement) con.createStatement()) {
+
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
+    public boolean checkForRankedTable() {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        boolean rankedTableExist = false;
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement()) {
+
+            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
+
+            ResultSet rs1 = md.getTables(null, null, "ranked_maps", null);
+
+            while (rs1.next()) {
+                rankedTableExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return rankedTableExist;
+    }
+
     public void checkForTables() {
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 
@@ -192,6 +261,32 @@ public class MySqlHandler {
         }
     }
 
+    public List<BeatMap> getAllRankedMaps() {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        List<BeatMap> maps = new ArrayList<BeatMap>();
+
+        String query = "SELECT * FROM ranked_maps";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement();
+                ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                BeatMap currentMap = new BeatMap(rs);
+
+                maps.add(currentMap);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return maps;
+    }
+
     public int getRankedScoreOfUser(int userId) {
         int score = 0;
 
@@ -199,6 +294,14 @@ public class MySqlHandler {
 
         String user = App.mySqlUser;
         String password = App.mySqlPass;
+
+        List<BeatMap> rankedMaps = getAllRankedMaps();
+
+        List<String> rankedMapMd5s = new ArrayList<String>();
+
+        for (BeatMap map : rankedMaps) {
+            rankedMapMd5s.add(map.md5);
+        }
 
         String query = "SELECT * FROM score_list WHERE userid = '" + userId + "'";
 
@@ -209,7 +312,7 @@ public class MySqlHandler {
             while (rs.next()) {
                 Score currentScore = new Score(rs);
 
-                if (currentScore.score < 12000000)
+                if (rankedMapMd5s.contains(currentScore.mapHash))
                     score += currentScore.score;
             }
         } catch (SQLException ex) {

@@ -68,7 +68,7 @@ public class Handlers {
             boolean mapInList = false;
             // Loops through all players
             for (BeatMap map : allMaps) {
-                if (score.mapHash.equals(map.md5Hash)) {
+                if (score.mapHash.equals(map.md5)) {
                     // Sets the variable to show that the player is in fact inside of the playerlist
                     mapInList = true;
                 }
@@ -78,9 +78,9 @@ public class Handlers {
                 for (int mapI = 0; mapI < allMaps.size(); mapI++) {
                     BeatMap map = allMaps.get(mapI);
 
-                    if (map.topScore.score < score.score && map.md5Hash.equals(score.mapHash)) {
+                    if (map.topScore.score < score.score && map.md5.equals(score.mapHash)) {
                         BeatMap oldTop = allMaps.get(mapI);
-                        allMaps.set(mapI, new BeatMap(map.md5Hash, score));
+                        allMaps.set(mapI, new BeatMap(map.md5, score));
 
                         for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
                             Player player = allPlayers.get(playerI);
@@ -126,8 +126,23 @@ public class Handlers {
 
         scores.sort(new MapLeaderBoardSorter());
 
+        List<BeatMap> rankedMaps = sqlHandler.getAllRankedMaps();
+
         for (Score score : scores) {
-            returnString += "<br>" + score.mapHash + ":" + score.score + ":" + score.grade + "<br>";
+            BeatMap thisMap = null;
+
+            for (BeatMap map : rankedMaps) {
+                if (map.md5.equals(score.mapHash)) {
+                    thisMap = map;
+                }
+            }
+
+            if (thisMap == null) {
+                returnString += "<br>" + score.mapHash + " : " + score.score + " : " + score.grade + "<br>";
+            } else {
+                returnString += "<br>" + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") ["
+                        + thisMap.diffName + "] : " + score.score + " : " + score.grade + "<br>";
+            }
         }
 
         return returnString;
@@ -215,7 +230,7 @@ public class Handlers {
             boolean mapInList = false;
             // Loops through all players
             for (BeatMap map : allMaps) {
-                if (score.mapHash.equals(map.md5Hash)) {
+                if (score.mapHash.equals(map.md5)) {
                     // Sets the variable to show that the player is in fact inside of the playerlist
                     mapInList = true;
                 }
@@ -225,9 +240,9 @@ public class Handlers {
                 for (int mapI = 0; mapI < allMaps.size(); mapI++) {
                     BeatMap map = allMaps.get(mapI);
 
-                    if (map.topScore.score < score.score && map.md5Hash.equals(score.mapHash)) {
+                    if (map.topScore.score < score.score && map.md5.equals(score.mapHash)) {
                         BeatMap oldTop = allMaps.get(mapI);
-                        allMaps.set(mapI, new BeatMap(map.md5Hash, score));
+                        allMaps.set(mapI, new BeatMap(map.md5, score));
 
                         for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
                             Player player = allPlayers.get(playerI);

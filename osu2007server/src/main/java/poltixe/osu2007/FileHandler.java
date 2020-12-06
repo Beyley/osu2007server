@@ -1,8 +1,38 @@
 package poltixe.osu2007;
 
 import java.io.*;
+import java.util.*;
 
 public class FileHandler {
+    public static MySqlHandler sqlHandler = new MySqlHandler();
+
+    public static void rankedDatabaseCheck() throws FileNotFoundException {
+        File myObj = new File("rankeddatabase.txt");
+        Scanner myReader = new Scanner(myObj);
+
+        List<BeatMap> rankedMaps = new ArrayList<BeatMap>();
+
+        while (myReader.hasNextLine()) {
+            String data = myReader.nextLine();
+            String[] split = data.split(":");
+
+            String artist = split[0];
+            String songName = split[1];
+            String diffName = split[2];
+            String creator = split[3];
+            String md5 = split[4];
+
+            rankedMaps.add(new BeatMap(artist, songName, diffName, creator, md5));
+        }
+
+        myReader.close();
+
+        if (!sqlHandler.checkForRankedTable()) {
+            System.out.println("Importing Ranked Songs database");
+            sqlHandler.addRankedMapsToTable(rankedMaps);
+        }
+    }
+
     public static void saveReplayToFile(Score score, byte[] replayData) {
         String filePath = "replays/" + score.scoreId + ".osr";
 
