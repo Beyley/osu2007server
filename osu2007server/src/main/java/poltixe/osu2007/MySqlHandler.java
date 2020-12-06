@@ -76,7 +76,7 @@ public class MySqlHandler {
                 map.artist = "none";
             }
 
-            String regex = "[^a-zA-Z0-9 ]";
+            String regex = "[^a-zA-Z0-9 !&\\-(),.+]";
 
             map.artist = map.artist.replaceAll(regex, "?");
             map.songName = map.songName.replaceAll(regex, "?");
