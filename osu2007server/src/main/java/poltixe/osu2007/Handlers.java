@@ -46,7 +46,7 @@ public class Handlers {
             List<Player> allPlayers = new ArrayList<Player>();
 
             for (int id : allPlayerIds) {
-                allPlayers.add(sqlHandler.checkUserData(id));
+                // allPlayers.add(sqlHandler.checkUserData(id));
             }
 
             boolean playerExists = false;
