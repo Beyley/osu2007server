@@ -141,11 +141,11 @@ public class Handlers {
                             Player player = allPlayers.get(playerI);
 
                             if (score.userId == player.userId) {
-                                allPlayers.set(playerI, new Player(player.userId, player.amountOfNumberOnes + 1));
+                                allPlayers.get(playerI).amountOfNumberOnes += 1;
                             }
 
                             if (oldTop.topScore.userId == player.userId) {
-                                allPlayers.set(playerI, new Player(player.userId, player.amountOfNumberOnes - 1));
+                                allPlayers.get(playerI).amountOfNumberOnes -= 1;
                             }
                         }
                     }
@@ -157,7 +157,7 @@ public class Handlers {
                     Player player = allPlayers.get(playerI);
 
                     if (score.userId == player.userId) {
-                        allPlayers.set(playerI, new Player(player.userId, player.amountOfNumberOnes + 1));
+                        allPlayers.get(playerI).amountOfNumberOnes += 1;
                     }
                 }
             }
