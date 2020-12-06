@@ -51,5 +51,7 @@ public class App {
         get("/web/top/", (req, res) -> Handlers.getTopPlayers(req));
         get("/web/u", (req, res) -> Handlers.getUserPage(req));
         get("/web/u/", (req, res) -> Handlers.getUserPage(req));
+        get("/web/namechange", (req, res) -> Handlers.getNameChangePage(req));
+        get("/web/namechange/", (req, res) -> Handlers.getNameChangePage(req));
     }
 }

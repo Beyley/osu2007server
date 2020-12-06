@@ -623,4 +623,26 @@ public class MySqlHandler {
 
         return new Player(userId, userPassword, userExist);
     }
+
+    public void changeUsername(int userId, String newUsername) {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        String query = "UPDATE osu_users SET username='" + newUsername + "' WHERE id='" + userId + "'";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement()) {
+
+            st.execute(query);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        App.knownNames.clear();
+        for (int i = 0; i < getAllPlayers().size() + 1; i++) {
+            App.knownNames.add(null);
+        }
+    }
 }

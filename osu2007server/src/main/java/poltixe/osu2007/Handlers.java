@@ -2,6 +2,7 @@ package poltixe.osu2007;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +19,83 @@ public class Handlers {
 
     public static boolean isAlphaNumeric(String s) {
         return s != null && s.matches("^[a-zA-Z0-9]*$");
+    }
+
+    private static String toHexString(byte[] bytes) {
+        char[] hexArray = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+        char[] hexChars = new char[bytes.length * 2];
+        int v;
+        for (int j = 0; j < bytes.length; j++) {
+            v = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v / 16];
+            hexChars[j * 2 + 1] = hexArray[v % 16];
+        }
+
+        return new String(hexChars);
+    }
+
+    public static String getNameChangePage(Request req) {
+        String returnString = "";
+
+        returnString += "<form action=\"/web/namechange\"> <label for=\"oldusername\">Old username:</label> <input type=\"text\" id=\"oldusername\" name=\"oldusername\"><br><br> <label for=\"newusername\">New username:</label><input type=\"text\" id=\"newusername\" name=\"newusername\"><br><br> <label for=\"password\">Password:</label><input type=\"password\" id=\"password\" name=\"password\"><br><br> <input type=\"submit\" value=\"Submit\"> </form>";
+
+        if (req.queryParams("oldusername") != null && req.queryParams("newusername") != null
+                && req.queryParams("password") != null) {
+            List<Integer> allPlayerIds = sqlHandler.getAllPlayers();
+
+            List<Player> allPlayers = new ArrayList<Player>();
+
+            for (int id : allPlayerIds) {
+                allPlayers.add(sqlHandler.checkUserData(id));
+            }
+
+            boolean playerExists = false;
+            boolean playerTaken = false;
+
+            Player thisPlayer = null;
+
+            for (Player player : allPlayers) {
+                if (player.username.equals(req.queryParams("oldusername"))) {
+                    playerExists = true;
+                    thisPlayer = player;
+                }
+                if (player.username.equals("newusername")) {
+                    playerTaken = true;
+                }
+            }
+
+            if (playerTaken) {
+                returnString += "<br> That username is taken!";
+                return returnString;
+            }
+
+            if (!playerExists) {
+                returnString += "<br> That user does not exist!";
+                return returnString;
+            } else {
+                String password = req.queryParams("password");
+
+                String hashedPassword = "";
+
+                try {
+                    MessageDigest md = MessageDigest.getInstance("MD5");
+                    md.update(password.getBytes());
+                    byte[] digest = md.digest();
+                    hashedPassword = toHexString(digest).toLowerCase();
+                } catch (Exception ex) {
+                }
+
+                if (hashedPassword.equals(thisPlayer.userPassword)) {
+                    sqlHandler.changeUsername(thisPlayer.userId, req.queryParams("newusername"));
+                    returnString += "<br> Username changed!";
+                } else {
+                    returnString += "<br> That password is incorrect!";
+                    return returnString;
+                }
+            }
+        }
+
+        return returnString;
     }
 
     public static String getUserPage(Request req) {
