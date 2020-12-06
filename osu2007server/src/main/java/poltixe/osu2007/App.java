@@ -20,6 +20,7 @@ public class App {
     public static MySqlHandler sqlHandler = new MySqlHandler();
 
     public static void main(String[] args) throws IOException {
+
         // Gets a new properties value
         GetPropertyValues properties = new GetPropertyValues();
         // Gets the properties file
@@ -30,6 +31,10 @@ public class App {
         // Sets up the databases and tables
         sqlHandler.checkForDatabase();
         sqlHandler.checkForTables();
+
+        for (int i = 0; i < sqlHandler.getAllPlayers().size() + 1; i++) {
+            knownNames.set(i, null);
+        }
 
         staticFiles.location("/statichtml"); // Static files
 
