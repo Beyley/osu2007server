@@ -458,7 +458,7 @@ public class MySqlHandler {
         return scores;
     }
 
-    public List<Player> getAllPlayers() {
+    public List<Integer> getAllPlayers() {
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 
         String user = App.mySqlUser;
@@ -466,14 +466,14 @@ public class MySqlHandler {
 
         String query = "SELECT * FROM osu_users";
 
-        List<Player> allPlayers = new ArrayList<Player>();
+        List<Integer> allPlayers = new ArrayList<Integer>();
 
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                 Statement st = (Statement) con.createStatement();
                 ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
-                allPlayers.add(new Player(rs.getInt(1)));
+                allPlayers.add(rs.getInt(1));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
