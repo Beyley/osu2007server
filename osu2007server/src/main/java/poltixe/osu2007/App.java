@@ -40,7 +40,7 @@ public class App {
         // get("/", (req, res) -> Handlers.getTopPlayers(req));
         get("/web/top", (req, res) -> Handlers.getTopPlayers(req));
         get("/web/top/", (req, res) -> Handlers.getTopPlayers(req));
-        get("/u", (req, res) -> Handlers.getTopPlayers(req));
-        get("/u/", (req, res) -> Handlers.getTopPlayers(req));
+        get("/web/u", (req, res) -> Handlers.getUserPage(req));
+        get("/web/u/", (req, res) -> Handlers.getUserPage(req));
     }
 }
