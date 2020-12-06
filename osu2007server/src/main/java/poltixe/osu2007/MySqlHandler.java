@@ -76,12 +76,12 @@ public class MySqlHandler {
                 map.artist = "none";
             }
 
-            String regex = "[^a-zA-Z0-9 !&\\-(),.+~★☆]";
+            String regex = "'";
 
-            map.artist = map.artist.replaceAll(regex, "?");
-            map.songName = map.songName.replaceAll(regex, "?");
-            map.diffName = map.diffName.replaceAll(regex, "?");
-            map.creator = map.creator.replaceAll(regex, "?");
+            map.artist = map.artist.replaceAll(regex, "''");
+            map.songName = map.songName.replaceAll(regex, "''");
+            map.diffName = map.diffName.replaceAll(regex, "''");
+            map.creator = map.creator.replaceAll(regex, "''");
 
             query = "INSERT INTO `osu2007`.`ranked_maps` (`md5`, `artist`, `songname`, `diffname`, `creator`) VALUES ('"
                     + map.md5 + "', '" + map.artist + "', '" + map.songName + "', '" + map.diffName + "', '"
