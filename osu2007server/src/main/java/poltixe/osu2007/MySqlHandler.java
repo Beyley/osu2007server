@@ -107,6 +107,39 @@ public class MySqlHandler {
 
         if (oldScoreListExist) {
             // CONVERT DATABASE TO NEW FORMAT
+            query = "SELECT * FROM scores";
+
+            List<Score> scores = new ArrayList<Score>();
+
+            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                    Statement st = (Statement) con.createStatement();
+                    ResultSet rs = st.executeQuery(query)) {
+
+                while (rs.next()) {
+                    Score currentScore = new Score(rs.getString(2), rs.getInt(1));
+
+                    scores.add(currentScore);
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+            for (Score score : scores) {
+                query = "INSERT INTO score_list(id, maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass) VALUES('"
+                        + score.scoreId + "', '" + score.mapHash + "', '" + score.userId + "', '" + score.replayHash
+                        + "', '" + score.hit300Count + "', '" + score.hit100Count + "', '" + score.hit50Count + "', '"
+                        + score.hitGekiCount + "', '" + score.hitKatuCount + "', '" + score.hitMissCount + "', '"
+                        + score.score + "', '" + score.maxCombo + "', '" + score.perfectCombo + "', '" + score.grade
+                        + "', '" + score.mods + "', '" + score.pass + "');";
+
+                try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                        Statement st = (Statement) con.createStatement()) {
+
+                    st.execute(query);
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
 
             query = "DROP TABLE `osu2007`.`scores`;";
 
