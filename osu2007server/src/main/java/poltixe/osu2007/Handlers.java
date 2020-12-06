@@ -12,6 +12,10 @@ public class Handlers {
     // Gets a new instance of the MySQL handler
     public static MySqlHandler sqlHandler = new MySqlHandler();
 
+    public static boolean isValidMD5(String s) {
+        return s.matches("^[a-fA-F0-9]{32}$");
+    }
+
     // Handles a login request
     public static String login(Request req) {
         // The string to be returned to the osu! client, in this case has a default
@@ -22,14 +26,18 @@ public class Handlers {
         String username = req.queryParams("username");
         String password = req.queryParams("password");
 
+        if (!isValidMD5(password)) {
+            return "0";
+        }
+
         // Gets the users data of the person the client is attempting to sign in as
-        User userData = sqlHandler.checkUserData(username);
+        User userData = sqlHandler.checkUserData(sqlHandler.getUserId(username));
 
         // Checks if the user exists in the database or not
         if (userData.userExists) {
             // Checks if the password is wrong, if so, tell the client that the password was
             // incorrect
-            if (!userData.userPassword.equals(password))
+            if (!userData.userPassword.toLowerCase().equals(password))
                 returnString = "0";
         } else {
             // If the user does not exist, create a new user with the specified username and
@@ -67,7 +75,7 @@ public class Handlers {
             for (Player player : allPlayers) {
                 // Checks if the current player we are iterating on is equal to the playername
                 // in the score
-                if (score.playerUsername.equals(player.username)) {
+                if (score.userId == player.userId) {
                     // Sets the variable to show that the player is in fact inside of the playerlist
                     playerInList = true;
                 }
@@ -77,7 +85,7 @@ public class Handlers {
             if (!playerInList) {
                 // If they are not add them to the list with the score of the current score we
                 // are iterating on
-                allPlayers.add(new Player(score.playerUsername, score.score, 0));
+                allPlayers.add(new Player(score.userId, score.score, 0));
             } else {
                 // If they are in the list, iterate through all the known players
                 for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
@@ -85,12 +93,12 @@ public class Handlers {
                     Player player = allPlayers.get(playerI);
                     // Checks if the username in the score we are currently iterating on matches the
                     // playername of the player we are currently interating on
-                    if (score.playerUsername.equals(player.username)) {
+                    if (score.userId == player.userId) {
                         // Adds the score of the play we are iterating on to the player we are currently
                         // iterating on
                         if (score.score < 12000000) {
                             allPlayers.set(playerI,
-                                    new Player(player.username, player.score + score.score, player.amountOfNumberOnes));
+                                    new Player(player.userId, player.score + score.score, player.amountOfNumberOnes));
                         }
                     }
                 }
@@ -104,7 +112,7 @@ public class Handlers {
             for (BeatMap map : allMaps) {
                 // Checks if the current player we are iterating on is equal to the playername
                 // in the score
-                if (score.osuFileHash.equals(map.hash)) {
+                if (score.mapHash.equals(map.hash)) {
                     // Sets the variable to show that the player is in fact inside of the playerlist
                     mapInList = true;
                 }
@@ -114,31 +122,30 @@ public class Handlers {
                 for (int mapI = 0; mapI < allMaps.size(); mapI++) {
                     BeatMap map = allMaps.get(mapI);
 
-                    if (map.topScore.score < score.score && map.hash.equals(score.osuFileHash)) {
+                    if (map.topScore.score < score.score && map.hash.equals(score.mapHash)) {
                         BeatMap oldTop = allMaps.get(mapI);
                         allMaps.set(mapI, new BeatMap(map.hash, score));
 
                         for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
                             Player player = allPlayers.get(playerI);
-                            if (score.playerUsername.equals(player.username)) {
+                            if (score.userId == player.userId) {
                                 allPlayers.set(playerI,
-                                        new Player(player.username, player.score, player.amountOfNumberOnes + 1));
+                                        new Player(player.userId, player.score, player.amountOfNumberOnes + 1));
                             }
 
-                            if (oldTop.topScore.playerUsername.equals(player.username)) {
+                            if (oldTop.topScore.userId == player.userId) {
                                 allPlayers.set(playerI,
-                                        new Player(player.username, player.score, player.amountOfNumberOnes - 1));
+                                        new Player(player.userId, player.score, player.amountOfNumberOnes - 1));
                             }
                         }
                     }
                 }
             } else {
-                allMaps.add(new BeatMap(score.osuFileHash, score));
+                allMaps.add(new BeatMap(score.mapHash, score));
                 for (int playerI = 0; playerI < allPlayers.size(); playerI++) {
                     Player player = allPlayers.get(playerI);
-                    if (score.playerUsername.equals(player.username)) {
-                        allPlayers.set(playerI,
-                                new Player(player.username, player.score, player.amountOfNumberOnes + 1));
+                    if (score.userId == player.userId) {
+                        allPlayers.set(playerI, new Player(player.userId, player.score, player.amountOfNumberOnes + 1));
                     }
                 }
             }
@@ -200,12 +207,12 @@ public class Handlers {
 
         Score scoreToSubmit = new Score(scoreDetails);
 
-        List<Score> mapScores = sqlHandler.getAllMapScores(scoreToSubmit.osuFileHash);
+        List<Score> mapScores = sqlHandler.getAllMapScores(scoreToSubmit.mapHash);
 
         boolean newTopOnMap = true;
 
         for (Score scoreToCheck : mapScores) {
-            if (scoreToCheck.playerUsername.equals(scoreToSubmit.playerUsername)) {
+            if (scoreToCheck.userId == scoreToSubmit.userId) {
                 if (scoreToSubmit.score < scoreToCheck.score) {
                     newTopOnMap = false;
                 } else {
@@ -214,7 +221,7 @@ public class Handlers {
             }
         }
 
-        User user = sqlHandler.checkUserData(scoreToSubmit.playerUsername);
+        User user = sqlHandler.checkUserData(scoreToSubmit.userId);
 
         if (scoreToSubmit.pass && user.userPassword.equals(password)) {
             if (newTopOnMap)
