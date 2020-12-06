@@ -89,6 +89,33 @@ public class MySqlHandler {
             }
         }
 
+        boolean scoreListExist = false;
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement()) {
+
+            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
+
+            ResultSet rs1 = md.getTables(null, null, "score_list", null);
+
+            while (rs1.next()) {
+                scoreListExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        if (!scoreListExist) {
+            query = "CREATE TABLE `osu2007`.`score_list` ( `id` INT NOT NULL AUTO_INCREMENT, `maphash` VARCHAR(100) NOT NULL, `userid` INT NOT NULL, `replayhash` VARCHAR(100) NOT NULL, `hit300` INT NOT NULL, `hit100` INT NOT NULL, `hit50` INT NOT NULL, `hitgeki` INT NOT NULL, `hitkatu` INT NOT NULL, `hitmiss` INT NOT NULL, `score` INT NOT NULL, `maxcombo` INT NOT NULL, `perfect` VARCHAR(5) NOT NULL, `grade` VARCHAR(1) NOT NULL, `mods` INT NOT NULL, `pass` VARCHAR(5) NOT NULL, PRIMARY KEY (`id`));";
+
+            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                    Statement st = (Statement) con.createStatement()) {
+
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
         boolean oldScoreListExist = false;
 
         try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
@@ -154,33 +181,6 @@ public class MySqlHandler {
             }
 
             query = "DROP TABLE `osu2007`.`scores`;";
-
-            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                    Statement st = (Statement) con.createStatement()) {
-
-                st.execute(query);
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-
-        boolean scoreListExist = false;
-
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
-
-            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
-
-            ResultSet rs1 = md.getTables(null, null, "score_list", null);
-
-            while (rs1.next()) {
-                scoreListExist = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        if (!scoreListExist) {
-            query = "CREATE TABLE `osu2007`.`score_list` ( `id` INT NOT NULL AUTO_INCREMENT, `maphash` VARCHAR(100) NOT NULL, `userid` INT NOT NULL, `replayhash` VARCHAR(100) NOT NULL, `hit300` INT NOT NULL, `hit100` INT NOT NULL, `hit50` INT NOT NULL, `hitgeki` INT NOT NULL, `hitkatu` INT NOT NULL, `hitmiss` INT NOT NULL, `score` INT NOT NULL, `maxcombo` INT NOT NULL, `perfect` VARCHAR(5) NOT NULL, `grade` VARCHAR(1) NOT NULL, `mods` INT NOT NULL, `pass` VARCHAR(5) NOT NULL, PRIMARY KEY (`id`));";
 
             try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                     Statement st = (Statement) con.createStatement()) {
