@@ -8,10 +8,12 @@ public class FileHandler {
 
         try {
             File myObj = new File(filePath);
+
             if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
+                // System.out.println("File created: " + myObj.getName());
             } else {
-                System.out.println("File already exists.");
+                myObj.delete();
+                myObj.createNewFile();
             }
         } catch (IOException e) {
         }

@@ -254,6 +254,30 @@ public class MySqlHandler {
         }
     }
 
+    public void updateScore(int oldId, Score newScore, byte[] replayData) {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        String query = "UPDATE score_list SET replayhash='" + newScore.replayHash + "', hit300='" + newScore.hit300Count
+                + "', hit100='" + newScore.hit100Count + "', hit50='" + newScore.hit50Count + "', hitgeki='"
+                + newScore.hitGekiCount + "', hitkatu='" + newScore.hitKatuCount + "', hitmiss='"
+                + newScore.hitMissCount + "', score='" + newScore.score + "', maxcombo='" + newScore.maxCombo
+                + "', perfect='" + newScore.perfectCombo + "', grade='" + newScore.grade + "', mods='" + newScore.mods
+                + "', pass='" + newScore.mods + "' WHERE id='" + newScore.scoreId + "';";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement()) {
+
+            st.execute(query);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        FileHandler.saveReplayToFile(newScore, replayData);
+    }
+
     public int getUserId(String userName) {
         int userId = -1;
 

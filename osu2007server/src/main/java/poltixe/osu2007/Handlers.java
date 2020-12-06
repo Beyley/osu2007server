@@ -212,13 +212,14 @@ public class Handlers {
         List<Score> mapScores = sqlHandler.getMapLeaderboard(scoreToSubmit.mapHash);
 
         boolean newTopOnMap = true;
+        int oldTopId = -1;
 
         for (Score scoreToCheck : mapScores) {
             if (scoreToCheck.userId == scoreToSubmit.userId) {
                 if (scoreToSubmit.score < scoreToCheck.score) {
                     newTopOnMap = false;
                 } else {
-                    sqlHandler.removeScore(scoreToCheck);
+                    oldTopId = scoreToCheck.scoreId;
                 }
             }
         }
@@ -226,8 +227,13 @@ public class Handlers {
         User user = sqlHandler.checkUserData(scoreToSubmit.userId);
 
         if (scoreToSubmit.pass && user.userPassword.equals(password)) {
-            if (newTopOnMap)
-                sqlHandler.addScore(scoreToSubmit, replayData);
+            if (newTopOnMap) {
+                if (oldTopId == -1) {
+                    sqlHandler.addScore(scoreToSubmit, replayData);
+                } else {
+                    sqlHandler.updateScore(oldTopId, scoreToSubmit, replayData);
+                }
+            }
         }
 
         return "";
