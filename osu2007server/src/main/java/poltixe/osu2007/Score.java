@@ -136,7 +136,7 @@ public class Score {
             wp = wp * 0.6;
         }
 
-        return Math.floor((double) wp * (double) 100.0) / (double) 100.0;
+        return (Math.floor((double) wp * (double) 100.0) / (double) 100.0) / 10;
     }
 
     public String asSubmitString() {
