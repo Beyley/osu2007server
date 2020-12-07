@@ -26,9 +26,13 @@ public class Score {
     public double wp;
 
     private static double wpCurve(double combo) {
-        return (double) Math.min((double) 1.002344 - (double) 0.00235052 * (double) combo
-                + (double) 0.000006837499 * (double) Math.pow((double) combo, (double) 2)
-                - (double) 5.891666e-9 * (double) Math.pow((double) combo, (double) 3), 0.1);
+        if (combo > 250) {
+            return (double) Math.min((double) 1.002344 - (double) 0.00235052 * (double) combo
+                    + (double) 0.000006837499 * (double) Math.pow((double) combo, (double) 2)
+                    - (double) 5.891666e-9 * (double) Math.pow((double) combo, (double) 3), 0.1);
+        } else {
+            return 1;
+        }
     }
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
