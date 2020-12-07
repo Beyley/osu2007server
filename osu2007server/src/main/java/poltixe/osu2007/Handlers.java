@@ -1,7 +1,6 @@
 package poltixe.osu2007;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,10 +33,65 @@ public class Handlers {
         return new String(hexChars);
     }
 
-    public static String getNameChangePage(Request req) {
+    public static String getNavbar() {
         String returnString = "";
 
-        returnString += "<form action=\"/web/namechange\"> <label for=\"oldusername\">Old username:</label> <input type=\"text\" id=\"oldusername\" name=\"oldusername\"><br><br> <label for=\"newusername\">New username:</label><input type=\"text\" id=\"newusername\" name=\"newusername\"><br><br> <label for=\"password\">Password:</label><input type=\"password\" id=\"password\" name=\"password\"><br><br> <input type=\"submit\" value=\"Submit\"> </form>";
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/navbar.html");
+
+        try {
+            returnString = new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        return returnString.toString();
+    }
+
+    public static String getStandardHeader() {
+        String returnString = "";
+
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/header.html");
+
+        try {
+            returnString = new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        return returnString.toString();
+    }
+
+    public static String getJSFooter() {
+        String returnString = "";
+
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/js.html");
+
+        try {
+            returnString = new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        return returnString.toString();
+    }
+
+    public static String createHtmlPage(String content) {
+        StringBuilder returnString = new StringBuilder();
+
+        returnString.append(getStandardHeader() + "\n");
+        returnString.append("<body>" + getNavbar() + "\n");
+
+        returnString.append("<div class=\"container\"> <div class=\"starter-template\">\n");
+
+        returnString.append(content);
+
+        returnString.append("</div>\n</div>\n");
+        returnString.append(getJSFooter());
+
+        returnString.append("</body>");
+
+        return returnString.toString();
+    }
+
+    public static String getNameChangePage(Request req) {
+        String content = "<form action=\"/web/namechange\"> <label for=\"oldusername\">Old username:</label> <input type=\"text\" id=\"oldusername\" name=\"oldusername\"><br><br> <label for=\"newusername\">New username:</label><input type=\"text\" id=\"newusername\" name=\"newusername\"><br><br> <label for=\"password\">Password:</label><input type=\"password\" id=\"password\" name=\"password\"><br><br> <input type=\"submit\" value=\"Submit\"> </form>";
 
         if (req.queryParams("oldusername") != null && req.queryParams("newusername") != null
                 && req.queryParams("password") != null) {
@@ -66,20 +120,20 @@ public class Handlers {
 
             if (hashedPassword.equals(player.userPassword)) {
                 sqlHandler.changeUsername(player.userId, req.queryParams("newusername"));
-                returnString += "<br> Username changed!";
-                return returnString;
+                content += "<br> Username changed!";
+                return content;
             } else {
-                returnString += "<br> That password is incorrect!";
-                return returnString;
+                content += "<br> That password is incorrect!";
+                return content;
             }
         }
         // }
 
-        return returnString;
+        return createHtmlPage(content);
     }
 
     public static String getUserPage(Request req) {
-        String returnString = "";
+        String content = "";
 
         int userId = Integer.parseInt(req.queryParams("id"));
 
@@ -177,8 +231,8 @@ public class Handlers {
             }
         }
 
-        returnString += thisPlayer.displayUsername + " (#" + thisPlayer.globalRank + ")<br>";
-        returnString += "Ranked Score : " + thisPlayer.rankedScore + "<br>";
+        content += thisPlayer.displayUsername + " (#" + thisPlayer.globalRank + ")<br>";
+        content += "Ranked Score : " + thisPlayer.rankedScore + "<br>";
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 
@@ -196,14 +250,14 @@ public class Handlers {
             }
 
             if (thisMap == null) {
-                returnString += "<br>" + score.mapHash + " : " + score.score + " : " + score.grade + "<br>";
+                content += "<br>" + score.mapHash + " : " + score.score + " : " + score.grade + "<br>";
             } else {
-                returnString += "<br>" + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") ["
+                content += "<br>" + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") ["
                         + thisMap.diffName + "] : " + score.score + " : " + score.grade + "<br>";
             }
         }
 
-        return returnString;
+        return createHtmlPage(content);
     }
 
     // Handles a login request
@@ -247,7 +301,7 @@ public class Handlers {
     public static String getTopPlayers(Request req) {
         // The string to be returned to the osu! client, in this case has the title text
         // to be added on to
-        String returnString = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"description\" content=\"\"><meta name=\"author\" content=\"\"><title>osu!2007 Private server</title><link href=\"bootstrap/css/bootstrap.css\" rel=\"stylesheet\"><link href=\"starter-template.css\" rel=\"stylesheet\"> <!--[if lt IE 9]> <script src=\"https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js\"></script> <script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script> <![endif]--></head><body> <nav class=\"navbar navbar-inverse navbar-fixed-top\"><div class=\"container\"><div class=\"navbar-header\"> <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\"> <span class=\"sr-only\">Toggle navigation</span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> </button> <a class=\"navbar-brand\" href=\"#\">Poltixe's osu!2007 Private server</a></div><div id=\"navbar\" class=\"collapse navbar-collapse\"><ul class=\"nav navbar-nav\"><li> <a href=\"/web/\">Home</a></li><li class=\"active\"> <a href=\"/web/top\">Rankings</a></li><li></li></ul></div></div> </nav><div class=\"container\"><div class=\"starter-template\"><h1>Global Rankings</h1>";
+        String content = "<h1>Global Rankings</h1>";
 
         // Creates a list of all scores submitted
         List<Score> allScores = sqlHandler.getAllScores();
@@ -336,14 +390,12 @@ public class Handlers {
             Player player = allPlayers.get(i);
             // Adds the player info to the string to be sent to the client
             // <p class="lead">ranking go brrrrrrrr</p>
-            returnString += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername + ", Total Ranked Score : "
+            content += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername + ", Total Ranked Score : "
                     + player.rankedScore + ", " + player.amountOfNumberOnes + " #1's</p>";
         }
 
-        returnString += "</div></div> <script src=\"assets/js/jquery.min.js\"></script> <script src=\"bootstrap/js/bootstrap.min.js\"></script> <script src=\"assets/js/ie10-viewport-bug-workaround.js\"></script> </body></html>";
-
         // Returns the string to the client
-        return returnString;
+        return createHtmlPage(content);
     }
 
     public static String getScores(Request req) {
