@@ -2,6 +2,7 @@ package poltixe.osu2007;
 
 import java.io.*;
 import java.security.MessageDigest;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -232,6 +233,7 @@ public class Handlers {
         }
 
         thisPlayer.calculateOverallAccuracy();
+        thisPlayer.calculateOverallWP();
 
         content += "<link rel=\"stylesheet\" href=\"/web/userpage.css\">";
 
@@ -243,11 +245,17 @@ public class Handlers {
 
         content += "<table class=\"center\"><tr><td>" + avatar.getAsHtml() + "</td>\n";
 
+        // new DecimalFormat("#.##").format(thisPlayer.wp)
+
         content += "<td style=\"vertical-align: middle;\">"
                 + Html.header1(thisPlayer.displayUsername + Html.bold(" (#" + thisPlayer.globalRank + ")\n", ""), "");
         content += Html.header2("Ranked Score : " + thisPlayer.rankedScore, "")
                 + Html.header3("Overall Accuracy: " + thisPlayer.accuracy, "") + "</td></table>";
 
+        content += Html.header2(
+                Html.bold("<br>Experimental: Overall WP " + new DecimalFormat("#.##").format(thisPlayer.wp) + "<br>",
+                        "clear: both;"),
+                "");
         content += Html.header2(Html.bold("<br>Top plays<br>", "clear: both;"), "");
         content += "<table border=\"1\" class=\"center\"><tr> <th>Status</th> <th>Song</th> <th>Score</th> <th>WP</th> <th>Accuracy</th> <th>Grade</th> </tr>";
 
