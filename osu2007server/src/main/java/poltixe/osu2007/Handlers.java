@@ -231,10 +231,19 @@ public class Handlers {
             }
         }
 
-        content += HtmlTags
-                .header1(thisPlayer.displayUsername + HtmlTags.bold(" (#" + thisPlayer.globalRank + ")<br>"));
-        content += HtmlTags.header2("Ranked Score : " + thisPlayer.rankedScore);
-        content += "Top plays<br>";
+        content += "<link rel=\"stylesheet\" href=\"/web/userpage.css\">";
+
+        Html.Image rankedMap = new Html.Image("/web/selection-ranked.png");
+        Html.Image avatar = new Html.Image("/web/testavatar.png");
+
+        content += "<table class=\"center\"><tr><td>" + avatar.getAsHtml() + "</td>\n";
+
+        content += "<td>"
+                + Html.header1(thisPlayer.displayUsername + Html.bold(" (#" + thisPlayer.globalRank + ")\n", ""), "");
+        content += Html.header2("Ranked Score : " + thisPlayer.rankedScore, "") + "</td></table>";
+
+        content += Html.header2(Html.bold("<br>Top plays<br>", "clear: both;"), "");
+        content += "<table border=\"1\" class=\"center\"><tr> <th>Status</th> <th>Song</th> <th>Score</th> <th>Grade</th> </tr>";
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 
@@ -252,12 +261,19 @@ public class Handlers {
             }
 
             if (thisMap == null) {
-                content += "<br>" + score.mapHash + " : " + score.score + " : " + score.grade + "<br>";
+                content += "<tr> <td></td> <td>" + score.mapHash + "</td> <td>" + score.score + "</td> <td>"
+                        + score.grade + "</td> </tr>";
+                // content += score.mapHash + " : " + score.score + " : " + score.grade;
             } else {
-                content += "<br>" + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") ["
-                        + thisMap.diffName + "] : " + score.score + " : " + score.grade + "<br>";
+                content += "<tr> <td style=\"text-align: center;\">" + rankedMap.getAsHtml() + "</td> <td>"
+                        + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") [" + thisMap.diffName
+                        + "]" + "</td> <td>" + score.score + "</td> <td>" + score.grade + "</td> </tr>";
+                // content += rankedMap.getAsHtml() + thisMap.artist + " - " + thisMap.songName
+                // + " (" + thisMap.creator
+                // + ") [" + thisMap.diffName + "] : " + score.score + " : " + score.grade;
             }
         }
+        content += "</table>";
 
         return createHtmlPage(content);
     }
