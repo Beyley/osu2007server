@@ -28,8 +28,14 @@ public class Player {
 
         double sum = 0;
 
+        List<BeatMap> rankedMaps = sqlHandler.getAllRankedMaps();
+
         for (Score score : allScores) {
-            sum += score.accuracy;
+            for (BeatMap map : rankedMaps) {
+                if (map.md5.equals(score.mapHash)) {
+                    sum += score.accuracy;
+                }
+            }
         }
 
         // sum *= 100.0;
