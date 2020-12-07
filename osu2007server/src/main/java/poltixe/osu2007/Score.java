@@ -25,6 +25,12 @@ public class Score {
     public double accuracy;
     public double wp;
 
+    private static double wpCurve(double combo) {
+        return (double) Math.min((double) 1.002344 - (double) 0.00235052 * (double) combo
+                + (double) 0.000006837499 * (double) Math.pow((double) combo, (double) 2)
+                - (double) 5.891666e-9 * (double) Math.pow((double) combo, (double) 3), 0.1);
+    }
+
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
     Score(String scoreString, int scoreId) {
@@ -126,17 +132,7 @@ public class Score {
         wp = (double) wp - (double) this.hitKatuCount * (double) 8.0;
         wp = (double) wp - (double) this.hitMissCount * (double) 10.0;
 
-        if (this.maxCombo > 250) {
-            wp = (double) wp * (double) 0.75;
-        }
-
-        if (this.maxCombo > 500) {
-            wp = (double) wp * (double) 0.8;
-        }
-
-        if (this.maxCombo > 750) {
-            wp = (double) wp * (double) 0.6;
-        }
+        wp *= (double) wpCurve(maxCombo);
 
         return Math.floor((double) wp * (double) 100.0) / (double) 100.0;
     }
