@@ -127,16 +127,16 @@ public class Score {
         wp = (double) wp - (double) this.hitMissCount * (double) 10.0;
 
         if (this.maxCombo > 250) {
-            wp = wp * 0.75;
+            wp = (double) wp * (double) 0.75;
         }
         if (this.maxCombo > 500) {
-            wp = wp * 0.8;
+            wp = (double) wp * (double) 0.8;
         }
         if (this.maxCombo > 750) {
-            wp = wp * 0.6;
+            wp = (double) wp * (double) 0.6;
         }
 
-        return (Math.floor((double) wp * (double) 100.0) / (double) 100.0) / 10;
+        return (double) wp / (double) 10.0;
     }
 
     public String asSubmitString() {

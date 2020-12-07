@@ -276,14 +276,15 @@ public class Handlers {
 
             if (thisMap == null) {
                 content += "<tr> <td style=\"text-align: center;\">" + approvedMap.getAsHtml() + "</td> <td>"
-                        + score.mapHash + "</td> <td>" + score.score + "</td> <td>" + score.wp + "</td> <td>"
-                        + score.accuracy + "</td> <td>" + score.grade + "</td> </tr>";
+                        + score.mapHash + "</td> <td>" + score.score + "</td> <td>"
+                        + new DecimalFormat("#.##").format(score.wp) + "</td> <td>" + score.accuracy + "</td> <td>"
+                        + score.grade + "</td> </tr>";
                 // content += score.mapHash + " : " + score.score + " : " + score.grade;
             } else {
                 content += "<tr> <td style=\"text-align: center;\">" + rankedMap.getAsHtml() + "</td> <td>"
                         + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") [" + thisMap.diffName
-                        + "]" + "</td> <td>" + score.score + "</td> <td>" + score.wp + "</td> <td>" + score.accuracy
-                        + "</td> <td>" + score.grade + "</td> </tr>";
+                        + "]" + "</td> <td>" + score.score + "</td> <td>" + new DecimalFormat("#.##").format(score.wp)
+                        + "</td> <td>" + score.accuracy + "</td> <td>" + score.grade + "</td> </tr>";
                 // content += rankedMap.getAsHtml() + thisMap.artist + " - " + thisMap.songName
                 // + " (" + thisMap.creator
                 // + ") [" + thisMap.diffName + "] : " + score.score + " : " + score.grade;
