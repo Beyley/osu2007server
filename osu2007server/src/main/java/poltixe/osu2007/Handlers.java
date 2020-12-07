@@ -231,8 +231,10 @@ public class Handlers {
             }
         }
 
-        content += thisPlayer.displayUsername + " (#" + thisPlayer.globalRank + ")<br>";
-        content += "Ranked Score : " + thisPlayer.rankedScore + "<br>";
+        content += HtmlTags
+                .header1(thisPlayer.displayUsername + HtmlTags.bold(" (#" + thisPlayer.globalRank + ")<br>"));
+        content += HtmlTags.header2("Ranked Score : " + thisPlayer.rankedScore);
+        content += "Top plays<br>";
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 
