@@ -31,11 +31,14 @@ public class Player {
         List<BeatMap> rankedMaps = sqlHandler.getAllRankedMaps();
 
         for (Score score : allScores) {
+            boolean ranked = false;
             for (BeatMap map : rankedMaps) {
                 if (map.md5.equals(score.mapHash)) {
-                    sum += score.accuracy;
+                    ranked = true;
                 }
             }
+            if (ranked)
+                sum += score.accuracy;
         }
 
         // sum *= 100.0;

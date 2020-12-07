@@ -236,6 +236,7 @@ public class Handlers {
         content += "<link rel=\"stylesheet\" href=\"/web/userpage.css\">";
 
         Html.Image rankedMap = new Html.Image("/web/selection-ranked.png");
+        Html.Image approvedMap = new Html.Image("/web/selection-approved.png");
         Html.Image avatar = new Html.Image("/web/testavatar.png");
 
         avatar.style = "text-align: center; vertical-align: middle;";
@@ -266,8 +267,9 @@ public class Handlers {
             }
 
             if (thisMap == null) {
-                content += "<tr> <td></td> <td>" + score.mapHash + "</td> <td>" + score.score + "</td> <td>"
-                        + score.accuracy + "</td> <td>" + score.grade + "</td> </tr>";
+                content += "<tr> <td style=\"text-align: center;\">" + approvedMap.getAsHtml() + "</td> <td>"
+                        + score.mapHash + "</td> <td>" + score.score + "</td> <td>" + score.accuracy + "</td> <td>"
+                        + score.grade + "</td> </tr>";
                 // content += score.mapHash + " : " + score.score + " : " + score.grade;
             } else {
                 content += "<tr> <td style=\"text-align: center;\">" + rankedMap.getAsHtml() + "</td> <td>"
