@@ -249,7 +249,7 @@ public class Handlers {
                 + Html.header3("Overall Accuracy: " + thisPlayer.accuracy, "") + "</td></table>";
 
         content += Html.header2(Html.bold("<br>Top plays<br>", "clear: both;"), "");
-        content += "<table border=\"1\" class=\"center\"><tr> <th>Status</th> <th>Song</th> <th>Score</th> <th>Accuracy</th> <th>Grade</th> </tr>";
+        content += "<table border=\"1\" class=\"center\"><tr> <th>Status</th> <th>Song</th> <th>Score</th> <th>WP</th> <th>Accuracy</th> <th>Grade</th> </tr>";
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 
@@ -268,14 +268,14 @@ public class Handlers {
 
             if (thisMap == null) {
                 content += "<tr> <td style=\"text-align: center;\">" + approvedMap.getAsHtml() + "</td> <td>"
-                        + score.mapHash + "</td> <td>" + score.score + "</td> <td>" + score.accuracy + "</td> <td>"
-                        + score.grade + "</td> </tr>";
+                        + score.mapHash + "</td> <td>" + score.score + "</td> <td>" + score.wp + "</td> <td>"
+                        + score.accuracy + "</td> <td>" + score.grade + "</td> </tr>";
                 // content += score.mapHash + " : " + score.score + " : " + score.grade;
             } else {
                 content += "<tr> <td style=\"text-align: center;\">" + rankedMap.getAsHtml() + "</td> <td>"
                         + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") [" + thisMap.diffName
-                        + "]" + "</td> <td>" + score.score + "</td> <td>" + score.accuracy + "</td> <td>" + score.grade
-                        + "</td> </tr>";
+                        + "]" + "</td> <td>" + score.score + "</td> <td>" + score.wp + "</td> <td>" + score.accuracy
+                        + "</td> <td>" + score.grade + "</td> </tr>";
                 // content += rankedMap.getAsHtml() + thisMap.artist + " - " + thisMap.songName
                 // + " (" + thisMap.creator
                 // + ") [" + thisMap.diffName + "] : " + score.score + " : " + score.grade;

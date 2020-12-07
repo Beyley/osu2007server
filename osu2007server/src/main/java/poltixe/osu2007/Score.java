@@ -2,6 +2,7 @@ package poltixe.osu2007;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 
 public class Score {
     public String mapHash;
@@ -22,6 +23,7 @@ public class Score {
     public boolean pass;
     public int scoreId;
     public double accuracy;
+    public double wp;
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
@@ -46,6 +48,7 @@ public class Score {
         this.pass = Boolean.parseBoolean(splitString[14]);
 
         this.accuracy = calculateAccuracy();
+        this.wp = calculateWP();
 
         this.scoreId = scoreId;
     }
@@ -71,6 +74,7 @@ public class Score {
         this.pass = Boolean.parseBoolean(splitString[14]);
 
         this.accuracy = calculateAccuracy();
+        this.wp = calculateWP();
     }
 
     public Score(ResultSet rs) {
@@ -94,6 +98,7 @@ public class Score {
             this.pass = Boolean.parseBoolean(rs.getString(16));
 
             this.accuracy = calculateAccuracy();
+            this.wp = calculateWP();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,6 +115,30 @@ public class Score {
         double roundOff = Math.round((double) (acc * 100.0)) / 100.0;
 
         return roundOff;
+    }
+
+    public double calculateWP() {
+        double wp = 0;
+
+        wp = (double) this.hit300Count * (double) 0.5;
+        wp = (double) wp + (double) this.hit100Count * (double) 8.0;
+        wp = (double) wp - (double) this.hit50Count * (double) 8.0;
+        wp = (double) wp - (double) this.hitKatuCount * (double) 8.0;
+        wp = (double) wp - (double) this.hitMissCount * (double) 10.0;
+
+        if (this.maxCombo > 250) {
+            wp = (double) wp * (double) 0.75;
+        }
+
+        if (this.maxCombo > 500) {
+            wp = (double) wp * (double) 0.8;
+        }
+
+        if (this.maxCombo > 750) {
+            wp = (double) wp * (double) 0.6;
+        }
+
+        return Math.floor((double) wp * (double) 100.0) / (double) 100.0;
     }
 
     public String asSubmitString() {
