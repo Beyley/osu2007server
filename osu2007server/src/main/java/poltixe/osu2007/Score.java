@@ -21,6 +21,7 @@ public class Score {
     public int mods;
     public boolean pass;
     public int scoreId;
+    public double accuracy;
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
@@ -44,6 +45,8 @@ public class Score {
         this.mods = Integer.parseInt(splitString[13]);
         this.pass = Boolean.parseBoolean(splitString[14]);
 
+        this.accuracy = calculateAccuracy();
+
         this.scoreId = scoreId;
     }
 
@@ -66,6 +69,8 @@ public class Score {
         this.grade = splitString[12].charAt(0);
         this.mods = Integer.parseInt(splitString[13]);
         this.pass = Boolean.parseBoolean(splitString[14]);
+
+        this.accuracy = calculateAccuracy();
     }
 
     public Score(ResultSet rs) {
@@ -87,9 +92,24 @@ public class Score {
             this.grade = rs.getString(14).charAt(0);
             this.mods = rs.getInt(15);
             this.pass = Boolean.parseBoolean(rs.getString(16));
+
+            this.accuracy = calculateAccuracy();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public double calculateAccuracy() {
+        double acc = ((double) (300 * (double) this.hit300Count) + (double) (100 * (double) this.hit100Count)
+                + (double) (50 * (double) this.hit50Count))
+                / (double) (double) (300
+                        * (double) (this.hit300Count + this.hit100Count + this.hit50Count + this.hitMissCount));
+
+        acc *= 100.0;
+
+        double roundOff = Math.round((double) (acc * 100.0)) / 100.0;
+
+        return roundOff;
     }
 
     public String asSubmitString() {

@@ -231,19 +231,24 @@ public class Handlers {
             }
         }
 
+        thisPlayer.calculateOverallAccuracy();
+
         content += "<link rel=\"stylesheet\" href=\"/web/userpage.css\">";
 
         Html.Image rankedMap = new Html.Image("/web/selection-ranked.png");
         Html.Image avatar = new Html.Image("/web/testavatar.png");
 
+        avatar.style = "text-align: center; vertical-align: middle;";
+
         content += "<table class=\"center\"><tr><td>" + avatar.getAsHtml() + "</td>\n";
 
-        content += "<td>"
+        content += "<td style=\"vertical-align: middle;\">"
                 + Html.header1(thisPlayer.displayUsername + Html.bold(" (#" + thisPlayer.globalRank + ")\n", ""), "");
-        content += Html.header2("Ranked Score : " + thisPlayer.rankedScore, "") + "</td></table>";
+        content += Html.header2("Ranked Score : " + thisPlayer.rankedScore, "")
+                + Html.header3("Overall Accuracy: " + thisPlayer.accuracy, "") + "</td></table>";
 
         content += Html.header2(Html.bold("<br>Top plays<br>", "clear: both;"), "");
-        content += "<table border=\"1\" class=\"center\"><tr> <th>Status</th> <th>Song</th> <th>Score</th> <th>Grade</th> </tr>";
+        content += "<table border=\"1\" class=\"center\"><tr> <th>Status</th> <th>Song</th> <th>Score</th> <th>Accuracy</th> <th>Grade</th> </tr>";
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 
@@ -262,12 +267,13 @@ public class Handlers {
 
             if (thisMap == null) {
                 content += "<tr> <td></td> <td>" + score.mapHash + "</td> <td>" + score.score + "</td> <td>"
-                        + score.grade + "</td> </tr>";
+                        + score.accuracy + "</td> <td>" + score.grade + "</td> </tr>";
                 // content += score.mapHash + " : " + score.score + " : " + score.grade;
             } else {
                 content += "<tr> <td style=\"text-align: center;\">" + rankedMap.getAsHtml() + "</td> <td>"
                         + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") [" + thisMap.diffName
-                        + "]" + "</td> <td>" + score.score + "</td> <td>" + score.grade + "</td> </tr>";
+                        + "]" + "</td> <td>" + score.score + "</td> <td>" + score.accuracy + "</td> <td>" + score.grade
+                        + "</td> </tr>";
                 // content += rankedMap.getAsHtml() + thisMap.artist + " - " + thisMap.songName
                 // + " (" + thisMap.creator
                 // + ") [" + thisMap.diffName + "] : " + score.score + " : " + score.grade;
@@ -408,8 +414,11 @@ public class Handlers {
             Player player = allPlayers.get(i);
             // Adds the player info to the string to be sent to the client
             // <p class="lead">ranking go brrrrrrrr</p>
+            player.calculateOverallAccuracy();
+
             content += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername + ", Total Ranked Score : "
-                    + player.rankedScore + ", " + player.amountOfNumberOnes + " #1's</p>";
+                    + player.rankedScore + ", Accuracy : " + player.accuracy + ", " + player.amountOfNumberOnes
+                    + " #1's</p>";
         }
 
         // Returns the string to the client

@@ -5,6 +5,7 @@ import java.util.*;
 public class Html {
     private static String header1Tag = "h1";
     private static String header2Tag = "h2";
+    private static String header3Tag = "h3";
     private static String boldTag = "b";
 
     public static String header1(String content, String style) {
@@ -31,6 +32,20 @@ public class Html {
         }
 
         returnString += content + "</" + header2Tag + ">";
+
+        return returnString;
+    }
+
+    public static String header3(String content, String style) {
+        String returnString = "";
+
+        if (style == "") {
+            returnString += "<" + header3Tag + ">";
+        } else {
+            returnString += "<" + header3Tag + " style=\"" + style + "\">";
+        }
+
+        returnString += content + "</" + header3Tag + ">";
 
         return returnString;
     }

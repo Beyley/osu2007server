@@ -1,5 +1,7 @@
 package poltixe.osu2007;
 
+import java.util.*;
+
 public class Player {
     public int userId;
     public String username;
@@ -9,6 +11,7 @@ public class Player {
     public String userPassword;
     public boolean userExists;
     public int globalRank;
+    public double accuracy;
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
@@ -18,6 +21,22 @@ public class Player {
         this.displayUsername = "<a href=\"/web/u?id=" + this.userId + "\">" + this.username + "</a>";
         this.rankedScore = sqlHandler.getRankedScoreOfUser(this.userId);
         this.amountOfNumberOnes = 0;
+    }
+
+    public void calculateOverallAccuracy() {
+        List<Score> allScores = sqlHandler.getAllScoresOfUser(userId);
+
+        double sum = 0;
+
+        for (Score score : allScores) {
+            sum += score.accuracy;
+        }
+
+        // sum *= 100.0;
+
+        double roundOff = Math.round((double) ((double) sum / (double) allScores.size()) * 100.0) / 100.0;
+
+        this.accuracy = roundOff;
     }
 
     Player(int userId, String userPassword, boolean userExists) {
