@@ -7,6 +7,7 @@ public class Player {
     public String username;
     public String displayUsername;
     public int rankedScore;
+    public int totalScore;
     public int amountOfNumberOnes;
     public String userPassword;
     public boolean userExists;
@@ -21,6 +22,7 @@ public class Player {
         this.username = sqlHandler.getUsername(this.userId);
         this.displayUsername = "<a href=\"/web/u?id=" + this.userId + "\">" + this.username + "</a>";
         this.rankedScore = sqlHandler.getRankedScoreOfUser(this.userId);
+        this.totalScore = sqlHandler.getTotalScoreOfUser(this.userId);
         this.amountOfNumberOnes = 0;
     }
 
@@ -61,7 +63,6 @@ public class Player {
         List<BeatMap> rankedMaps = sqlHandler.getAllRankedMaps();
 
         int n = 1;
-        int rankedScoreSize = 0;
 
         for (Score score : allScores) {
             boolean ranked = false;
@@ -78,7 +79,6 @@ public class Player {
                 wp += (double) score.wp * (double) Math.pow((double) 0.95, (double) n);
                 // System.out.println(wp);
                 n++;
-                rankedScoreSize++;
             }
         }
 
@@ -94,5 +94,6 @@ public class Player {
         this.userPassword = userPassword;
         this.userExists = userExists;
         this.rankedScore = sqlHandler.getRankedScoreOfUser(this.userId);
+        this.totalScore = sqlHandler.getTotalScoreOfUser(this.userId);
     }
 }
