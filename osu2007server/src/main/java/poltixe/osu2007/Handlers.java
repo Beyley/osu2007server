@@ -250,7 +250,8 @@ public class Handlers {
         content += "<td style=\"vertical-align: middle;\">"
                 + Html.header1(thisPlayer.displayUsername + Html.bold(" (#" + thisPlayer.globalRank + ")\n", ""), "");
         content += Html.header2("Ranked Score : " + thisPlayer.rankedScore, "")
-                + Html.header3("Overall Accuracy: " + thisPlayer.accuracy, "") + "</td></table>";
+                + Html.header3("Overall Accuracy: " + new DecimalFormat("#.00").format(thisPlayer.accuracy) + "%", "")
+                + "</td></table>";
 
         content += Html.header2(
                 Html.bold("<br>Experimental: Overall WP " + new DecimalFormat("#.##").format(thisPlayer.wp) + "<br>",
@@ -435,7 +436,7 @@ public class Handlers {
             if (player.rankedScore > 0) {
                 content += "<tr> <td style=\"text-align: center;\">" + ("#" + currentRank) + "</td> <td>"
                         + player.displayUsername + "</td> <td>" + player.rankedScore + "</td> <td>"
-                        + new DecimalFormat("#.##").format(player.accuracy) + "%</td> <td>" + player.amountOfNumberOnes
+                        + new DecimalFormat("#.00").format(player.accuracy) + "%</td> <td>" + player.amountOfNumberOnes
                         + "</td> </tr>";
                 // content += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername +
                 // ", Total Ranked Score : "
