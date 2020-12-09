@@ -441,6 +441,8 @@ public class Handlers {
             // + " #1's</p>";
         }
 
+        content += "</table>";
+
         // Returns the string to the client
         return createHtmlPage(content);
     }
