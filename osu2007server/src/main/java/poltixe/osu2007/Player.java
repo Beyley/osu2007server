@@ -8,6 +8,7 @@ public class Player {
     public String displayUsername;
     public int rankedScore;
     public int totalScore;
+    public int playcount;
     public int amountOfNumberOnes;
     public String userPassword;
     public boolean userExists;
@@ -23,6 +24,7 @@ public class Player {
         this.displayUsername = "<a href=\"/web/u?id=" + this.userId + "\">" + this.username + "</a>";
         this.rankedScore = sqlHandler.getRankedScoreOfUser(this.userId);
         this.totalScore = sqlHandler.getTotalScoreOfUser(this.userId);
+        this.playcount = sqlHandler.getPlaycountOfUser(this.userId);
         this.amountOfNumberOnes = 0;
     }
 
@@ -95,5 +97,6 @@ public class Player {
         this.userExists = userExists;
         this.rankedScore = sqlHandler.getRankedScoreOfUser(this.userId);
         this.totalScore = sqlHandler.getTotalScoreOfUser(this.userId);
+        this.playcount = sqlHandler.getPlaycountOfUser(this.userId);
     }
 }

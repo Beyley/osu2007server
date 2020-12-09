@@ -3,6 +3,7 @@ package poltixe.osu2007;
 import java.io.*;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -422,7 +423,7 @@ public class Handlers {
         Collections.sort(allPlayers, new ScoreSorter());
 
         content += "<link rel=\"stylesheet\" href=\"/web/userpage.css\">";
-        content += "<table border=\"1\" class=\"center\"><tr> <th>Rank</th> <th>Username</th> <th>Ranked Score</th> <th>Accuracy</th> <th>#1 Count</th> </tr>";
+        content += "<table border=\"1\" class=\"center\"><tr> <th>Rank</th> <th>Username</th> <th>Ranked Score</th> <th>Playcount</th> <th>Accuracy</th> <th>#1 Count</th> </tr>";
 
         int currentRank = 1;
 
@@ -435,9 +436,9 @@ public class Handlers {
 
             if (player.rankedScore > 0) {
                 content += "<tr> <td style=\"text-align: center;\">" + ("#" + currentRank) + "</td> <td>"
-                        + player.displayUsername + "</td> <td>" + player.rankedScore + "</td> <td>"
-                        + new DecimalFormat("#.00").format(player.accuracy) + "%</td> <td>" + player.amountOfNumberOnes
-                        + "</td> </tr>";
+                        + player.displayUsername + "</td> <td>" + player.rankedScore + "</td> <td>" + player.playcount
+                        + "</td> <td>" + new DecimalFormat("#.00").format(player.accuracy) + "%</td> <td>"
+                        + player.amountOfNumberOnes + "</td> </tr>";
                 // content += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername +
                 // ", Total Ranked Score : "
                 // + player.rankedScore + ", Accuracy : " + player.accuracy + ", " +
@@ -489,7 +490,13 @@ public class Handlers {
 
         byte[] replayData = FileHandler.parseBody(rawBodyBytes);
 
-        Score scoreToSubmit = new Score(scoreDetails);
+        Score scoreToSubmit = null;
+
+        try {
+            scoreToSubmit = new Score(scoreDetails);
+        } catch (ParseException ex) {
+            return "Parse exception";
+        }
 
         List<Score> mapScores = sqlHandler.getMapLeaderboard(scoreToSubmit.mapHash);
 
@@ -517,6 +524,8 @@ public class Handlers {
                     sqlHandler.updateScore(oldTopId, scoreToSubmit, replayData);
                 }
             }
+
+            sqlHandler.addToPlaycount(scoreToSubmit.userId);
         }
 
         return "";

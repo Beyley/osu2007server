@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.List;
 
 import com.mysql.cj.jdbc.DatabaseMetaData;
@@ -156,6 +157,7 @@ public class MySqlHandler {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+
         if (!scoreListExist) {
             query = "CREATE TABLE `osu2007`.`score_list` ( `id` INT NOT NULL AUTO_INCREMENT, `maphash` VARCHAR(100) NOT NULL, `userid` INT NOT NULL, `replayhash` VARCHAR(100) NOT NULL, `hit300` INT NOT NULL, `hit100` INT NOT NULL, `hit50` INT NOT NULL, `hitgeki` INT NOT NULL, `hitkatu` INT NOT NULL, `hitmiss` INT NOT NULL, `score` INT NOT NULL, `maxcombo` INT NOT NULL, `perfect` VARCHAR(5) NOT NULL, `grade` VARCHAR(1) NOT NULL, `mods` INT NOT NULL, `pass` VARCHAR(5) NOT NULL, PRIMARY KEY (`id`));";
 
@@ -211,7 +213,7 @@ public class MySqlHandler {
 
                     scores.add(currentScore);
                 }
-            } catch (SQLException ex) {
+            } catch (SQLException | ParseException ex) {
                 System.out.println(ex.getMessage());
             }
 
@@ -261,6 +263,33 @@ public class MySqlHandler {
 
         if (!usersExist) {
             query = "CREATE TABLE `osu2007`.`osu_users` (`id` INT NOT NULL AUTO_INCREMENT, `username` VARCHAR(50) NULL, `password` VARCHAR(500) NULL, PRIMARY KEY (`id`));";
+
+            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                    Statement st = (Statement) con.createStatement()) {
+
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+        boolean playcountColumnExist = false;
+
+        query = "SHOW COLUMNS FROM `osu_users` LIKE 'playcount';";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement();
+                ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                playcountColumnExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        if (!playcountColumnExist) {
+            query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `playcount` INT NULL DEFAULT 0 AFTER `password`;";
 
             try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
                     Statement st = (Statement) con.createStatement()) {
@@ -326,7 +355,7 @@ public class MySqlHandler {
                 if (rankedMapMd5s.contains(currentScore.mapHash))
                     score += currentScore.score;
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | ParseException ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -352,7 +381,7 @@ public class MySqlHandler {
 
                 score += currentScore.score;
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | ParseException ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -378,7 +407,7 @@ public class MySqlHandler {
 
                 scores.add(currentScore);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | ParseException ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -444,6 +473,23 @@ public class MySqlHandler {
         FileHandler.saveReplayToFile(newScore, replayData);
     }
 
+    public void addToPlaycount(int userId) {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        String query = "UPDATE `osu_users` SET playcount = playcount + '1' WHERE id = '" + userId + "'";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement()) {
+
+            st.execute(query);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public int getUserId(String userName) {
         int userId = -1;
 
@@ -505,6 +551,30 @@ public class MySqlHandler {
         return username;
     }
 
+    public int getPlaycountOfUser(int userId) {
+        int playcount = 0;
+
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+
+        String user = App.mySqlUser;
+        String password = App.mySqlPass;
+
+        String query = "SELECT * FROM osu_users WHERE id='" + userId + "'";
+
+        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+                Statement st = (Statement) con.createStatement();
+                ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                playcount = rs.getInt(4);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return playcount;
+    }
+
     public void addScore(Score score, byte[] replayData) {
         String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 
@@ -541,7 +611,7 @@ public class MySqlHandler {
             }
 
             // FileHandler.saveReplayToFile(score, replayData);
-        } catch (SQLException ex) {
+        } catch (SQLException | ParseException ex) {
             System.out.println(ex.getMessage());
         }
     }
@@ -565,7 +635,7 @@ public class MySqlHandler {
 
                 scores.add(currentScore);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | ParseException ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -591,7 +661,7 @@ public class MySqlHandler {
 
                 scores.add(currentScore);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | ParseException ex) {
             System.out.println(ex.getMessage());
         }
 

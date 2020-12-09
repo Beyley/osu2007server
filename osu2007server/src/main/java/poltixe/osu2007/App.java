@@ -19,7 +19,7 @@ public class App {
     // Creates a new MySqlHandler
     public static MySqlHandler sqlHandler = new MySqlHandler();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         // Gets a new properties value
         GetPropertyValues properties = new GetPropertyValues();
         // Gets the properties file

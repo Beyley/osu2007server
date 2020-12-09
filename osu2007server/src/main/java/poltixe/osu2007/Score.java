@@ -2,7 +2,7 @@ package poltixe.osu2007;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
+import java.text.ParseException;
 
 public class Score {
     public String mapHash;
@@ -33,13 +33,28 @@ public class Score {
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
-    Score(String scoreString, int scoreId) {
+    public static boolean isAlphaNumeric(String s) {
+        return s != null && s.matches("^[a-zA-Z0-9]*$");
+    }
+
+    Score(String scoreString, int scoreId) throws ParseException {
         String[] splitString = scoreString.split(":");
 
-        this.mapHash = splitString[0];
+        if (isAlphaNumeric(splitString[0])) {
+            this.mapHash = splitString[0];
+        } else {
+            throw new ParseException("Error when parsing map hash", 0);
+        }
+
         this.userId = sqlHandler.getUserId(splitString[1]);
         this.username = sqlHandler.getUsername(this.userId);
-        this.replayHash = splitString[2];
+
+        if (isAlphaNumeric(splitString[2])) {
+            this.replayHash = splitString[2];
+        } else {
+            throw new ParseException("Error when parsing replay hash", 2);
+        }
+
         this.hit300Count = Integer.parseInt(splitString[3]);
         this.hit100Count = Integer.parseInt(splitString[4]);
         this.hit50Count = Integer.parseInt(splitString[5]);
@@ -49,7 +64,13 @@ public class Score {
         this.score = Integer.parseInt(splitString[9]);
         this.maxCombo = Integer.parseInt(splitString[10]);
         this.perfectCombo = Boolean.parseBoolean(splitString[11]);
-        this.grade = splitString[12].charAt(0);
+
+        if (isAlphaNumeric(splitString[12])) {
+            this.grade = splitString[12].charAt(0);
+        } else {
+            throw new ParseException("Error when parsing map grade", 12);
+        }
+
         this.mods = Integer.parseInt(splitString[13]);
         this.pass = Boolean.parseBoolean(splitString[14]);
 
@@ -59,13 +80,24 @@ public class Score {
         this.scoreId = scoreId;
     }
 
-    Score(String scoreString) {
+    Score(String scoreString) throws ParseException {
         String[] splitString = scoreString.split(":");
 
-        this.mapHash = splitString[0];
+        if (isAlphaNumeric(splitString[0])) {
+            this.mapHash = splitString[0];
+        } else {
+            throw new ParseException("Error when parsing map hash", 0);
+        }
+
         this.userId = sqlHandler.getUserId(splitString[1]);
         this.username = sqlHandler.getUsername(this.userId);
-        this.replayHash = splitString[2];
+
+        if (isAlphaNumeric(splitString[2])) {
+            this.replayHash = splitString[2];
+        } else {
+            throw new ParseException("Error when parsing replay hash", 2);
+        }
+
         this.hit300Count = Integer.parseInt(splitString[3]);
         this.hit100Count = Integer.parseInt(splitString[4]);
         this.hit50Count = Integer.parseInt(splitString[5]);
@@ -75,7 +107,13 @@ public class Score {
         this.score = Integer.parseInt(splitString[9]);
         this.maxCombo = Integer.parseInt(splitString[10]);
         this.perfectCombo = Boolean.parseBoolean(splitString[11]);
-        this.grade = splitString[12].charAt(0);
+
+        if (isAlphaNumeric(splitString[12])) {
+            this.grade = splitString[12].charAt(0);
+        } else {
+            throw new ParseException("Error when parsing map grade", 12);
+        }
+
         this.mods = Integer.parseInt(splitString[13]);
         this.pass = Boolean.parseBoolean(splitString[14]);
 
@@ -83,13 +121,25 @@ public class Score {
         this.wp = calculateWP();
     }
 
-    public Score(ResultSet rs) {
+    public Score(ResultSet rs) throws ParseException {
         try {
             this.scoreId = rs.getInt(1);
-            this.mapHash = rs.getString(2);
+
+            if (isAlphaNumeric(rs.getString(2))) {
+                this.mapHash = rs.getString(2);
+            } else {
+                throw new ParseException("Error when parsing map hash", 0);
+            }
+
             this.userId = rs.getInt(3);
             this.username = sqlHandler.getUsername(this.userId);
-            this.replayHash = rs.getString(4);
+
+            if (isAlphaNumeric(rs.getString(4))) {
+                this.replayHash = rs.getString(4);
+            } else {
+                throw new ParseException("Error when parsing replay hash", 2);
+            }
+
             this.hit300Count = rs.getInt(5);
             this.hit100Count = rs.getInt(6);
             this.hit50Count = rs.getInt(7);
@@ -99,7 +149,13 @@ public class Score {
             this.score = rs.getInt(11);
             this.maxCombo = rs.getInt(12);
             this.perfectCombo = Boolean.parseBoolean(rs.getString(13));
-            this.grade = rs.getString(14).charAt(0);
+
+            if (isAlphaNumeric(rs.getString(14))) {
+                this.grade = rs.getString(14).charAt(0);
+            } else {
+                throw new ParseException("Error when parsing map grade", 12);
+            }
+
             this.mods = rs.getInt(15);
             this.pass = Boolean.parseBoolean(rs.getString(16));
 
