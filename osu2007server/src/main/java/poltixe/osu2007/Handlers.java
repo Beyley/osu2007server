@@ -420,6 +420,9 @@ public class Handlers {
         // Sorts the players in the correct order
         Collections.sort(allPlayers, new ScoreSorter());
 
+        content += "<link rel=\"stylesheet\" href=\"/web/userpage.css\">";
+        content += "<table border=\"1\" class=\"center\"><tr> <th>Rank</th> <th>Username</th> <th>Ranked Score</th> <th>Accuracy</th> <th>#1 Count</th> </tr>";
+
         // Iterates through all the players
         for (int i = 0; i < allPlayers.size(); i++) {
             Player player = allPlayers.get(i);
@@ -427,9 +430,15 @@ public class Handlers {
             // <p class="lead">ranking go brrrrrrrr</p>
             player.calculateOverallAccuracy();
 
-            content += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername + ", Total Ranked Score : "
-                    + player.rankedScore + ", Accuracy : " + player.accuracy + ", " + player.amountOfNumberOnes
-                    + " #1's</p>";
+            content += "<tr> <td style=\"text-align: center;\">" + ("#" + (i + 1)) + "</td> <td>"
+                    + player.displayUsername + "</td> <td>" + player.rankedScore + "</td> <td>"
+                    + new DecimalFormat("#.##").format(player.accuracy) + "</td> <td>" + player.amountOfNumberOnes
+                    + "</td> </tr>";
+            // content += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername +
+            // ", Total Ranked Score : "
+            // + player.rankedScore + ", Accuracy : " + player.accuracy + ", " +
+            // player.amountOfNumberOnes
+            // + " #1's</p>";
         }
 
         // Returns the string to the client
