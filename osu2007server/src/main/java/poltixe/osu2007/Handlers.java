@@ -423,6 +423,8 @@ public class Handlers {
         content += "<link rel=\"stylesheet\" href=\"/web/userpage.css\">";
         content += "<table border=\"1\" class=\"center\"><tr> <th>Rank</th> <th>Username</th> <th>Ranked Score</th> <th>Accuracy</th> <th>#1 Count</th> </tr>";
 
+        int currentRank = 1;
+
         // Iterates through all the players
         for (int i = 0; i < allPlayers.size(); i++) {
             Player player = allPlayers.get(i);
@@ -430,15 +432,18 @@ public class Handlers {
             // <p class="lead">ranking go brrrrrrrr</p>
             player.calculateOverallAccuracy();
 
-            content += "<tr> <td style=\"text-align: center;\">" + ("#" + (i + 1)) + "</td> <td>"
-                    + player.displayUsername + "</td> <td>" + player.rankedScore + "</td> <td>"
-                    + new DecimalFormat("#.##").format(player.accuracy) + "</td> <td>" + player.amountOfNumberOnes
-                    + "</td> </tr>";
-            // content += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername +
-            // ", Total Ranked Score : "
-            // + player.rankedScore + ", Accuracy : " + player.accuracy + ", " +
-            // player.amountOfNumberOnes
-            // + " #1's</p>";
+            if (player.rankedScore > 0) {
+                content += "<tr> <td style=\"text-align: center;\">" + ("#" + currentRank) + "</td> <td>"
+                        + player.displayUsername + "</td> <td>" + player.rankedScore + "</td> <td>"
+                        + new DecimalFormat("#.##").format(player.accuracy) + "</td> <td>" + player.amountOfNumberOnes
+                        + "</td> </tr>";
+                // content += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername +
+                // ", Total Ranked Score : "
+                // + player.rankedScore + ", Accuracy : " + player.accuracy + ", " +
+                // player.amountOfNumberOnes
+                // + " #1's</p>";
+                currentRank += 1;
+            }
         }
 
         content += "</table>";
