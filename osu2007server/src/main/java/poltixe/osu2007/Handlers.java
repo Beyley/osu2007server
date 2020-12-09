@@ -435,7 +435,7 @@ public class Handlers {
             if (player.rankedScore > 0) {
                 content += "<tr> <td style=\"text-align: center;\">" + ("#" + currentRank) + "</td> <td>"
                         + player.displayUsername + "</td> <td>" + player.rankedScore + "</td> <td>"
-                        + new DecimalFormat("#.##").format(player.accuracy) + "</td> <td>" + player.amountOfNumberOnes
+                        + new DecimalFormat("#.##").format(player.accuracy) + "%</td> <td>" + player.amountOfNumberOnes
                         + "</td> </tr>";
                 // content += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername +
                 // ", Total Ranked Score : "

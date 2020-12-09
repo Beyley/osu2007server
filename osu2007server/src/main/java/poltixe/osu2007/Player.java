@@ -48,11 +48,7 @@ public class Player {
             }
         }
 
-        // sum *= 100.0;
-
-        double roundOff = Math.round((double) ((double) sum / (double) rankedScoreSize) * 100.0) / 100.0;
-
-        this.accuracy = roundOff;
+        this.accuracy = (double) sum / (double) rankedScoreSize;
     }
 
     public void calculateOverallWP() {
