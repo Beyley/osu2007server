@@ -857,11 +857,11 @@ var cxform = function (r_add, g_add, b_add, a_add, r_mult, g_mult, b_mult, a_mul
         if (this.isEmpty()) {
             return fimg
         }
-        ;
-        var icanvas = createCanvas(fimg.width, fimg.height);
+
+        var icanvas = createCanvas(180, 174);
         var ictx = icanvas.getContext("2d");
         ictx.drawImage(fimg, 0, 0);
-        var imdata = ictx.getImageData(0, 0, icanvas.width, icanvas.height);
+        var imdata = ictx.getImageData(0, 0, 180, 174);
         var idata = imdata.data;
         for (var i = 0; i < idata.length; i += 4) {
             var c = this.apply([idata[i], idata[i + 1], idata[i + 2], idata[i + 3] / 255]);
