@@ -54,7 +54,6 @@ public class MySqlHandler {
     }
 
     public void addRankedMapsToTable(List<BeatMap> rankedMaps) {
-
         String query = "CREATE TABLE `osu2007`.`ranked_maps` ( `id` INT NOT NULL AUTO_INCREMENT, `md5` VARCHAR(100) NULL, `artist` VARCHAR(250) NULL, `songname` VARCHAR(250) NULL, `diffname` VARCHAR(250) NULL, `creator` VARCHAR(250) NULL, PRIMARY KEY (`id`));";
 
         try (Statement st = (Statement) con.createStatement()) {
@@ -74,9 +73,15 @@ public class MySqlHandler {
             query = "INSERT INTO `osu2007`.`ranked_maps` (`md5`, `artist`, `songname`, `diffname`, `creator`) VALUES (?, ?, ?, ?, ?);";
 
             try {
-                Statement st = (Statement) con.createStatement();
+                PreparedStatement stmt = con.prepareStatement(query);
 
-                st.execute(query);
+                stmt.setString(1, map.md5);
+                stmt.setString(2, map.artist);
+                stmt.setString(3, map.songName);
+                stmt.setString(4, map.diffName);
+                stmt.setString(5, map.creator);
+
+                stmt.execute();
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -87,8 +92,7 @@ public class MySqlHandler {
 
         boolean rankedTableExist = false;
 
-        try (Statement st = (Statement) con.createStatement()) {
-
+        try {
             DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
             ResultSet rs1 = md.getTables(null, null, "ranked_maps", null);
@@ -100,12 +104,10 @@ public class MySqlHandler {
             System.out.println(ex.getMessage());
         }
 
-        // DROP TABLE `osu2007`.`ranked_maps`
         if (rankedTableExist) {
             String query = "DROP TABLE `osu2007`.`ranked_maps`";
 
             try (Statement st = (Statement) con.createStatement()) {
-
                 st.execute(query);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
@@ -114,13 +116,11 @@ public class MySqlHandler {
     }
 
     public void checkForTables() {
-
         String query = "";
 
         boolean scoreListExist = false;
 
-        try (Statement st = (Statement) con.createStatement()) {
-
+        try {
             DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
             ResultSet rs1 = md.getTables(null, null, "score_list", null);
@@ -145,7 +145,7 @@ public class MySqlHandler {
 
         boolean oldScoreListExist = false;
 
-        try (Statement st = (Statement) con.createStatement()) {
+        try {
 
             DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
@@ -162,7 +162,7 @@ public class MySqlHandler {
             // CONVERT DATABASE TO NEW FORMAT
 
             // Rename users table
-            query = "ALTER TABLE `osu2007`.`users` RENAME TO  `osu2007`.`osu_users`;";
+            query = "ALTER TABLE `osu2007`.`users` RENAME TO `osu2007`.`osu_users`;";
 
             try (Statement st = (Statement) con.createStatement()) {
 
@@ -206,11 +206,11 @@ public class MySqlHandler {
                     stmt.setInt(11, score.score);
                     stmt.setInt(12, score.maxCombo);
                     stmt.setBoolean(13, score.perfectCombo);
-                    stmt.setInt(14, score.grade);
+                    stmt.setString(14, Character.toString(score.grade));
                     stmt.setInt(15, score.mods);
                     stmt.setBoolean(16, score.pass);
 
-                    stmt.execute(query);
+                    stmt.execute();
 
                     stmt.close();
                 } catch (SQLException ex) {
@@ -230,8 +230,7 @@ public class MySqlHandler {
 
         boolean usersExist = false;
 
-        try (Statement st = (Statement) con.createStatement()) {
-
+        try {
             DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
             ResultSet rs1 = md.getTables(null, null, "osu_users", null);
@@ -247,7 +246,6 @@ public class MySqlHandler {
             query = "CREATE TABLE `osu2007`.`osu_users` (`id` INT NOT NULL AUTO_INCREMENT, `username` VARCHAR(50) NULL, `password` VARCHAR(500) NULL, PRIMARY KEY (`id`));";
 
             try (Statement st = (Statement) con.createStatement()) {
-
                 st.execute(query);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
@@ -271,7 +269,6 @@ public class MySqlHandler {
             query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `playcount` INT NULL DEFAULT 0 AFTER `password`;";
 
             try (Statement st = (Statement) con.createStatement()) {
-
                 st.execute(query);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
@@ -286,7 +283,6 @@ public class MySqlHandler {
         String query = "SELECT * FROM ranked_maps";
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-
             while (rs.next()) {
                 BeatMap currentMap = new BeatMap(rs);
 
@@ -310,9 +306,14 @@ public class MySqlHandler {
             rankedMapMd5s.add(map.md5);
         }
 
-        String query = "SELECT * FROM score_list WHERE userid = '" + userId + "'";
+        String query = "SELECT * FROM score_list WHERE `userid`=?";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
@@ -330,9 +331,14 @@ public class MySqlHandler {
     public int getTotalScoreOfUser(int userId) {
         int score = 0;
 
-        String query = "SELECT * FROM score_list WHERE userid = '" + userId + "'";
+        String query = "SELECT * FROM score_list WHERE `userid`=?";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
@@ -349,9 +355,14 @@ public class MySqlHandler {
     public List<Score> getAllScoresOfUser(int userId) {
         List<Score> scores = new ArrayList<Score>();
 
-        String query = "SELECT * FROM score_list WHERE userid = '" + userId + "'";
+        String query = "SELECT * FROM score_list WHERE userid = ?";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
@@ -367,12 +378,15 @@ public class MySqlHandler {
 
     public void addUser(String newUsersName, String newUsersPassword) {
 
-        String query = "INSERT INTO osu_users(username, password) VALUES('" + newUsersName + "', '" + newUsersPassword
-                + "');";
+        String query = "INSERT INTO osu_users(username, password) VALUES(?, ?);";
 
-        try (Statement st = (Statement) con.createStatement()) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
 
-            st.execute(query);
+            stmt.setString(1, newUsersName);
+            stmt.setString(2, newUsersPassword);
+
+            stmt.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -380,11 +394,14 @@ public class MySqlHandler {
 
     public void removeScore(Score score) {
 
-        String query = "DELETE FROM score_list WHERE id='" + score.scoreId + "';";
+        String query = "DELETE FROM score_list WHERE id=?;";
 
-        try (Statement st = (Statement) con.createStatement()) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
 
-            st.execute(query);
+            stmt.setInt(1, score.scoreId);
+
+            stmt.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -392,16 +409,39 @@ public class MySqlHandler {
 
     public void updateScore(int oldId, Score newScore, byte[] replayData) {
 
-        String query = "UPDATE score_list SET replayhash='" + newScore.replayHash + "', hit300='" + newScore.hit300Count
-                + "', hit100='" + newScore.hit100Count + "', hit50='" + newScore.hit50Count + "', hitgeki='"
-                + newScore.hitGekiCount + "', hitkatu='" + newScore.hitKatuCount + "', hitmiss='"
-                + newScore.hitMissCount + "', score='" + newScore.score + "', maxcombo='" + newScore.maxCombo
-                + "', perfect='" + newScore.perfectCombo + "', grade='" + newScore.grade + "', mods='" + newScore.mods
-                + "', pass='" + newScore.mods + "' WHERE id='" + newScore.scoreId + "';";
+        // String query = "UPDATE score_list SET replayhash='" + newScore.replayHash +
+        // "', hit300='" + newScore.hit300Count
+        // + "', hit100='" + newScore.hit100Count + "', hit50='" + newScore.hit50Count +
+        // "', hitgeki='"
+        // + newScore.hitGekiCount + "', hitkatu='" + newScore.hitKatuCount + "',
+        // hitmiss='"
+        // + newScore.hitMissCount + "', score='" + newScore.score + "', maxcombo='" +
+        // newScore.maxCombo
+        // + "', perfect='" + newScore.perfectCombo + "', grade='" + newScore.grade +
+        // "', mods='" + newScore.mods
+        // + "', pass='" + newScore.mods + "' WHERE id='" + newScore.scoreId + "';";
 
-        try (Statement st = (Statement) con.createStatement()) {
+        String query = "UPDATE score_list SET replayhash=?, hit300=?, hit100=?, hit50=?, hitgeki=?, hitkatu=?, hitmiss=?, score=?, maxcombo=?, perfect=?, grade=?, mods=?, pass=? WHERE id=?;";
 
-            st.execute(query);
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, newScore.replayHash);
+            stmt.setInt(2, newScore.hit300Count);
+            stmt.setInt(3, newScore.hit100Count);
+            stmt.setInt(4, newScore.hit50Count);
+            stmt.setInt(5, newScore.hitGekiCount);
+            stmt.setInt(6, newScore.hitKatuCount);
+            stmt.setInt(7, newScore.hitMissCount);
+            stmt.setInt(8, newScore.score);
+            stmt.setInt(9, newScore.maxCombo);
+            stmt.setBoolean(10, newScore.perfectCombo);
+            stmt.setString(11, Character.toString(newScore.grade));
+            stmt.setInt(12, newScore.mods);
+            stmt.setBoolean(13, newScore.pass);
+            stmt.setInt(14, oldId);
+
+            stmt.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -411,11 +451,14 @@ public class MySqlHandler {
 
     public void addToPlaycount(int userId) {
 
-        String query = "UPDATE `osu_users` SET playcount = playcount + '1' WHERE id = '" + userId + "'";
+        String query = "UPDATE `osu_users` SET playcount = playcount + '1' WHERE id = ?";
 
-        try (Statement st = (Statement) con.createStatement()) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
 
-            st.execute(query);
+            stmt.setInt(1, userId);
+
+            stmt.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -471,9 +514,14 @@ public class MySqlHandler {
     public int getPlaycountOfUser(int userId) {
         int playcount = 0;
 
-        String query = "SELECT * FROM osu_users WHERE id='" + userId + "'";
+        String query = "SELECT * FROM osu_users WHERE id=?";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 playcount = rs.getInt(4);
@@ -486,16 +534,42 @@ public class MySqlHandler {
     }
 
     public void addScore(Score score, byte[] replayData) {
-        String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass) VALUES('"
-                + score.mapHash + "', '" + score.userId + "', '" + score.replayHash + "', '" + score.hit300Count
-                + "', '" + score.hit100Count + "', '" + score.hit50Count + "', '" + score.hitGekiCount + "', '"
-                + score.hitKatuCount + "', '" + score.hitMissCount + "', '" + score.score + "', '" + score.maxCombo
-                + "', '" + score.perfectCombo + "', '" + score.grade + "', '" + score.mods + "', '" + score.pass
-                + "');";
+        // String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300,
+        // hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade,
+        // mods, pass) VALUES('"
+        // + score.mapHash + "', '" + score.userId + "', '" + score.replayHash + "', '"
+        // + score.hit300Count
+        // + "', '" + score.hit100Count + "', '" + score.hit50Count + "', '" +
+        // score.hitGekiCount + "', '"
+        // + score.hitKatuCount + "', '" + score.hitMissCount + "', '" + score.score +
+        // "', '" + score.maxCombo
+        // + "', '" + score.perfectCombo + "', '" + score.grade + "', '" + score.mods +
+        // "', '" + score.pass
+        // + "');";
 
-        try (Statement st = (Statement) con.createStatement()) {
+        String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass)"
+                + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-            st.execute(query);
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, score.mapHash);
+            stmt.setInt(2, score.userId);
+            stmt.setString(3, score.replayHash);
+            stmt.setInt(4, score.hit300Count);
+            stmt.setInt(5, score.hit100Count);
+            stmt.setInt(6, score.hit50Count);
+            stmt.setInt(7, score.hitGekiCount);
+            stmt.setInt(8, score.hitKatuCount);
+            stmt.setInt(9, score.hitMissCount);
+            stmt.setInt(10, score.score);
+            stmt.setInt(11, score.maxCombo);
+            stmt.setBoolean(12, score.perfectCombo);
+            stmt.setString(13, Character.toString(score.grade));
+            stmt.setInt(14, score.mods);
+            stmt.setBoolean(15, score.pass);
+
+            stmt.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -520,11 +594,16 @@ public class MySqlHandler {
 
     public List<Score> getMapLeaderboard(String mapHash) {
 
-        String query = "SELECT * FROM score_list WHERE maphash = '" + mapHash + "'";
+        String query = "SELECT * FROM score_list WHERE maphash = ?";
 
         List<Score> scores = new ArrayList<Score>();
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, mapHash);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
@@ -599,11 +678,15 @@ public class MySqlHandler {
     }
 
     public void changeUsername(int userId, String newUsername) {
-        String query = "UPDATE `osu2007`.`osu_users` SET username='" + newUsername + "' WHERE id='" + userId + "'";
+        String query = "UPDATE `osu2007`.`osu_users` SET username=? WHERE id=?";
 
-        try (Statement st = (Statement) con.createStatement()) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
 
-            st.execute(query);
+            stmt.setString(1, newUsername);
+            stmt.setInt(2, userId);
+
+            stmt.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
