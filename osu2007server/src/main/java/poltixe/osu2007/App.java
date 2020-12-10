@@ -2,7 +2,6 @@ package poltixe.osu2007;
 
 import static spark.Spark.*;
 
-import java.io.*;
 import java.util.*;
 
 public class App {
@@ -41,17 +40,22 @@ public class App {
 
         // Sets the webserver port
         port(Integer.parseInt(httpPort));
-        // Registers the requests
-        get("/web/osu-login.php", (req, res) -> Handlers.login(req));
-        get("/web/osu-getscores.php", (req, res) -> Handlers.getScores(req));
-        post("/web/osu-submit.php", (req, res) -> Handlers.submit(req));
-        get("/web/osu-getreplay.php", (req, res) -> Handlers.getReplay(req));
-        // get("/", (req, res) -> Handlers.getTopPlayers(req));
-        get("/web/top", (req, res) -> Handlers.getTopPlayers(req));
-        get("/web/top/", (req, res) -> Handlers.getTopPlayers(req));
-        get("/web/u", (req, res) -> Handlers.getUserPage(req));
-        get("/web/u/", (req, res) -> Handlers.getUserPage(req));
-        get("/web/namechange", (req, res) -> Handlers.getNameChangePage(req));
-        get("/web/namechange/", (req, res) -> Handlers.getNameChangePage(req));
+
+        // Registers the user site requests
+        get("/web/", (req, res) -> WebHandlers.newsPage(req));
+        get("/web/about", (req, res) -> WebHandlers.aboutPage(req));
+        get("/web/changelog", (req, res) -> WebHandlers.changelogPage(req));
+        get("/web/download", (req, res) -> WebHandlers.downloadPage(req));
+        get("/web/faq", (req, res) -> WebHandlers.faqPage(req));
+        get("/web/maplisting", (req, res) -> WebHandlers.maplistingPage(req));
+        get("/web/top", (req, res) -> WebHandlers.getTopPlayers(req));
+        get("/web/u", (req, res) -> WebHandlers.getUserPage(req));
+        get("/web/namechange", (req, res) -> WebHandlers.getNameChangePage(req));
+
+        // Regsiters the game requests
+        get("/web/osu-login.php", (req, res) -> WebHandlers.login(req));
+        get("/web/osu-getscores.php", (req, res) -> WebHandlers.getScores(req));
+        post("/web/osu-submit.php", (req, res) -> WebHandlers.submit(req));
+        get("/web/osu-getreplay.php", (req, res) -> WebHandlers.getReplay(req));
     }
 }

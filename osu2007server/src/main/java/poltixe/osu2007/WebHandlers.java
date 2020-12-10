@@ -10,7 +10,7 @@ import java.util.List;
 
 import spark.Request;
 
-public class Handlers {
+public class WebHandlers {
     // Gets a new instance of the MySQL handler
     public static MySqlHandler sqlHandler = new MySqlHandler();
 
@@ -61,10 +61,10 @@ public class Handlers {
         return returnString.toString();
     }
 
-    public static String getJSFooter() {
+    public static String getFooter() {
         String returnString = "";
 
-        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/js.html");
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/footer.html");
 
         try {
             returnString = new String(is.readAllBytes());
@@ -78,18 +78,85 @@ public class Handlers {
         StringBuilder returnString = new StringBuilder();
 
         returnString.append(getStandardHeader() + "\n");
-        returnString.append("<body>" + getNavbar() + "\n");
-
-        returnString.append("<div class=\"container\"> <div class=\"starter-template\">\n");
 
         returnString.append(content);
 
-        returnString.append("</div>\n</div>\n");
-        returnString.append(getJSFooter());
-
-        returnString.append("</body>");
+        returnString.append(getFooter());
 
         return returnString.toString();
+    }
+
+    public static String newsPage(Request req) {
+        String content = "<div id=\"article\"> <span class=\"subject\">osu! cum zone<br></span> <span class=\"byline\"><img height=\"32\" width=\"32\" src=\"./testavatar.png\" alt=\"\"> <a href=\"/web/u?id=2\">PoltixeTheDerg</a><br>uwu time.<br><br></span>  <span class=\"message\">only cum in anime girls</span> <span class=\"links\"></span>";
+
+        return createHtmlPage(content);
+    }
+
+    public static String aboutPage(Request req) {
+        String content = "";
+
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/aboutpagecontent.html");
+
+        try {
+            content = new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        return createHtmlPage(content);
+    }
+
+    public static String changelogPage(Request req) {
+        String content = "";
+
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/changelogpagecontent.html");
+
+        try {
+            content = new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        return createHtmlPage(content);
+    }
+
+    public static String downloadPage(Request req) {
+        String content = "";
+
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/downloadpagecontent.html");
+
+        try {
+            content = new String(is.readAllBytes());
+
+            content = content.replace("%SERVERIP%", req.host());
+        } catch (IOException e) {
+        }
+
+        return createHtmlPage(content);
+    }
+
+    public static String faqPage(Request req) {
+        String content = "";
+
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/faqpagecontent.html");
+
+        try {
+            content = new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        return createHtmlPage(content);
+    }
+
+    public static String maplistingPage(Request req) {
+        String content = "";
+
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/maplistingpagecontent.html");
+
+        try {
+            content = new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        return createHtmlPage(content);
     }
 
     public static String getNameChangePage(Request req) {
@@ -340,6 +407,12 @@ public class Handlers {
         // to be added on to
         String content = "<h1>Global Rankings</h1>";
 
+        int page = 1;
+
+        if (req.queryParams("page") != null) {
+            page = Integer.parseInt(req.queryParams("page"));
+        }
+
         // Creates a list of all scores submitted
         List<Score> allScores = sqlHandler.getAllScores();
 
@@ -422,8 +495,23 @@ public class Handlers {
         // Sorts the players in the correct order
         Collections.sort(allPlayers, new ScoreSorter());
 
-        content += "<link rel=\"stylesheet\" href=\"/web/userpage.css\">";
-        content += "<table border=\"1\" class=\"center\"><tr> <th>Rank</th> <th>Username</th> <th>Ranked Score</th> <th>Playcount</th> <th>Accuracy</th> <th>#1 Count</th> </tr>";
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/rankingsstart.html");
+
+        try {
+            content = new String(is.readAllBytes());
+
+            content = content.replace("%CURRENTPAGEMIN%", String.valueOf(((page - 1) * 50) + 1));
+
+            if ((page + 1) * 50 < allPlayers.size()) {
+                content = content.replace("%CURRENTPAGEMAX%", String.valueOf(allPlayers.size()));
+            } else {
+                content = content.replace("%CURRENTPAGEMAX%", String.valueOf((page) * 50));
+            }
+
+            content = content.replace("%RANKEDPLAYERCOUNT%", String.valueOf(allPlayers.size()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         int currentRank = 1;
 
@@ -435,20 +523,34 @@ public class Handlers {
             player.calculateOverallAccuracy();
 
             if (player.rankedScore > 0) {
-                content += "<tr> <td style=\"text-align: center;\">" + ("#" + currentRank) + "</td> <td>"
-                        + player.displayUsername + "</td> <td>" + player.rankedScore + "</td> <td>" + player.playcount
-                        + "</td> <td>" + new DecimalFormat("#.00").format(player.accuracy) + "%</td> <td>"
-                        + player.amountOfNumberOnes + "</td> </tr>";
-                // content += "<p class\"lead\"> #" + (i + 1) + " : " + player.displayUsername +
-                // ", Total Ranked Score : "
-                // + player.rankedScore + ", Accuracy : " + player.accuracy + ", " +
-                // player.amountOfNumberOnes
-                // + " #1's</p>";
+                DecimalFormat scoreFormat = new DecimalFormat("#");
+                scoreFormat.setGroupingUsed(true);
+                scoreFormat.setGroupingSize(3);
+
+                if ((currentRank | 1) > currentRank) {
+                    content += "<tr padding=\"0\">" + "<td><b>#" + currentRank + "</b></td>"
+                            + "<td><a href=\"/web/u?id=" + player.userId + "\">" + player.username + "</a>" + "<a></a>"
+                            + "</td>" + "<td>" + new DecimalFormat("#.00").format(player.accuracy) + "%</td>" + "<td>"
+                            + player.playcount + "</td>" + "<td>" + scoreFormat.format(player.totalScore) + "</td>"
+                            + "<td><b>" + scoreFormat.format(player.rankedScore) + "</b></td>" + "</tr>";
+                } else {
+                    content += "<tr class=\"odd\" padding=\"0\">" + "<td><b>#" + currentRank + "</b></td>"
+                            + "<td><a href=\"/web/u?id=" + player.userId + "\">" + player.username + "</a>" + "<a></a>"
+                            + "</td>" + "<td>" + new DecimalFormat("#.00").format(player.accuracy) + "%</td>" + "<td>"
+                            + player.playcount + "</td>" + "<td>" + scoreFormat.format(player.totalScore) + "</td>"
+                            + "<td><b>" + scoreFormat.format(player.rankedScore) + "</b></td>" + "</tr>";
+                }
+
                 currentRank += 1;
             }
         }
 
-        content += "</table>";
+        is = App.class.getClassLoader().getResourceAsStream("htmltemplates/rankingsend.html");
+
+        try {
+            content += new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
 
         // Returns the string to the client
         return createHtmlPage(content);
