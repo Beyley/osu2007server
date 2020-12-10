@@ -126,7 +126,7 @@ public class WebHandlers {
         try {
             content = new String(is.readAllBytes());
 
-            content = content.replace("%SERVERIP%", req.host());
+            content = content.replace("%SERVERIP%", req.url().split("/")[2]);
         } catch (IOException e) {
         }
 
