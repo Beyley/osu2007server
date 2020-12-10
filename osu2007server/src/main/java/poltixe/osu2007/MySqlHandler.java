@@ -354,7 +354,7 @@ public class MySqlHandler {
     public List<Score> getAllScoresOfUser(int userId) {
         List<Score> scores = new ArrayList<Score>();
 
-        String query = "SELECT * FROM score_list WHERE userid = ?";
+        String query = "SELECT * FROM score_list WHERE userid = ? ORDER BY score DESC";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);

@@ -301,7 +301,6 @@ public class WebHandlers {
         }
 
         thisPlayer.calculateOverallAccuracy();
-        thisPlayer.calculateOverallWP();
 
         content += "<link rel=\"stylesheet\" href=\"/web/userpage.css\">";
 
@@ -309,28 +308,33 @@ public class WebHandlers {
         Html.Image approvedMap = new Html.Image("/web/selection-approved.png");
         Html.Image avatar = new Html.Image("/web/testavatar.png");
 
-        avatar.style = "text-align: center; vertical-align: middle;";
+        avatar.style = "text-align: left; vertical-align: middle;";
 
-        content += "<table class=\"center\"><tr><td>" + avatar.getAsHtml() + "</td>\n";
-
-        // new DecimalFormat("#.##").format(thisPlayer.wp)
+        content += "<div id=\"content\"><table><tr><td>" + avatar.getAsHtml() + "</td>\n";
 
         content += "<td style=\"vertical-align: middle;\">"
                 + Html.header1(thisPlayer.displayUsername + Html.bold(" (#" + thisPlayer.globalRank + ")\n", ""), "");
         content += Html.header2("Ranked Score : " + thisPlayer.rankedScore, "")
                 + Html.header3("Overall Accuracy: " + new DecimalFormat("#.00").format(thisPlayer.accuracy) + "%", "")
-                + "</td></table>";
+                + "</td></table></div>";
 
-        content += Html.header2(
-                Html.bold("<br>Experimental: Overall WP " + new DecimalFormat("#.##").format(thisPlayer.wp) + "<br>",
-                        "clear: both;"),
-                "");
-        content += Html.header2(Html.bold("<br>Top plays<br>", "clear: both;"), "");
-        content += "<table border=\"1\" class=\"center\"><tr> <th>Status</th> <th>Song</th> <th>Score</th> <th>WP</th> <th>Accuracy</th> <th>Grade</th> </tr>";
+        // content += "<table><tr><td>";
+        // content += "<table border=\"1\"><tr> <th>Status</th> <th>Song</th>
+        // <th>Score</th> <th>WP</th> <th>Accuracy</th> <th>Grade</th> </tr>";
+
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/userpagestart.html");
+
+        try {
+            content += new String(is.readAllBytes());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 
         List<BeatMap> rankedMaps = sqlHandler.getAllRankedMaps();
+
+        int currentRank = 1;
 
         for (Score score : scores) {
             BeatMap thisMap = null;
@@ -341,19 +345,41 @@ public class WebHandlers {
                 }
             }
 
-            if (thisMap == null) {
-                content += "<tr> <td style=\"text-align: center;\">" + approvedMap.getAsHtml() + "</td> <td>"
-                        + score.mapHash + "</td> <td>" + score.score + "</td> <td>"
-                        + new DecimalFormat("#.##").format(score.wp) + "</td> <td>" + score.accuracy + "</td> <td>"
-                        + score.grade + "</td> </tr>";
+            if ((currentRank | 1) > currentRank) {
+                if (thisMap == null) {
+                    content += "<tr padding=\"1\"> <td style=\"text-align: center;\">" + approvedMap.getAsHtml()
+                            + "</td> <td>" + score.mapHash + "</td> <td>" + score.score + "</td> <td>" + score.accuracy
+                            + "</td> <td>" + score.grade + "</td> </tr>";
+                } else {
+                    content += "<tr padding=\"1\"> <td style=\"text-align: center;\">" + rankedMap.getAsHtml()
+                            + "</td> <td>" + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") ["
+                            + thisMap.diffName + "]" + "</td> <td>" + score.score + "</td> <td>" + score.accuracy
+                            + "</td> <td>" + score.grade + "</td> </tr>";
+                }
             } else {
-                content += "<tr> <td style=\"text-align: center;\">" + rankedMap.getAsHtml() + "</td> <td>"
-                        + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") [" + thisMap.diffName
-                        + "]" + "</td> <td>" + score.score + "</td> <td>" + new DecimalFormat("#.##").format(score.wp)
-                        + "</td> <td>" + score.accuracy + "</td> <td>" + score.grade + "</td> </tr>";
+                if (thisMap == null) {
+                    content += "<tr class=\"odd\" padding=\"1\"> <td style=\"text-align: center;\">"
+                            + approvedMap.getAsHtml() + "</td> <td>" + score.mapHash + "</td> <td>" + score.score
+                            + "</td> <td>" + score.accuracy + "</td> <td>" + score.grade + "</td> </tr>";
+                } else {
+                    content += "<tr class=\"odd\" padding=\"1\"> <td style=\"text-align: center;\">"
+                            + rankedMap.getAsHtml() + "</td> <td>" + thisMap.artist + " - " + thisMap.songName + " ("
+                            + thisMap.creator + ") [" + thisMap.diffName + "]" + "</td> <td>" + score.score
+                            + "</td> <td>" + score.accuracy + "</td> <td>" + score.grade + "</td> </tr>";
+                }
             }
+
+            currentRank++;
         }
-        content += "</table>";
+
+        is = App.class.getClassLoader().getResourceAsStream("htmltemplates/userpageend.html");
+
+        try {
+            content += new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        // content += "</table></table></tr></td>";
 
         return createHtmlPage(content);
     }
@@ -535,7 +561,7 @@ public class WebHandlers {
                             + "<td><b>" + scoreFormat.format(player.rankedScore) + "</b></td>" + "</tr>";
                 }
 
-                currentRank += 1;
+                currentRank++;
             }
         }
 
