@@ -2,6 +2,7 @@ package poltixe.osu2007;
 
 import java.io.*;
 import java.security.MessageDigest;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -87,7 +88,14 @@ public class WebHandlers {
     }
 
     public static String newsPage(Request req) {
-        String content = "<div id=\"article\"> <span class=\"subject\">osu! cum zone<br></span> <span class=\"byline\"><img height=\"32\" width=\"32\" src=\"./testavatar.png\" alt=\"\"> <a href=\"/web/u?id=2\">PoltixeTheDerg</a><br>uwu time.<br><br></span>  <span class=\"message\">only cum in anime girls</span> <span class=\"links\"></span>";
+        String content = "";
+
+        for (NewsPost post : sqlHandler.getAllNewsPosts()) {
+            content += "<div id=\"article\"> <span class=\"subject\">" + post.title
+                    + "<br></span> <span class=\"byline\"><img height=\"32\" width=\"32\" src=\"./testavatar.png\" alt=\"\">"
+                    + post.creator.displayUsername + "<br>" + post.timestamp.toLocaleString()
+                    + "<br><br></span>  <span class=\"message\">" + post.content + "</span></div>";
+        }
 
         return createHtmlPage(content);
     }

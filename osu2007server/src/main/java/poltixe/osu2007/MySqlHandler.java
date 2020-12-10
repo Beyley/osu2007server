@@ -252,6 +252,38 @@ public class MySqlHandler {
             }
         }
 
+        boolean newsExist = false;
+
+        try {
+            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
+
+            ResultSet rs1 = md.getTables(null, null, "news_posts", null);
+
+            while (rs1.next()) {
+                newsExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        if (!newsExist) {
+            query = "CREATE TABLE `osu2007`.`news_posts` (`id` INT NOT NULL AUTO_INCREMENT, `creator` VARCHAR(100) NULL, `time` DATETIME NULL DEFAULT current_timestamp, `content` LONGTEXT NULL, `title` LONGTEXT NULL, PRIMARY KEY (`id`));";
+
+            try (Statement st = (Statement) con.createStatement()) {
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+            query = "INSERT INTO `osu2007`.`news_posts` (`title`, `creator`, `content`) VALUES ('Test Post', 'PoltixeTheDerg', 'This is an example post!');";
+
+            try (Statement st = (Statement) con.createStatement()) {
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
         boolean playcountColumnExist = false;
 
         query = "SHOW COLUMNS FROM `osu_users` LIKE 'playcount';";
@@ -292,6 +324,24 @@ public class MySqlHandler {
         }
 
         return maps;
+    }
+
+    public List<NewsPost> getAllNewsPosts() {
+        List<NewsPost> posts = new ArrayList<NewsPost>();
+
+        String query = "SELECT * FROM news_posts ";
+
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                NewsPost currentMap = new NewsPost(rs);
+
+                posts.add(currentMap);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return posts;
     }
 
     public int getRankedScoreOfUser(int userId) {
