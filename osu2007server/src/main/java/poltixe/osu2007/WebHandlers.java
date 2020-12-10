@@ -126,7 +126,7 @@ public class WebHandlers {
         try {
             content = new String(is.readAllBytes());
 
-            content = content.replace("%SERVERIP%", req.url().split("/")[2]);
+            content = content.replace("%SERVERIP%", "osu2007.faithy3.moe");
         } catch (IOException e) {
         }
 
