@@ -330,8 +330,6 @@ public class WebHandlers {
 
         List<Score> scores = sqlHandler.getAllScoresOfUser(userId);
 
-        scores.sort(new MapLeaderBoardSorter());
-
         List<BeatMap> rankedMaps = sqlHandler.getAllRankedMaps();
 
         for (Score score : scores) {
@@ -557,8 +555,6 @@ public class WebHandlers {
         String mapHash = req.queryParams("c");
 
         List<Score> mapScores = sqlHandler.getMapLeaderboard(mapHash);
-
-        Collections.sort(mapScores, new MapLeaderBoardSorter());
 
         for (Score score : mapScores) {
             returnString += score.asGetScoresString();

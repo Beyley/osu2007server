@@ -555,7 +555,7 @@ public class MySqlHandler {
 
     public List<Score> getMapLeaderboard(String mapHash) {
 
-        String query = "SELECT * FROM score_list WHERE maphash = ?";
+        String query = "SELECT * FROM score_list WHERE maphash = ? ORDER BY score DESC";
 
         List<Score> scores = new ArrayList<Score>();
 
@@ -579,7 +579,7 @@ public class MySqlHandler {
     }
 
     public List<Score> getAllScores() {
-        String query = "SELECT * FROM score_list";
+        String query = "SELECT * FROM score_list ORDER BY score DESC";
 
         List<Score> scores = new ArrayList<Score>();
 
@@ -615,7 +615,6 @@ public class MySqlHandler {
     }
 
     public Player checkUserData(int userId) {
-
         String query = "SELECT * FROM osu_users WHERE id=?";
 
         boolean userExist = false;

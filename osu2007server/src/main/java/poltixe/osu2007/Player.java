@@ -91,10 +91,15 @@ public class Player {
 
     Player(int userId, String userPassword, boolean userExists) {
         this.userId = userId;
-        this.username = sqlHandler.getUsername(this.userId);
-        this.displayUsername = "<a href=\"/web/u?id=" + this.userId + "\">" + this.username + "</a>";
         this.userPassword = userPassword;
         this.userExists = userExists;
+
+        if (userId == -1) {
+            return;
+        }
+
+        this.username = sqlHandler.getUsername(this.userId);
+        this.displayUsername = "<a href=\"/web/u?id=" + this.userId + "\">" + this.username + "</a>";
         this.rankedScore = sqlHandler.getRankedScoreOfUser(this.userId);
         this.totalScore = sqlHandler.getTotalScoreOfUser(this.userId);
         this.playcount = sqlHandler.getPlaycountOfUser(this.userId);
