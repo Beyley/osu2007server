@@ -1,10 +1,6 @@
 package poltixe.osu2007;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.ParseException;
 import java.util.List;
 
@@ -13,17 +9,26 @@ import com.mysql.cj.jdbc.DatabaseMetaData;
 import java.util.ArrayList;
 
 public class MySqlHandler {
-    public String getVersion() {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/?useSSL=false";
+    private String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
 
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
+    private String user = App.mySqlUser;
+    private String password = App.mySqlPass;
+
+    private Connection con = null;
+
+    public MySqlHandler() {
+        try {
+            con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getVersion() {
 
         String query = "SELECT VERSION()";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             if (rs.next()) {
 
@@ -38,15 +43,9 @@ public class MySqlHandler {
     }
 
     public void checkForDatabase() {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
-
         String query = "CREATE DATABASE osu2007";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             st.execute(query);
         } catch (SQLException ex) {
@@ -55,15 +54,10 @@ public class MySqlHandler {
     }
 
     public void addRankedMapsToTable(List<BeatMap> rankedMaps) {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         String query = "CREATE TABLE `osu2007`.`ranked_maps` ( `id` INT NOT NULL AUTO_INCREMENT, `md5` VARCHAR(100) NULL, `artist` VARCHAR(250) NULL, `songname` VARCHAR(250) NULL, `diffname` VARCHAR(250) NULL, `creator` VARCHAR(250) NULL, PRIMARY KEY (`id`));";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             st.execute(query);
         } catch (SQLException ex) {
@@ -77,19 +71,10 @@ public class MySqlHandler {
                 map.artist = "none";
             }
 
-            String regex = "'";
+            query = "INSERT INTO `osu2007`.`ranked_maps` (`md5`, `artist`, `songname`, `diffname`, `creator`) VALUES (?, ?, ?, ?, ?);";
 
-            map.artist = map.artist.replaceAll(regex, "''");
-            map.songName = map.songName.replaceAll(regex, "''");
-            map.diffName = map.diffName.replaceAll(regex, "''");
-            map.creator = map.creator.replaceAll(regex, "''");
-
-            query = "INSERT INTO `osu2007`.`ranked_maps` (`md5`, `artist`, `songname`, `diffname`, `creator`) VALUES ('"
-                    + map.md5 + "', '" + map.artist + "', '" + map.songName + "', '" + map.diffName + "', '"
-                    + map.creator + "');";
-
-            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                    Statement st = (Statement) con.createStatement()) {
+            try {
+                Statement st = (Statement) con.createStatement();
 
                 st.execute(query);
             } catch (SQLException ex) {
@@ -99,15 +84,10 @@ public class MySqlHandler {
     }
 
     public void checkForRankedTable() {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         boolean rankedTableExist = false;
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
@@ -124,8 +104,7 @@ public class MySqlHandler {
         if (rankedTableExist) {
             String query = "DROP TABLE `osu2007`.`ranked_maps`";
 
-            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                    Statement st = (Statement) con.createStatement()) {
+            try (Statement st = (Statement) con.createStatement()) {
 
                 st.execute(query);
             } catch (SQLException ex) {
@@ -135,17 +114,12 @@ public class MySqlHandler {
     }
 
     public void checkForTables() {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         String query = "";
 
         boolean scoreListExist = false;
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
@@ -161,8 +135,7 @@ public class MySqlHandler {
         if (!scoreListExist) {
             query = "CREATE TABLE `osu2007`.`score_list` ( `id` INT NOT NULL AUTO_INCREMENT, `maphash` VARCHAR(100) NOT NULL, `userid` INT NOT NULL, `replayhash` VARCHAR(100) NOT NULL, `hit300` INT NOT NULL, `hit100` INT NOT NULL, `hit50` INT NOT NULL, `hitgeki` INT NOT NULL, `hitkatu` INT NOT NULL, `hitmiss` INT NOT NULL, `score` INT NOT NULL, `maxcombo` INT NOT NULL, `perfect` VARCHAR(5) NOT NULL, `grade` VARCHAR(1) NOT NULL, `mods` INT NOT NULL, `pass` VARCHAR(5) NOT NULL, PRIMARY KEY (`id`));";
 
-            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                    Statement st = (Statement) con.createStatement()) {
+            try (Statement st = (Statement) con.createStatement()) {
 
                 st.execute(query);
             } catch (SQLException ex) {
@@ -172,8 +145,7 @@ public class MySqlHandler {
 
         boolean oldScoreListExist = false;
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
@@ -192,8 +164,7 @@ public class MySqlHandler {
             // Rename users table
             query = "ALTER TABLE `osu2007`.`users` RENAME TO  `osu2007`.`osu_users`;";
 
-            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                    Statement st = (Statement) con.createStatement()) {
+            try (Statement st = (Statement) con.createStatement()) {
 
                 st.execute(query);
             } catch (SQLException ex) {
@@ -204,9 +175,7 @@ public class MySqlHandler {
 
             List<Score> scores = new ArrayList<Score>();
 
-            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                    Statement st = (Statement) con.createStatement();
-                    ResultSet rs = st.executeQuery(query)) {
+            try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
                 while (rs.next()) {
                     Score currentScore = new Score(rs.getString(2), rs.getInt(1));
@@ -217,18 +186,33 @@ public class MySqlHandler {
                 System.out.println(ex.getMessage());
             }
 
+            PreparedStatement stmt = null;
+
             for (Score score : scores) {
-                query = "INSERT INTO score_list(id, maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass) VALUES('"
-                        + score.scoreId + "', '" + score.mapHash + "', '" + score.userId + "', '" + score.replayHash
-                        + "', '" + score.hit300Count + "', '" + score.hit100Count + "', '" + score.hit50Count + "', '"
-                        + score.hitGekiCount + "', '" + score.hitKatuCount + "', '" + score.hitMissCount + "', '"
-                        + score.score + "', '" + score.maxCombo + "', '" + score.perfectCombo + "', '" + score.grade
-                        + "', '" + score.mods + "', '" + score.pass + "');";
+                query = "INSERT INTO score_list(id, maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                        Statement st = (Statement) con.createStatement()) {
+                try {
+                    stmt = con.prepareStatement(query);
+                    stmt.setInt(1, score.scoreId);
+                    stmt.setString(2, score.mapHash);
+                    stmt.setInt(3, score.userId);
+                    stmt.setString(4, score.replayHash);
+                    stmt.setInt(5, score.hit300Count);
+                    stmt.setInt(6, score.hit100Count);
+                    stmt.setInt(7, score.hit50Count);
+                    stmt.setInt(8, score.hitGekiCount);
+                    stmt.setInt(9, score.hitKatuCount);
+                    stmt.setInt(10, score.hitMissCount);
+                    stmt.setInt(11, score.score);
+                    stmt.setInt(12, score.maxCombo);
+                    stmt.setBoolean(13, score.perfectCombo);
+                    stmt.setInt(14, score.grade);
+                    stmt.setInt(15, score.mods);
+                    stmt.setBoolean(16, score.pass);
 
-                    st.execute(query);
+                    stmt.execute(query);
+
+                    stmt.close();
                 } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
                 }
@@ -236,8 +220,7 @@ public class MySqlHandler {
 
             query = "DROP TABLE `osu2007`.`scores`;";
 
-            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                    Statement st = (Statement) con.createStatement()) {
+            try (Statement st = (Statement) con.createStatement()) {
 
                 st.execute(query);
             } catch (SQLException ex) {
@@ -247,8 +230,7 @@ public class MySqlHandler {
 
         boolean usersExist = false;
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
@@ -264,8 +246,7 @@ public class MySqlHandler {
         if (!usersExist) {
             query = "CREATE TABLE `osu2007`.`osu_users` (`id` INT NOT NULL AUTO_INCREMENT, `username` VARCHAR(50) NULL, `password` VARCHAR(500) NULL, PRIMARY KEY (`id`));";
 
-            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                    Statement st = (Statement) con.createStatement()) {
+            try (Statement st = (Statement) con.createStatement()) {
 
                 st.execute(query);
             } catch (SQLException ex) {
@@ -277,9 +258,7 @@ public class MySqlHandler {
 
         query = "SHOW COLUMNS FROM `osu_users` LIKE 'playcount';";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 playcountColumnExist = true;
@@ -291,8 +270,7 @@ public class MySqlHandler {
         if (!playcountColumnExist) {
             query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `playcount` INT NULL DEFAULT 0 AFTER `password`;";
 
-            try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                    Statement st = (Statement) con.createStatement()) {
+            try (Statement st = (Statement) con.createStatement()) {
 
                 st.execute(query);
             } catch (SQLException ex) {
@@ -302,18 +280,12 @@ public class MySqlHandler {
     }
 
     public List<BeatMap> getAllRankedMaps() {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         List<BeatMap> maps = new ArrayList<BeatMap>();
 
         String query = "SELECT * FROM ranked_maps";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 BeatMap currentMap = new BeatMap(rs);
@@ -330,11 +302,6 @@ public class MySqlHandler {
     public int getRankedScoreOfUser(int userId) {
         int score = 0;
 
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
-
         List<BeatMap> rankedMaps = getAllRankedMaps();
 
         List<String> rankedMapMd5s = new ArrayList<String>();
@@ -345,9 +312,7 @@ public class MySqlHandler {
 
         String query = "SELECT * FROM score_list WHERE userid = '" + userId + "'";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
@@ -365,16 +330,9 @@ public class MySqlHandler {
     public int getTotalScoreOfUser(int userId) {
         int score = 0;
 
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
-
         String query = "SELECT * FROM score_list WHERE userid = '" + userId + "'";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
@@ -391,16 +349,9 @@ public class MySqlHandler {
     public List<Score> getAllScoresOfUser(int userId) {
         List<Score> scores = new ArrayList<Score>();
 
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
-
         String query = "SELECT * FROM score_list WHERE userid = '" + userId + "'";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
@@ -415,16 +366,11 @@ public class MySqlHandler {
     }
 
     public void addUser(String newUsersName, String newUsersPassword) {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         String query = "INSERT INTO osu_users(username, password) VALUES('" + newUsersName + "', '" + newUsersPassword
                 + "');";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             st.execute(query);
         } catch (SQLException ex) {
@@ -433,15 +379,10 @@ public class MySqlHandler {
     }
 
     public void removeScore(Score score) {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         String query = "DELETE FROM score_list WHERE id='" + score.scoreId + "';";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             st.execute(query);
         } catch (SQLException ex) {
@@ -450,10 +391,6 @@ public class MySqlHandler {
     }
 
     public void updateScore(int oldId, Score newScore, byte[] replayData) {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         String query = "UPDATE score_list SET replayhash='" + newScore.replayHash + "', hit300='" + newScore.hit300Count
                 + "', hit100='" + newScore.hit100Count + "', hit50='" + newScore.hit50Count + "', hitgeki='"
@@ -462,8 +399,7 @@ public class MySqlHandler {
                 + "', perfect='" + newScore.perfectCombo + "', grade='" + newScore.grade + "', mods='" + newScore.mods
                 + "', pass='" + newScore.mods + "' WHERE id='" + newScore.scoreId + "';";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             st.execute(query);
         } catch (SQLException ex) {
@@ -474,15 +410,10 @@ public class MySqlHandler {
     }
 
     public void addToPlaycount(int userId) {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         String query = "UPDATE `osu_users` SET playcount = playcount + '1' WHERE id = '" + userId + "'";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             st.execute(query);
         } catch (SQLException ex) {
@@ -493,16 +424,9 @@ public class MySqlHandler {
     public int getUserId(String userName) {
         int userId = -1;
 
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
-
         String query = "SELECT * FROM osu_users";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 if (rs.getString(2).equals(userName)) {
@@ -524,16 +448,9 @@ public class MySqlHandler {
             return username;
         }
 
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
-
         String query = "SELECT * FROM osu_users";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 if (rs.getInt(1) == userId) {
@@ -554,16 +471,9 @@ public class MySqlHandler {
     public int getPlaycountOfUser(int userId) {
         int playcount = 0;
 
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
-
         String query = "SELECT * FROM osu_users WHERE id='" + userId + "'";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 playcount = rs.getInt(4);
@@ -576,11 +486,6 @@ public class MySqlHandler {
     }
 
     public void addScore(Score score, byte[] replayData) {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
-
         String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass) VALUES('"
                 + score.mapHash + "', '" + score.userId + "', '" + score.replayHash + "', '" + score.hit300Count
                 + "', '" + score.hit100Count + "', '" + score.hit50Count + "', '" + score.hitGekiCount + "', '"
@@ -588,8 +493,7 @@ public class MySqlHandler {
                 + "', '" + score.perfectCombo + "', '" + score.grade + "', '" + score.mods + "', '" + score.pass
                 + "');";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             st.execute(query);
         } catch (SQLException ex) {
@@ -598,9 +502,7 @@ public class MySqlHandler {
 
         query = "SELECT * FROM score_list";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
@@ -617,18 +519,12 @@ public class MySqlHandler {
     }
 
     public List<Score> getMapLeaderboard(String mapHash) {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         String query = "SELECT * FROM score_list WHERE maphash = '" + mapHash + "'";
 
         List<Score> scores = new ArrayList<Score>();
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
@@ -643,18 +539,12 @@ public class MySqlHandler {
     }
 
     public List<Score> getAllScores() {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         String query = "SELECT * FROM score_list";
 
         List<Score> scores = new ArrayList<Score>();
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
@@ -669,18 +559,12 @@ public class MySqlHandler {
     }
 
     public List<Integer> getAllPlayers() {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         String query = "SELECT * FROM osu_users";
 
         List<Integer> allPlayers = new ArrayList<Integer>();
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 allPlayers.add(rs.getInt(1));
@@ -693,19 +577,13 @@ public class MySqlHandler {
     }
 
     public Player checkUserData(int userId) {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
 
         String query = "SELECT * FROM osu_users";
 
         boolean userExist = false;
         String userPassword = "";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement();
-                ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 if (rs.getInt(1) == userId) {
@@ -721,15 +599,9 @@ public class MySqlHandler {
     }
 
     public void changeUsername(int userId, String newUsername) {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
-
-        String user = App.mySqlUser;
-        String password = App.mySqlPass;
-
         String query = "UPDATE `osu2007`.`osu_users` SET username='" + newUsername + "' WHERE id='" + userId + "'";
 
-        try (Connection con = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-                Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) con.createStatement()) {
 
             st.execute(query);
         } catch (SQLException ex) {

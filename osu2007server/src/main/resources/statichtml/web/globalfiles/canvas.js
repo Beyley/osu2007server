@@ -439,8 +439,7 @@ Filters.gradientBevel = function (canvas, src, colors, ratios, blurX, blurY, str
 
     var hilightIm;
     var shadowIm;
-    switch (type)
-    {
+    switch (type) {
         case Filters.OUTER:
             hilightIm = hilightOuter;
             shadowIm = shadowOuter;
@@ -562,8 +561,7 @@ Filters.colorMatrix = function (canvas, ctx, m) {
     var pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
     var data = pixels.data;
-    for (var i = 0; i < data.length; i += 4)
-    {
+    for (var i = 0; i < data.length; i += 4) {
         var r = i;
         var g = i + 1;
         var b = i + 2;
@@ -685,21 +683,21 @@ BlendModes.erase = function (src, dst, result, pos) {
 
 BlendModes.overlay = function (src, dst, result, pos) {
     result[pos + 0] = dst[pos + 0] < 128 ? dst[pos + 0] * src[pos + 0] >> 7
-            : 255 - ((255 - dst[pos + 0]) * (255 - src[pos + 0]) >> 7);
+        : 255 - ((255 - dst[pos + 0]) * (255 - src[pos + 0]) >> 7);
     result[pos + 1] = dst[pos + 1] < 128 ? dst[pos + 1] * src[pos + 1] >> 7
-            : 255 - ((255 - dst[pos + 1]) * (255 - src[pos + 1]) >> 7);
+        : 255 - ((255 - dst[pos + 1]) * (255 - src[pos + 1]) >> 7);
     result[pos + 2] = dst[pos + 2] < 128 ? dst[pos + 2] * src[pos + 2] >> 7
-            : 255 - ((255 - dst[pos + 2]) * (255 - src[pos + 2]) >> 7);
+        : 255 - ((255 - dst[pos + 2]) * (255 - src[pos + 2]) >> 7);
     result[pos + 3] = Math.min(255, src[pos + 3] + dst[pos + 3] - (src[pos + 3] * dst[pos + 3]) / 255);
 };
 
 BlendModes.hardlight = function (src, dst, result, pos) {
     result[pos + 0] = src[pos + 0] < 128 ? dst[pos + 0] * src[pos + 0] >> 7
-            : 255 - ((255 - src[pos + 0]) * (255 - dst[pos + 0]) >> 7);
+        : 255 - ((255 - src[pos + 0]) * (255 - dst[pos + 0]) >> 7);
     result[pos + 1] = src[pos + 1] < 128 ? dst[pos + 1] * src[pos + 1] >> 7
-            : 255 - ((255 - src[pos + 1]) * (255 - dst[pos + 1]) >> 7);
+        : 255 - ((255 - src[pos + 1]) * (255 - dst[pos + 1]) >> 7);
     result[pos + 2] = src[pos + 2] < 128 ? dst[pos + 2] * src[pos + 2] >> 7
-            : 255 - ((255 - src[pos + 2]) * (255 - dst[pos + 2]) >> 7);
+        : 255 - ((255 - src[pos + 2]) * (255 - dst[pos + 2]) >> 7);
     result[pos + 3] = Math.min(255, src[pos + 3] + dst[pos + 3] - (src[pos + 3] * dst[pos + 3]) / 255);
 };
 
@@ -917,8 +915,8 @@ window.addEventListener('load', function () {
     var hsize = document.getElementById("height_size");
     //var bsize = document.getElementById("both_size");
     //bsize.addEventListener('mousedown', initDragBoth, false);
-    wsize.addEventListener('mousedown', initDragWidth, false);
-    hsize.addEventListener('mousedown', initDragHeight, false);
+    //wsize.addEventListener('mousedown', initDragWidth, false);
+    //hsize.addEventListener('mousedown', initDragHeight, false);
 });
 
 var startWidth = 0;
@@ -983,10 +981,10 @@ function drawMorphPath(ctx, p, ratio, doStroke, scaleMode) {
                 case 'Q':
                     break;
                 default:
-                    var k = ctx.applyTransformToPoint({x: parts[i], y: parts[i + 2]});
+                    var k = ctx.applyTransformToPoint({ x: parts[i], y: parts[i + 2] });
                     parts[i] = k.x;
                     parts[i + 2] = k.y;
-                    k = ctx.applyTransformToPoint({x: parts[i + 1], y: parts[i + 3]});
+                    k = ctx.applyTransformToPoint({ x: parts[i + 1], y: parts[i + 3] });
                     parts[i + 1] = k.x;
                     parts[i + 3] = k.y;
                     i += 3;
@@ -1031,7 +1029,7 @@ function drawMorphPath(ctx, p, ratio, doStroke, scaleMode) {
                         break;
                     case 'Q':
                         ctx.quadraticCurveTo(useRatio(parts[i], parts[i + 1], ratio), useRatio(parts[i + 2], parts[i + 3], ratio),
-                                useRatio(parts[i + 4], parts[i + 5], ratio), useRatio(parts[i + 6], parts[i + 7], ratio));
+                            useRatio(parts[i + 4], parts[i + 5], ratio), useRatio(parts[i + 6], parts[i + 7], ratio));
                         i += 7;
                         break;
                 }
@@ -1060,7 +1058,7 @@ function drawPath(ctx, p, doStroke, scaleMode) {
                 case 'Z':
                     break;
                 default:
-                    var k = ctx.applyTransformToPoint({x: parts[i], y: parts[i + 1]});
+                    var k = ctx.applyTransformToPoint({ x: parts[i], y: parts[i + 1] });
                     parts[i] = k.x;
                     parts[i + 1] = k.y;
                     i++;

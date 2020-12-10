@@ -1,7 +1,6 @@
 <div id="article">
 <span class="links">hosting by <a href="https://owo.com">no one</a>.  © someone 2007</span></div>
-<script>
-var canvas=document.getElementById("myCanvas");
+<script>var canvas=document.getElementById("myCanvas");
 var ctx=canvas.getContext("2d");
 enhanceContext(ctx);
 var ctrans = new cxform(0,0,0,0,255,255,255,255);
@@ -665,10 +664,9 @@ function drawFrame(){
 	ctx.fillStyle = backgroundColor;
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	ctx.save();
-	ctx.transform(originalWidth,0,0,originalHeight,0,0);
+	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
 	main(ctx,ctrans,frames[frame],0,time);
 	ctx.restore();
-	ctx.transform(originalWidth,0,0,originalHeight,0,0);
 }
 
 window.setInterval(function(){nextFrame(ctx,ctrans);},25);

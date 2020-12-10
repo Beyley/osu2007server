@@ -15,14 +15,14 @@ public class App {
 
     public static List<String> knownNames = new ArrayList<String>();
 
-    // Creates a new MySqlHandler
-    public static MySqlHandler sqlHandler = new MySqlHandler();
-
     public static void main(String[] args) throws Exception {
+
         // Gets a new properties value
         GetPropertyValues properties = new GetPropertyValues();
         // Gets the properties file
         properties.getPropValues();
+
+        MySqlHandler sqlHandler = new MySqlHandler();
 
         // Gets the MySQL version, and if something is wrong, print an error
         System.out.println("MySQL Server version : " + sqlHandler.getVersion());
