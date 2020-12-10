@@ -665,9 +665,10 @@ function drawFrame(){
 	ctx.fillStyle = backgroundColor;
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	ctx.save();
-	ctx.transform(canvas.width/originalWidth,0,0,canvas.height/originalHeight,0,0);
+	ctx.transform(originalWidth,0,0,originalHeight,0,0);
 	main(ctx,ctrans,frames[frame],0,time);
 	ctx.restore();
+	ctx.transform(originalWidth,0,0,originalHeight,0,0);
 }
 
 window.setInterval(function(){nextFrame(ctx,ctrans);},25);
