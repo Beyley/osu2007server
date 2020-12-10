@@ -1,7 +1,12 @@
-<div id="article">
-<span class="links">hosting by <a href="https://owo.com">no one</a>.  © someone 2007</span></div>
-<script>
-var canvas=document.getElementById("myCanvas");
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><script type="text/javascript" src="canvas.js"></script><style type="text/css">#resizable {position:relative; display:inline-block; margin:0; padding:0;font-size:0px;} #width_size {width:10px; position:absolute; right:-5px; top:0px; bottom:0px; cursor:e-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #height_size {height:10px; position:absolute; bottom:-5px; left:0px; right:0px; cursor:n-resize;-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;} #myCanvas {margin:0; padding:0;} </style></head><body>
+
+<div id="resizable"><canvas id="myCanvas" width="108" height="104" style="">
+Your browser does not support the HTML5 canvas tag.
+</canvas><div id="width_size">&nbsp;</div><div id="height_size">&nbsp;</div></div>
+
+<script>var canvas=document.getElementById("myCanvas");
 var ctx=canvas.getContext("2d");
 enhanceContext(ctx);
 var ctrans = new cxform(0,0,0,0,255,255,255,255);
@@ -673,4 +678,5 @@ function drawFrame(){
 window.setInterval(function(){nextFrame(ctx,ctrans);},25);
 nextFrame(ctx,ctrans);
 </script>
-</body></html>
+</body>
+</html>
