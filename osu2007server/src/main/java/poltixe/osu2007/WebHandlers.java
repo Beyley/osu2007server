@@ -538,8 +538,7 @@ public class WebHandlers {
         // Iterates through all the players
         for (int i = 0; i < allPlayers.size(); i++) {
             Player player = allPlayers.get(i);
-            // Adds the player info to the string to be sent to the client
-            // <p class="lead">ranking go brrrrrrrr</p>
+
             player.calculateOverallAccuracy();
 
             if (player.rankedScore > 0) {
@@ -548,17 +547,15 @@ public class WebHandlers {
                 scoreFormat.setGroupingSize(3);
 
                 if ((currentRank | 1) > currentRank) {
-                    content += "<tr padding=\"0\">" + "<td><b>#" + currentRank + "</b></td>"
-                            + "<td><a href=\"/web/u?id=" + player.userId + "\">" + player.username + "</a>" + "<a></a>"
-                            + "</td>" + "<td>" + new DecimalFormat("#.00").format(player.accuracy) + "%</td>" + "<td>"
-                            + player.playcount + "</td>" + "<td>" + scoreFormat.format(player.totalScore) + "</td>"
-                            + "<td><b>" + scoreFormat.format(player.rankedScore) + "</b></td>" + "</tr>";
+                    content += "<tr padding=\"0\"> <td><b>#" + currentRank + "</b></td> <td>" + player.displayUsername
+                            + "</td> <td>" + new DecimalFormat("#.00").format(player.accuracy) + "%</td> <td>"
+                            + player.playcount + "</td> <td>" + scoreFormat.format(player.totalScore) + "</td> <td><b>"
+                            + scoreFormat.format(player.rankedScore) + "</b></td> </tr>";
                 } else {
-                    content += "<tr class=\"odd\" padding=\"0\">" + "<td><b>#" + currentRank + "</b></td>"
-                            + "<td><a href=\"/web/u?id=" + player.userId + "\">" + player.username + "</a>" + "<a></a>"
-                            + "</td>" + "<td>" + new DecimalFormat("#.00").format(player.accuracy) + "%</td>" + "<td>"
-                            + player.playcount + "</td>" + "<td>" + scoreFormat.format(player.totalScore) + "</td>"
-                            + "<td><b>" + scoreFormat.format(player.rankedScore) + "</b></td>" + "</tr>";
+                    content += "<tr class=\"odd\" padding=\"0\"> <td><b>#" + currentRank + "</b></td> <td>"
+                            + player.displayUsername + "</td> <td>" + new DecimalFormat("#.00").format(player.accuracy)
+                            + "%</td> <td>" + player.playcount + "</td> <td>" + scoreFormat.format(player.totalScore)
+                            + "</td> <td><b>" + scoreFormat.format(player.rankedScore) + "</b></td> </tr>";
                 }
 
                 currentRank++;

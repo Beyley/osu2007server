@@ -23,13 +23,6 @@ public class Score {
     public boolean pass;
     public int scoreId;
     public double accuracy;
-    public double wp;
-
-    private static double wpCurve(double combo) {
-        return (double) Math.min((double) 1.002344 - (double) 0.00235052 * (double) combo
-                + (double) 0.000006837499 * (double) Math.pow((double) combo, (double) 2)
-                - (double) 5.891666e-9 * (double) Math.pow((double) combo, (double) 3), 0.1);
-    }
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
@@ -75,7 +68,6 @@ public class Score {
         this.pass = Boolean.parseBoolean(splitString[14]);
 
         this.accuracy = calculateAccuracy();
-        this.wp = calculateWP();
 
         this.scoreId = scoreId;
     }
@@ -118,7 +110,6 @@ public class Score {
         this.pass = Boolean.parseBoolean(splitString[14]);
 
         this.accuracy = calculateAccuracy();
-        this.wp = calculateWP();
     }
 
     public Score(ResultSet rs) throws ParseException {
@@ -160,7 +151,6 @@ public class Score {
             this.pass = Boolean.parseBoolean(rs.getString(16));
 
             this.accuracy = calculateAccuracy();
-            this.wp = calculateWP();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -177,20 +167,6 @@ public class Score {
         double roundOff = Math.round((double) (acc * 100.0)) / 100.0;
 
         return roundOff;
-    }
-
-    public double calculateWP() {
-        double wp = 0;
-
-        wp = (double) this.hit300Count * (double) 0.5;
-        wp = (double) wp + (double) this.hit100Count * (double) 8.0;
-        wp = (double) wp - (double) this.hit50Count * (double) 8.0;
-        wp = (double) wp - (double) this.hitKatuCount * (double) 8.0;
-        wp = (double) wp - (double) this.hitMissCount * (double) 10.0;
-
-        wp *= (double) wpCurve(maxCombo);
-
-        return (double) Math.max(0.0, (double) wp / (double) 10);
     }
 
     public String asSubmitString() {

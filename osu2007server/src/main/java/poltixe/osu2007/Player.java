@@ -14,7 +14,6 @@ public class Player {
     public boolean userExists;
     public int globalRank;
     public double accuracy;
-    public double wp;
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
@@ -53,40 +52,6 @@ public class Player {
         }
 
         this.accuracy = (double) sum / (double) rankedScoreSize;
-    }
-
-    public void calculateOverallWP() {
-        List<Score> allScores = sqlHandler.getAllScoresOfUser(userId);
-
-        allScores.sort(new WPSorter());
-
-        double wp = 0;
-
-        List<BeatMap> rankedMaps = sqlHandler.getAllRankedMaps();
-
-        int n = 1;
-
-        for (Score score : allScores) {
-            boolean ranked = false;
-
-            for (BeatMap map : rankedMaps) {
-                if (map.md5.equals(score.mapHash)) {
-                    ranked = true;
-                }
-            }
-
-            if (ranked) {
-                // System.out.println("num" + n + " Unweighted:" + score.wp + " Weighted:"
-                // + (double) score.wp * (double) Math.pow((double) 0.95, (double) n));
-                wp += (double) score.wp * (double) Math.pow((double) 0.95, (double) n);
-                // System.out.println(wp);
-                n++;
-            }
-        }
-
-        // sum *= 100.0;
-
-        this.wp = wp;
     }
 
     Player(int userId, String userPassword, boolean userExists) {
