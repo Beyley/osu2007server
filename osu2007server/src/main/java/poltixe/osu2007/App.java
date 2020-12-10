@@ -16,7 +16,6 @@ public class App {
     public static List<String> knownNames = new ArrayList<String>();
 
     public static void main(String[] args) throws Exception {
-
         // Gets a new properties value
         GetPropertyValues properties = new GetPropertyValues();
         // Gets the properties file
