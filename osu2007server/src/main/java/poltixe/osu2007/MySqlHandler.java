@@ -277,7 +277,6 @@ public class MySqlHandler {
     }
 
     public List<BeatMap> getAllRankedMaps() {
-
         List<BeatMap> maps = new ArrayList<BeatMap>();
 
         String query = "SELECT * FROM ranked_maps";
@@ -377,7 +376,6 @@ public class MySqlHandler {
     }
 
     public void addUser(String newUsersName, String newUsersPassword) {
-
         String query = "INSERT INTO osu_users(username, password) VALUES(?, ?);";
 
         try {
@@ -392,35 +390,7 @@ public class MySqlHandler {
         }
     }
 
-    public void removeScore(Score score) {
-
-        String query = "DELETE FROM score_list WHERE id=?;";
-
-        try {
-            PreparedStatement stmt = con.prepareStatement(query);
-
-            stmt.setInt(1, score.scoreId);
-
-            stmt.execute();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
     public void updateScore(int oldId, Score newScore, byte[] replayData) {
-
-        // String query = "UPDATE score_list SET replayhash='" + newScore.replayHash +
-        // "', hit300='" + newScore.hit300Count
-        // + "', hit100='" + newScore.hit100Count + "', hit50='" + newScore.hit50Count +
-        // "', hitgeki='"
-        // + newScore.hitGekiCount + "', hitkatu='" + newScore.hitKatuCount + "',
-        // hitmiss='"
-        // + newScore.hitMissCount + "', score='" + newScore.score + "', maxcombo='" +
-        // newScore.maxCombo
-        // + "', perfect='" + newScore.perfectCombo + "', grade='" + newScore.grade +
-        // "', mods='" + newScore.mods
-        // + "', pass='" + newScore.mods + "' WHERE id='" + newScore.scoreId + "';";
-
         String query = "UPDATE score_list SET replayhash=?, hit300=?, hit100=?, hit50=?, hitgeki=?, hitkatu=?, hitmiss=?, score=?, maxcombo=?, perfect=?, grade=?, mods=?, pass=? WHERE id=?;";
 
         try {
@@ -446,11 +416,10 @@ public class MySqlHandler {
             System.out.println(ex.getMessage());
         }
 
-        FileHandler.saveReplayToFile(newScore, replayData);
+        FileHandler.saveReplayToFile(newScore.scoreId, replayData);
     }
 
     public void addToPlaycount(int userId) {
-
         String query = "UPDATE `osu_users` SET playcount = playcount + '1' WHERE id = ?";
 
         try {
@@ -467,14 +436,17 @@ public class MySqlHandler {
     public int getUserId(String userName) {
         int userId = -1;
 
-        String query = "SELECT * FROM osu_users";
+        String query = "SELECT * FROM osu_users WHERE username=?";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, userName);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                if (rs.getString(2).equals(userName)) {
-                    userId = rs.getInt(1);
-                }
+                userId = rs.getInt(1);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -491,14 +463,17 @@ public class MySqlHandler {
             return username;
         }
 
-        String query = "SELECT * FROM osu_users";
+        String query = "SELECT * FROM osu_users WHERE id=?";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                if (rs.getInt(1) == userId) {
-                    username = rs.getString(2);
-                }
+                username = rs.getString(2);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -534,19 +509,6 @@ public class MySqlHandler {
     }
 
     public void addScore(Score score, byte[] replayData) {
-        // String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300,
-        // hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade,
-        // mods, pass) VALUES('"
-        // + score.mapHash + "', '" + score.userId + "', '" + score.replayHash + "', '"
-        // + score.hit300Count
-        // + "', '" + score.hit100Count + "', '" + score.hit50Count + "', '" +
-        // score.hitGekiCount + "', '"
-        // + score.hitKatuCount + "', '" + score.hitMissCount + "', '" + score.score +
-        // "', '" + score.maxCombo
-        // + "', '" + score.perfectCombo + "', '" + score.grade + "', '" + score.mods +
-        // "', '" + score.pass
-        // + "');";
-
         String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass)"
                 + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -574,20 +536,19 @@ public class MySqlHandler {
             System.out.println(ex.getMessage());
         }
 
-        query = "SELECT * FROM score_list";
+        query = "SELECT * FROM score_list WHERE replayhash=?";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, score.replayHash);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Score currentScore = new Score(rs);
-
-                if (currentScore.replayHash.equals(score.replayHash)) {
-                    FileHandler.saveReplayToFile(currentScore, replayData);
-                }
+                FileHandler.saveReplayToFile(rs.getInt(1), replayData);
             }
-
-            // FileHandler.saveReplayToFile(score, replayData);
-        } catch (SQLException | ParseException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
@@ -618,7 +579,6 @@ public class MySqlHandler {
     }
 
     public List<Score> getAllScores() {
-
         String query = "SELECT * FROM score_list";
 
         List<Score> scores = new ArrayList<Score>();
@@ -638,7 +598,6 @@ public class MySqlHandler {
     }
 
     public List<Integer> getAllPlayers() {
-
         String query = "SELECT * FROM osu_users";
 
         List<Integer> allPlayers = new ArrayList<Integer>();
@@ -657,18 +616,21 @@ public class MySqlHandler {
 
     public Player checkUserData(int userId) {
 
-        String query = "SELECT * FROM osu_users";
+        String query = "SELECT * FROM osu_users WHERE id=?";
 
         boolean userExist = false;
         String userPassword = "";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                if (rs.getInt(1) == userId) {
-                    userExist = true;
-                    userPassword = rs.getString(3);
-                }
+                userExist = true;
+                userPassword = rs.getString(3);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

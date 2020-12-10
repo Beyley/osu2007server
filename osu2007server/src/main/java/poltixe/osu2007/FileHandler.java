@@ -33,8 +33,8 @@ public class FileHandler {
         sqlHandler.addRankedMapsToTable(rankedMaps);
     }
 
-    public static void saveReplayToFile(Score score, byte[] replayData) {
-        String filePath = "replays/" + score.scoreId + ".osr";
+    public static void saveReplayToFile(int id, byte[] replayData) {
+        String filePath = "replays/" + id + ".osr";
 
         try {
             File myObj = new File(filePath);
