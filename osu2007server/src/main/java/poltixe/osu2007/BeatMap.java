@@ -10,6 +10,7 @@ public class BeatMap {
     public String songName;
     public String diffName;
     public String creator;
+    public double starRating;
 
     BeatMap(String md5Hash, Score topScore) {
         this.md5 = md5Hash;
@@ -24,11 +25,12 @@ public class BeatMap {
         this.creator = rs.getString(6);
     }
 
-    BeatMap(String artist, String songName, String diffName, String creator, String md5) {
+    BeatMap(String artist, String songName, String diffName, String creator, String md5, String sr) {
         this.artist = artist;
         this.songName = songName;
         this.diffName = diffName;
         this.creator = creator;
         this.md5 = md5;
+        this.starRating = Double.parseDouble(sr);
     }
 }

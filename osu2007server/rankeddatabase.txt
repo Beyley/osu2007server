@@ -1,344 +1,344 @@
-:Christmas Memories v3:Normal:EiJi:a83c5c34fe98bc2ab5d23f81ac4a9fc6
-LM.C:BOYS & GIRLS:Normal:Donryu:54f731c8b32c1c5ce35764973e8c1e79
-:Speed Over Beethoven:Easy:Echo49:b921c0d62975bb4b7aa8935e40324df2
-:Speed Over Beethoven:Hard:Echo49:a792fe1067ea1e162595edab97687736
-:Speed Over Beethoven:Normal:Echo49:f37034e07eddb755465f70a395aaad72
-access:Doubt & Trust:Easy:Donryu:7aa676c48e544e9ba746ac53c8ae583c
-access:Doubt & Trust:Hard:Donryu:fa5c7dfd2d1d5a888b7ecf3ce60e1ee8
-Ai Otsuka:Sakuranbo:Easy:Echo49:1605e41688976f212e4e1ea08fc4daf4
-Ai Otsuka:Sakuranbo:Hard:Echo49:e4282588493ffe72f3476916424edd6f
-Ai Otsuka:Sakuranbo:Normal:Echo49:2b2beeaff4f65eb12a4f72d78fe0f217
-Akira Yamaoka:Lion Suki:Normal:FakeJapanMan!:18f6c5c898316e01042d15778fd13394
-Amerie:One Thing:Normal:Chan:6f995a6bb9c7af50bd893f248206ff75
-Appleseed:Good Luck:Hard:EiJi:2f7daa0fa6d9c3ee8107ac351339f117
-ASIAN KUNG-FU GENERATION:After Dark:Easy:Donryu:ff8c59d7beb8884f2b35a52e4ed45963
-ASIAN KUNG-FU GENERATION:After Dark:Hard:Donryu:e58e2b0f4f118f7b2c3cb39890a7a904
-Asian Kung-fu Generation:Rewrite 4th Opening:Hard Rock:MCXD:6e328d20511fe59d1b1e5211b9c25a56
-Asian Kung-fu Generation:Rewrite 4th Opening:Sweatin:MCXD:205fa8024d5bf1f90fa80066a0591f50
-Back-On:CHAIN (ROCKIN' 8 GLIDER MIX):Normal:EiJi:d9bc7d16cb86d4690ea7712305511b02
-BACK-ON:Chain v3:Hard:EiJi:d310e1d6454780096985b1f619b2758b
-Back-On:Hikari Sasuhou:Hard:EiJi:ea34f51cac301ffef943677d322c32c9
-BanYa:D Gang:Easy:Starrodkirby86:f328e7464fed8f19237cd3840e3a9096
-BanYa:D Gang:Normal:Starrodkirby86:e6f67d40b92d574afc36c206fd527ed3
-BanYa:Pump me Amadeus:Normal:Starrodkirby86:b93b190a9b78582b5026ab484fec2885
-Beat Crusaders:Hit in the USA:Normal:Shin:5fa1b4fa6aa480c7f219220d22b04166
-BEAT CRUSADERS:TONIGHT,TONIGHT,TONIGHT:Normal:Hitoshirenu Shourai:9b60de431a39e1214632a609c5b86717
-Beautiful Day:Bride in Dream:Hard:FFFanatic:67e5ec48c4924d0aa4b4abbee8b5b991
-Beautiful Day:Feel The O2Jam!:Hard:FFFanatic:0f41210995434c1cb1c71d54eb21ac72
-Beck:Timebomb:Normal:IcePagoda:2da8624939e768bc27445ff7627814d5
-Berryz Koubou:安心感:Normal:Zallius:5ecd0608d1a04b3a93e45063233be748
-Billy Fogarty:Jumpin' Jack Flash:Sweatin':Aliento:934923e4218f4cf7113dc799ca5dea4d
-Billy Joel:Uptown Girl:Easy:Jay:605d6d99abf07a4c84bd347cf74a5686
-Blur:Song 2::JacoPOP:44618ee1fcb9dacfffc0830496f81f2d
-Brandy:Cross Time:Hard:FFFanatic:3dd9f2278628fc7baa3f828f752ba273
-Brandy:Love Fighter::FFFanatic:5b00851555cf4c8e895210dcd871f1bb
-Buddah Bar:Mambo Craze:Hard:Extor:b58e4b6803b15e7590046c8769e2738b
-BUMP OF CHICKEN:Tentai Kansoku:Easy:Impossible:ee2f122921e699d9427d94a8958067c1
-BUMP OF CHICKEN:Tentai Kansoku:Normal:Impossible:81f95795f226c3f383acba8b3bcd0d78
-Capcom Sound Team:Silent Gravestone (Vega):Normal?:EiJi:6690be4829f7b10476a9bce74b9bd278
-Capcom Sound Team:Street Fighter 2 Megamix:Hard:EiJi:b90cd2055a1a0395ca841d6469d3f06b
-Caramell:Caramelldansen::meyou22:d80ac8fc518c0ff69d0963ef91f397f4
-Cascada:Every Time We Touch:Easy:Advancechao:dab2a665a27bba545242c5721bda1749
-Cascada:Every Time We Touch:Hard:Advancechao:2eec37180f45b18ebfb6f46ad9dfda9c
-Cascada:Every Time We Touch:Normal:Advancechao:584b212d5a0c2df83b3cced53e1ff47d
-Chata:Dango Daikazoku:Full:Donryu:41cb0a5bd07f71ddd745a5b8e703f535
-Chata:Dango Daikazoku:Beginner:Hitoshirenu Shourai:de4619e51ef51084dea19ac398255b50
-Chata:Dango Daikazoku:Easy:Hitoshirenu Shourai:ba11e6c0735e57d1b0ce3083c8adab1c
-Chieco Kawabe:Sakura Kiss:Normal:K-S-O:76c1cf489a657afbbf4bc54aae697110
-Crystal Kay:Motherland:Easy:Hitoshirenu Shourai:8cb7820386fc48db7da53080a1128456
-Daft Punk:Harder, Better, Faster, Stronger (edit)::JacoPOP:a14d8c4d338540f994d7566466d614b9
-Deathwish Nine:Chicks Dig Giant Robots:Hard:GuardianHX:06f83c55eb25afc8d6b2b81ddda91b5a
-Deathwish Nine:Chicks Dig Giant Robots:Normal:GuardianHX:11d1cf8bbfb0dc9035654990ed9f2f8d
-Die Aerzte:Junge:Hard:Fox:1f80645c63012adb4aa4acf09da1ae78
-Die Aerzte:Junge:Normal:Fox:0910696835595d7cb100181006272287
-Dormir:Cosmos Pop:Hard:KiRaTaTen:9332e27c9c4300c549ef51a76e4ef728
-Drunken Tiger:Emergency:Hard:Starrodkirby86:21a29d38420f94c518253268a61ba035
-Dudelstudios:Angry Video Game Nerd Theme:Hard:Behonkiss:ea75e0ab908502254b4796688de37efd
-Earth, Wind & Fire:September:Breezin':Jay:8034df6505f8343b1f49f3cb54aaf1e5
-Earth, Wind & Fire:September:Cruisin':Jay:bd5d521f940b97c73f8838969c6bdd44
-Earth, Wind & Fire:September:Hard ROCK!:Jay:6a0271b1a11d36cc2008c4ce4dfe8987
-Earth, Wind & Fire:September:Sweatin':Jay:564425a81f4745e1c31e8eee91892392
-ELISA:Eurphoic Field:Easy:MaxwellDemon:27c5a72ad93d5d187a26c83ca99e652f
-ELISA:Eurphoic Field:Hard:MaxwellDemon:4a3739e3409e90884b26ce25aa18177f
-Erisis:Owarinaki Tabibito:Normal:Elmo:20239cac77fcbc5105e496520d8d7530
-Erisis:Owarinaki Tabibito:Short:Elmo:6c77f9687dfcba0cf39c3d203122f4bc
-Erwin Beekveld:They're Taking The Hobbits To Isengard:Hard:GuardianHX:3aa900c6cb30121695c6737844c64ff2
-Erwin Beekveld:They're Taking The Hobbits To Isengard:Normal:GuardianHX:8421363c24242fffc5fda118e57046cf
-F.I.R.:Lydia::fruit:6fe20189b2f4ef5bfecf69d11810a49d
-FAIRY FORE:Vivid:Easy:Hitoshirenu Shourai:72bdc73c3f17013c5d0ba8443c9045b2
-FAIRY FORE:Vivid:Hard:Hitoshirenu Shourai:545e306c69bf8d2d1dd6eb6731babea5
-FAIRY FORE:Vivid:Insane:Hitoshirenu Shourai:1cf5b2c2edfafd055536d2cefcb89c0e
-FAIRY FORE:Vivid:Normal:Hitoshirenu Shourai:0236aeb3bb5f110d7eacf4045092efac
-Galaxy Angel:Galaxy Bang! Bang!:Easy:Homestarrunner:89a41a83caa32c6a238c43b508d73e24
-Galaxy Angel:Galaxy Bang! Bang!:Hard:Homestarrunner:c3f9838eaf666b50ae43453d96c14a0f
-Galaxy Angel:Galaxy Bang! Bang!:Normal:Homestarrunner:319cbb971f0c762662d22e394dd11104
-Gitaroo Man:12 - The Legendary Theme (Album Version):Normal:darkbluetornado:719c48c20053ba0ebcda218011649d5f
-Glay:Way Of Difference:Hard:Echo49:ead8a4651f7ccd0ee3ca269311ed2e4b
-Glay:Way Of Difference:Normal:Echo49:3ea709cf71089c769ee4f24dc960fa32
-Going Under Ground:VISTA:Easy:ZZT:2ed9f5ccfbf6e8903bb2d4d40fa37045
-Going Under Ground:VISTA:Hard:ZZT:c348a7e54f53392d8fc17afd9bef1d9f
-Going Under Ground:VISTA:Normal:ZZT:125b5c039fe0857a1ad29565965aba7b
-Gorillaz:Feel Good, Inc.:easy:Tapdancingmetroid:33a1932b6da57c4a66e8b97c2c9f1c60
-Gorillaz:Feel Good, Inc.:Normal:Tapdancingmetroid:5e31ef864ffd62b3a2c18a7c8b010839
-Grandaddy:Jed's Other Poem:Easy:wiicademan:0ff148754f8be9859e824c6eaf5ed850
-Grandaddy:Jed's Other Poem:Hard:wiicademan:e381dfd27a8593d4e1d0af6d8ff68e60
-Green Day:Holiday:Insane:Puffles:4150d40e7fdc1974948083905227e727
-Green Day:Holiday:Normal:Puffles:56ff9c1037740083ae675a1d644ef83e
-Guang Liang:Tong Hua:Easy:Echo49:f015d5020c78d767180231b5ac5d01c9
-Gumi:Catch You Catch Me:Fun!:Hitoshirenu Shourai:4eb4bb0791671209bd71a506f643da67
-HALCALI:Lights, Camera. Action!:Hard:Hitoshirenu Shourai:2da1cce74fd5dcf3f232dbf0a30f8c30
-Hinoi Team:Aishiteru:Breezin:MCXD:dd44ebba58f125b2be48b0345e56fca7
-Hinoi Team:Aishiteru:Crusin:MCXD:f457792fcc72f1388963dbbe24b22c8a
-Hinoi Team:Aishiteru:Hardrock:MCXD:3ce8eb2ba90eadd3e31493cb9d40fb76
-Hinoi Team:Aishiteru:Sweatin:MCXD:5b8c9eeebc1b3af1535c684bdacf5340
-Hinoi Team:Emoticons:Breezin:MCXD:cf8bd375f2708f152562a919247ba09a
-Hinoi Team:Emoticons:Crusin:MCXD:90789138c7b1d6081315f3f264a1e7b4
-Hinoi Team:Emoticons:Hardrock:MCXD:1bdabfa397ccd5af413ed22647bec2dd
-Hinoi Team:Emoticons:Sweatin:MCXD:629d1b14925ed15dd5f9292b00ef2786
-Hirano Aya:Hare Hare Yukai:Easy:Kharl:4a5ea50771612b9dc6e52946d7fb9605
-Hirano Aya:Hare Hare Yukai:Hard:Kharl:78a084bba1d02c3aa6e7953b98e369ce
-Hirano Aya:Hare Hare Yukai:Normal:Kharl:6bb62fe98669fe966233a3f7f3a172cd
-Hiro-X & Kimeru:Future(TV Size):Hard:EiJi:14b3ba63028dbe10028caf65a1ca97c6
-Hiro-X:Driving Myself:Hard:EiJi:bfb78a9a998b5f6974d1e101ba71f5fc
-HOME MADE KAZOKU:Nagareboshi ~Shooting Star~:Normal:Hitoshirenu Shourai:e97900f9aaee1f2d8327040fe955d6d5
-Hoshimura Mai:Sakura Biyori:Easy:Hitoshirenu Shourai:9e1a4ea2ae69a278b41421f8dfe29bbd
-Hoshimura Mai:Sakura Biyori:Normal:Hitoshirenu Shourai:f88428959b341b008a49dc00f46c8b75
-HY:AM11:Normal:tsububu:ee52b4c498a29478b73fb4f17a456458
-IOSYS:FOE to no Souguu:Easy:Kharl:1ead9803e44440628163ed7e3dcc1319
-IOSYS:FOE to no Souguu:Normal:Kharl:e794ad40dac66fcc5170798dd47bca4b
-IOSYS:Marisa wa Taihen na Mono wo Nusunde Ikimashita:Easy:DJPop:8b29e773161340bc1fff247a6ab749d1
-IOSYS:Marisa wa Taihen na Mono wo Nusunde Ikimashita:Hard:DJPop:7553a13a8c4a518c25e37d1ca6483303
-IOSYS:Marisa wa Taihen na Mono wo Nusunde Ikimashita:Normal:DJPop:522a6f8efbc58a6bdddacc7dd5810747
-J.P. ROOM:Da Ban Odori:Hard:Fox:78fa3fc60996503807ae3d069bb50a61
-J.P. ROOM:Da Ban Odori:Insane!!:Fox:c8df916dfc8ccd8b7c9d2b5121a3d3cb
-J.P. ROOM:Da Ban Odori:Normal:Fox:33c4b8ac4f097f7562fdfbbc5dede968
-Jam Project:Fire Wars:Easy:elzamxrai:f30f63720f2f18abaf737f2ba59b11cd
-Jam Project:Fire Wars:Hard:elzamxrai:9bc4ca5bf71e4516a8ffd483bca7852e
-Jam Project:Fire Wars:Normal:elzamxrai:8301c1f2d847fe085d4a14dd07492a75
-Jam Project:Stormbringer:Hard:Headbang:41c93281ea0ec2c81940d48cebbe4cd9
-Jam Project:Stormbringer:Normal:Headbang:c6677f2688c3a3a92ed8ba03dcf0d99f
-Jamiroquai:Canned Heat:Cruisin':ZZT the Fifth:e4245c3a17188bc6d5078e9df5af9152
-Jamiroquai:Canned Heat:Sweatin':ZZT the Fifth:fd8f8287991a7c3f27e691ead19ec0b8
-Jamiroquai:Soul Education:Hard:K-S-O:43fe434caa5f5292e5cd258304fa9b32
-Jamiroquai:Soul Education:Normal:K-S-O:bc1595f9932cc7e2fc298cd99e12b23d
-Jay Chou:Tornado (Long Juan Feng)::fruit:f81565675a98c7ae0e5c5f7af5420d5a
-JENNY ROM vs ZIPPERS:WAKA LAKA:Easy:Bonesnake:e61e4d1650ed791abe866d4ac52e1c67
-JENNY ROM vs ZIPPERS:WAKA LAKA:Hard:Bonesnake:7b80174441b38016ad3f491bba47c9b7
-JENNY ROM vs ZIPPERS:WAKA LAKA:Insane:Bonesnake:cfa625330e83eed2192e11cd94f35de5
-JENNY ROM vs ZIPPERS:WAKA LAKA:Normal:Bonesnake:7606b1aff158a4d9f30090b272ed0be3
-Jin Senbonmatsu:AXIS:Easy:Elvana:0baa0eb73fb4f127bf3cbb6d571b48df
-Jin Senbonmatsu:AXIS:Hard:Elvana:bc696607f33bae24ddd82d260078cd8e
-Joe Redifer:Final Fantasy 5 ROBOVoice OC ReMix:Normal:Hitoshirenu Shourai:60bfd3dbf771dfac62213316afe589db
-Jonathan Coulton:Mandelbrot Set:Easy:Manabeast:72f0269062fcddd67343f17d8eb7378e
-Jonathan Coulton:Mandelbrot Set:Normal:Manabeast:fb46eeffb4e1513b897c622aff7ffdab
-Judy and Mary:Freckles:Hard:cecilthemos:eae1f0060df19f9e0ce45daf19e59dcf
-Judy and Mary:Freckles:Normal:cecilthemos:ee07600fb1e9a1dac481c4e9a8a95385
-Justice:D.A.N.C.E::caelus:9912def545fe57e61dc0f5aad31eb3d9
-Kana Ueda:Pumpkin Ondo:Normal:Hitoshirenu Shourai:a6ec4ed98bf7cb7a426f8d7b3ad41018
-Kaori Oda:Brilliant World:Hard:Echo49:7702876988020b001b4fca6816529b2e
-Kaori Oda:Brilliant World:Normal:Echo49:019f6a4a2e118899659341748e9fb057
-Katrina & The Waves:I'm Walking On Sunshine::Aliento:a8860ec5a4f61f667c054c948dab6741
-Kelly Clarkson - Breakaway:Because Of You:Normal:SixtySevenFrogs:685ca915437173e7796a6635df390185
-Ken Clinger:Babilfrenzo:Easy:Fraeon:1a04b06419063a6014766862c6f0fcf0
-Ken Clinger:Babilfrenzo:Hard:Fraeon:2f8074b3fea80d845bf0be2d46c85cb9
-Ken Hirai:Pop Star::Chan:bfe8f7ccd03253bf36d7faabd61be2e0
-Kenji Ninuma:DISCO★PRINCE:Normal:peppy:a5b99395a42bd55bc5eb1d2411cbdf8b
-Kenji Ohtsuki:Hitotoshite Jiku ga Bureteiru::Elle:bdbfa2417d3d296211424441684d8539
-Kimeru:Make You Free (TV Size):Hard:EiJi:1c055128dc38cedf058ba56fc474ee2d
-King Kong & D. Jungle Girls:BOOM BOOM DOLLAR:Easy:Bonesnake:f252f786ef98140ec285000bc5d0dd19
-King Kong & D. Jungle Girls:BOOM BOOM DOLLAR:Hard:Bonesnake:ccc696971956466bf7a07c415d865f8d
-King Kong & D. Jungle Girls:BOOM BOOM DOLLAR:Normal:Bonesnake:13fddb9c5a8da8b166c3081b372399b6
-Kishidan:One Night Carnival:Hard:ZZT the Fifth:958d14723e7151dda23fe882ccfd00ac
-Komputer Kontroller:Robot Rockerz:Hard:Shadowtje:e0efc7b501966d33a2a7bb2e0a25c1a7
-Komputer Kontroller:Robot Rockerz:Normal:Shadowtje:477367d2928c7ad8d66183168522369d
-KOTOKO:agony:Easy:K-S-O:3db2e31044d4a3aabf37e1f939f5f6ef
-KOTOKO:agony:Hard:K-S-O:691a94a89e46ccbd033ca66cea2aa43d
-KOTOKO:agony:Insane:K-S-O:3ceacf28711fd5eeaeab08faa9db3cb4
-KOTOKO:agony:Normal:K-S-O:12eb0d246e1feb79f67feba5d8bcc687
-KOTOKO:Shichiten Hakki ☆ Shijou Shugi:Normal:Donryu:1d1532ad4553f593cf13461bb11a5ad9
-Kurei Soshi:WISH ~ Kimi wo Matenakute::ZZT the Fifth:022ea71a85dc4b8e147b498e03114e71
-L'Arc~en~Ciel:READY STEADY GO:Normal:Hitoshirenu Shourai:e9b5e31d6b0421f84322ca7f0fec3b44
-LAST ALLIANCE:Shissou:Easy:Advancechao:1b65d233a717cbde21c8c884ada4e46a
-LAST ALLIANCE:Shissou:Hard:Advancechao:e29a2fdd111a08fc2f7acec27e0caa35
-LAST ALLIANCE:Shissou:Normal:Advancechao:8d2e88ffab0b85d430b39a657f8c541d
-Laugh and Beats:Universal Dance:Easy:K-S-O:778dd51e38efff232e7f0e91e3ab37ce
-Laugh and Beats:Universal Dance:Hard:K-S-O:98a76b444890a07d7136f7f321b00b2e
-Laugh and Beats:Universal Dance:Normal:K-S-O:9d7dd7eabb2cafb9f77283aa48b65b22
-Lazy Town:Cooking by the Book:Easy/Normal:Hitoshirenu Shourai:1d041315a49a1d014c76d023af4ab539
-Lazy Town:Cooking by the Book:Hard:Hitoshirenu Shourai:97062d02e8429730cbf554ac80b2f12c
-LB:Dreams Of An Absolution::Oddbrother:f4edfb9586bcd154bb96f43cff01e3e3
-Lemon Demon:The Ultimate Showdown of Ultimate Destiny:Normal:RatherDashing42:1d483d569ecc2eb832d485a89fc555b3
-Lily Allen:Smile:Normal:meyou22:49b69c5e2e1c928707989af089430c73
-Linkin Park:Numb::fruit:4451cfbaa62488b97ee07bd58d95f8ff
-Linkin Park:What I've Done:Hard:eyup:fa06c909fbe8e5fdd178ee8c46d8fd28
-Linkin Park:What I've Done:Normal:eyup:6d37995ba1503eb1a7b0b693767a012b
-Little Non:Aijou Education:Easy:DJPop:80df7634a439c7e95914bf2e27a56a1a
-Little Non:Aijou Education:Hard:DJPop:81581777d8a459655acc3276ee3b059c
-Little Non:Aijou Education:Normal:DJPop:9d0057f1de80a0ec05f505ad6ab51a66
-Little Non:Hana Maru Sensation:Normal:Donryu:75881ec7eac3a5252d52740eec1dbf1b
-Lordi:Hardrock Hallelujah:Easy:Machu:0090b59c26abdcfbab219b4e681bbab6
-Lordi:Hardrock Hallelujah:Hard:Machu:a36a02bc82322eaabdd6858769a7ecbc
-Lordi:Hardrock Hallelujah:Normal:Machu:984e1068421be9e307fb07f1d2308e52
-LOVERIN TAMBURIN:Aishitageru:Easy:awp:4f1d91c34f71a3de7f64fb3c06ec9a1f
-LOVERIN TAMBURIN:Aishitageru:Hard:awp:144e50548804392a565efef8a7769f70
-M2U:World Opening:Easy:Kharl:cc93e017281523f6aafe3e1bd1f6c189
-M2U:World Opening:Hard:Kharl:35c61df60f94115911e5c49349ea6b7e
-M2U:World Opening:Normal:Kharl:9966b3fa832babcb6958d5eaa753373e
-Maeken Trance Project:Koi no Maiahi:Easy:Lumino:20e131384bbb7269003c4feb9caf26d9
-Maeken Trance Project:Koi no Maiahi:Hard:Lumino:4cdf98a78bd16c3b7a8a50102d5435ea
-Maeken Trance Project:Koi no Maiahi:Insane:Lumino:7350c490ce64c63abada98d039e5c480
-Maeken Trance Project:Koi no Maiahi:Normal:Lumino:ef05b3f8e90045fc1264b78ea9134d7c
-Magical Trick Society:Examination ~ Allegro:Hard:eyup:3ed6c8708b93c61f0463ba859e903ad1
-Magical Trick Society:Examination ~ Allegro:Insane:eyup:15bbf7c05d03b3e0c199b5a5b2635c20
-Magical Trick Society:Investigation ~ Cornered:Hard:eyup:c0581c1713071a05e4eca07ea6c4b7d5
-Magical Trick Society:Investigation ~ Cornered:Insane:eyup:c62273f24fbf866d81d14b0f2685daa2
-Magical Trick Society:Phoenix Wright ~ Objection!:Insane:eyup:c0eb6fd20c88633f560ea9d5956e3fca
-Magical Trick Society:Phoenix Wright ~ Objection!:Normal:eyup:0bbddc7549c9bfc786dc447cff9d9a53
-Marilyn Manson:This is Halloween:Insane:RatherDashing42:440395d5c1483a56dbc006ed8491ff94
-Marilyn Manson:This is Halloween:Normal:RatherDashing42:3dbd0d8ff9d6e8619a9274ac4bf5f40d
-Maroon 5:Sunday Morning:Normal:eyup:a2fc0826b4eea3b335bdb854ff90dacc
-Marron Koshaku (feat. Shin):パリジョナ大作戦::Oddbrother:b960413eab9fdb694a696653874c5333
-Marta:The SMRPG Song:Normal:Level-Up:794b005ae3fdcc845b11cc3b2006a163
-Masuda Toshiro:Jubei Chan - Main Theme:Hard:EiJi:03d4ab2a02deb8ab9af006d8bbca7f1e
-Meguro Masashi:Burn My Dread:Easy:Leniad:0da02259dc59347ee27a2ad119daf1f2
-Meguro Masashi:Burn My Dread:Normal:Leniad:cf9b62a7f25c0be8e12ffa61b425378a
-Michael Jackson:Bad:Easy:Loginer:f0dc376fc1a1855861b4b20f8e7de99b
-Michael Jackson:Bad:Hard:Loginer:a2e5e0cc16fe087456da37ab649f7a68
-Michael Jackson:Thriller:Easy:Loginer:71fc4eafc326b358306a2f6b8beedae8
-Michael Jackson:Thriller:Hard:Loginer:23a7447dff7507a6701deeb2ab69c1b0
-misono:VS:Normal:Donryu:fb099ade581d16f3a69926ccf8f2cf7a
-MR.ED JUMPS THE GUN:SMOKE:Easy:Bonesnake:0d0fe9d2697da242f6997be7a57ef446
-MR.ED JUMPS THE GUN:SMOKE:Normal:Bonesnake:211a8b9a0a68cd59fd3fbb4104d09bcb
-Muse:Unintended:Easy:Puffles:b397897f73a4dd42873cdbab9d1c67bd
-Ni-Ni:1,2,3,4, 007 [Wipeout Series]:-Breezin-:MCXD:3a0caa344183a9603448136609ad1370
-Ni-Ni:1,2,3,4, 007 [Wipeout Series]:-Crusin-:MCXD:1d23c37a2fda439be752ae2bca06c0cd
-Ni-Ni:1,2,3,4, 007 [Wipeout Series]:-Hardrock-:MCXD:e6f48da7f132c909accc677b77f231b8
-Ni-Ni:1,2,3,4, 007 [Wipeout Series]:-Sweatin-:MCXD:a5372216d0902bacc7eb081e15e36bb9
-Niko:NIGHT OF FIRE:Easy:Bonesnake:2f2e7dd94d9904ba7eecc1bbdd3d2ca6
-Niko:NIGHT OF FIRE:Hard:Bonesnake:74c7fc465e1af81019b9daace0c9000a
-Nintendo:Here We Go!:Hard:eyup:3863f6ad53e3139d876c084cd16ff758
-Nobuo Uematsu:Tatakau Monotachi (FFVII AC Version):Hard:eyup:4d101cae375f70cb97631876777d079b
-Nobuo Uematsu:Tatakau Monotachi (FFVII AC Version):Insane:eyup:1128facc8d4f694b9cde032c8fc0fdb1
-Nobuo Uematsu:Tatakau Monotachi (FFVII AC Version):Normal:eyup:055e7f6d6fc6c6d5838b633038f38aff
-Nobuo Uematsu:You're Not Alone:Hard:Cecilthemos:a707833e2240c6e0f693e7746b81e73e
-Nobuo Uematsu:You're Not Alone:Normal:Cecilthemos:19a893e21cf2f2e29745bd4cdb0db1c4
-Nori Horikoshi:Guru Guru Gravity:Normal:darkbluetornado:159d53a42f9593fc8896a2bd1f9ea4b7
-Noriyuki Iwadare:Pursuit ~ Caught:Easy:Kharl:0ba8e7cca4148229dbf036587b8d2a7f
-Noriyuki Iwadare:Pursuit ~ Caught:Hard:Kharl:27ecaaf3928cc4c4dff2c7ac7c9ed3ae
-Noriyuki Iwadare:Pursuit ~ Caught:Normal:Kharl:293762d58c2c44901666ff97dfc4577c
-O-Zone:Dragostea Din Tei:Hard:hadoken_zero:fa63742f3393c1a02c15cdfbf020a0c1
-O-Zone:Dragostea Din Tei:Normal:hadoken_zero:3741781d047db5dc52d89c730f2f4d29
-Orange Range:Shanghai Honey:Easy:elzamxrai:31ba902aaa302412714725de834c30b4
-Orange Range:Shanghai Honey:Normal:elzamxrai:60aa31e0b916e97156513ef083fc68a4
-Phantasma:Fall Memories:Hard:Kylecito:52921ef98dcff9883b8cc0567afc730f
-POLYSICS:Rocket (Moyashimon ED):Easy:flakmonkey:94e1cf4523df9e74b4d3010f5a793d94
-POLYSICS:Rocket (Moyashimon ED):Insane:flakmonkey:ca09c2fb864ed02aca63384630deaa00
-Porno Graffitti:Mellisa (TV Size):Easy:SixtySevenFrogs:219f4ad3a1e930c8660e7bf99f9cbd69
-Porno Graffitti:Mellisa (TV Size):Normal:SixtySevenFrogs:381f7b3d66ee447e6e9128f7a64a93b7
-Portal:Still Alive:Easy:Hitoshirenu Shourai:f57367f4b8a696bcc77433d98f4ebe08
-Portal:Still Alive:Normal:Hitoshirenu Shourai:2162a03014f463b708605b81098bcb5e
-R.E.M.:It's the End of the World as We Know It (and I feel fine):Hard:caelus:ecb144677d96cc7997ecb5d504bddc30
-R.E.M.:It's the End of the World as We Know It (and I feel fine):Normal:caelus:b33c8dcc24c9990c9a9aa464c4f33c79
-Rabbit Joint:Legend of Zelda:Easy:Hitoshirenu Shourai:cef87e9def847fb1061186e0882b079e
-Rabbit Joint:Legend of Zelda:Normal:Hitoshirenu Shourai:36c1fb75250881f658eef4e221ea9df0
-Rie Tanaka:Ningyo Hime:Normal:Puffles:de538fabc2849d719933850abf527cff
-Road of Major:Taisetsu na Mono:Easy:elzamxrai:c9651eb5a23d9db7eb6f20c0af7be94d
-Romantic Mode:Dreams:Normal:Elzamxrai:50791b017c9d43382403f343fdb62c77
-Sakai Kanako:Cheer! ~Makkana Kimochi~:Easy:DJPop:8a4c57c3d5b273156544b643205b094c
-Sakai Kanako:Cheer! ~Makkana Kimochi~:Hard:DJPop:236e433f896df6a036f4a87bde9dc70a
-Sakai Kanako:Cheer! ~Makkana Kimochi~:Normal:DJPop:df2e1fe29b02acc55631b13bbce82f1c
-Sakamoto Maaya:Kazemachi Jet::KiraCatgirl:44abebf44f8c91189e679206615638a4
-Sambomaster:Sekai wa Sore wo Ai to Yobunda ze:Normal:ZZT the Fifth:9024a2fa53214f69bf993aa2d85cdd25
-Scatman John:Scatman:Insane:Extor:ea43709e1e9056879e59860b286895be
-SEAMO:Mata Ai Mashou:Normal:tsububu:f439f303808e1b07920037352184face
-Seether:Remedy:Easy:Bonesnake:ca3fe575ea502888a1b58418def79ec6
-Seether:Remedy:Hard:Bonesnake:96cf7fa16962447c38173954ef505a8b
-Shimamiya Eiko:Naraku no Hana:Easy:Donryu:b3e4b467b37ae17d1d0b87190516886a
-Shin Ji:Always:Hard:Donryu:6eb9c2a2283b7d0352dc4038ef234d8d
-Shin Ji:Always:Normal:Donryu:d8e277b4950f34e41be1b660c73239d6
-Sigh:Midnight Sun:Easy:awp:7c9316adc45766c8438f871dfdaa0919
-Sigh:Midnight Sun:Hard:awp:0d9032550950c508209678bd77e8280d
-SION:Funky Cat Maybe:Hard:peppy:995b43db9c620cc8a34e356154faacd8
-SION:Funky Cat Maybe:Normal:peppy:37a473aec6c0f8f50c863ff5ca0f5961
-Sister Mayo:Love Tropicana:Hard:Lancer:447288e5533fc28f8bbd9527a98bd060
-Sister Mayo:Love Tropicana:Normal:Lancer:109ded5dfb06b5e7e4a69d90aea29f0d
-Smash Mouth:All Star:Easy:Bonesnake:bec2d4ed7d91301214d8c00849ac3a17
-Smash Mouth:All Star:Normal:Bonesnake:5b06c46fa8b790bc59061ea8f53983a5
-Sonata Arctica:Black Sheep:Hard:ZZT the Fifth:2c292eeb874fffc5d11f639a5805a320
-South Park:Let's Fighting Love!:Easy:Jean:272b943a31328e6674da28f509647615
-South Park:Let's Fighting Love!:Normal:Jean:f142dda4be5296f450d484d7b678a3e7
-Spoon:Don't You Evah:Easy:Puffles:efe32cbd5ec8fe9d2b9d761a8cbd6c31
-Spoon:Don't You Evah:Insane:Puffles:641844fc6a882f671ac554f8d3a4b74f
-Spoon:Don't You Evah:Normal:Puffles:4f2c2e1235e440dae16b06b861e06418
-Storm Lee:Comin' Up For Air::Behonkiss:74c29c4a354125c5f53ac73dc2c5c1a7
-Strapping Young Lad:Far beyond metal:Easy:awp:1f1a056da5c98ecc38d07c84279231b4
-Strapping Young Lad:Far beyond metal:Hard:awp:62e6ce737bf4c43d6653094f725c789f
-Sukima Switch:Zenryoku Shounen:Insane:Echo49:42a6f8de3c5d0ab0a7afc645eb216719
-Sukima Switch:Zenryoku Shounen:Normal:Echo49:f4327291c5dc3c8cedf4aa0ac7e7a3ff
-Sukima Switch:Zenryoku Shounen:Insane:Egg1991:949614c770fd5f56e4a03f24779b99ed
-SUN & LUNAR:your gravitation:Easy:Donryu:b21f9359b4c823aec72f61ee1c47e5e4
-SUN & LUNAR:your gravitation:Normal:Donryu:deada53b8cc1587e258638b56917ee63
-SUN & LUNAR:your gravitation:Very Hard:Donryu:4d7d8665cc7f949e209f1b719a922da7
-Super Mario Galaxy:Gusty Garden:Hard:Gunzil:eee67ad7b18d7d6a6427c1861d8d728e
-Super Mario Galaxy:Gusty Garden:Normal:Gunzil:d1e03c31255be8036f5486fbdc6967e2
-t+pazolite feat.:Okkusenman (Hardcore Mix):easy:Bonesnake:517ab06095305f0ad05ae93486131860
-t+pazolite feat.:Okkusenman (Hardcore Mix):Hard:Bonesnake:eb075c83c8e43b5cd1e9114596818029
-t+pazolite feat.:Okkusenman (Hardcore Mix):normal:Bonesnake:2feee796a9bc80e095b6c6b7689c98f6
-Takashi matsumoto:Ichirin No Hana ~HHM~:Insane Long:GuardianHX:e3ae6cb1c7cb7baf5147f5871584dd55
-Takashi matsumoto:Ichirin No Hana ~HHM~:Normal Short:GuardianHX:47efda5ab1c3438cbae0609534c5c0d4
-Takeharu Ishimoto:The Price of Freedom:Hard:Elmo:c1cabc12d560ede68446f6931f1baf7c
-Takeharu Ishimoto:The Price of Freedom:Normal:Elmo:ab5ed06fd7bbfb7fcbb9aaf70d96dd96
-Tamura Yukari:Sweet Darlin':Easy:DJPop:a39a23c38b214b623d5758e8a0e3d88d
-Tamura Yukari:Sweet Darlin':Hard:DJPop:63fb0e1b2961b2deadfb90a4a2d92d03
-Tamura Yukari:Sweet Darlin':Normal:DJPop:ae66bee634f404d0c6fdb84639bd7485
-Team Nekokan:Can't Defeat Airman::HolyCOW:b6daefe2b522d79b202f77c4a84045aa
-The Chemical Brothers:Galvanize:Normal:IcePagoda:dea97e08396e429036f97af50dc66c23
-The Cloud Room:Hey Now Now:Hard:Extor:0b24b64504036a0b08f17a4276314a90
-The INTERNET:At The Playground:Easy:awp:61e4871fb8005e9b0049e2fa36b71b78
-The INTERNET:At The Playground:Hard:awp:65709968028b11ce1de559460ae15d2a
-The INTERNET:At The Playground:Normal:awp:b770f06ea81fc1a15846630b153b83ab
-The King of Fighters '98 Arranged Sound Trax:Fanatic Waltz Version B:Hard:EiJi:a507f27b925206651d71c4673eccc515
-The Laziest Men on Mars:Invasion of the Gabber Robots:Easy:GuardianHX:d3aa570f42e182d1989bd611a59b91ad
-The Laziest Men on Mars:Invasion of the Gabber Robots:Hard:GuardianHX:58ce102f80445d429882713d7ae89858
-The Lion King:I Just Can't Wait to Be King:Normal:Impossible:212bc0e7bdab901f031c86a234a0ab10
-The Pillows:All The Way To The Edge Of This World:Hard:Gilrad:d78a9f8b4e1eee0cfc57a97a866d289c
-The Pillows:All The Way To The Edge Of This World:Insane:Gilrad:64fb957267ae29dd7d7960f213cda4b2
-The Pillows:Ride on shooting star:Normal:Hitoshirenu Shourai:fcf6f7640c0e434306554262f9ea2bee
-The Strokes:You Only Live Once:For Beginners:JacoPOP:302dfa48d19637cf17c8511a2c74a4bb
-tiger YAMATO:tiger yamato:Hard:qudfo9:43ded64d75a668e52c23d7121fd981e8
-tiger YAMATO:tiger yamato:Normal:qudfo9:5a9f7614e4b1efde8c291b9a76712f89
-Trans-Siberian Orchestra:Wizards In Winter:Hard:Echo49:c5fb99eb618e1663ecfaaddf75354eee
-Trans-Siberian Orchestra:Wizards In Winter:Impossible:Echo49:53492484dec13e1be44b2b0fb9e037f1
-Trans-Siberian Orchestra:Wizards In Winter:Insane:Echo49:dcbe5f46a61ba3e76e69fe22b4fde7f4
-Trans-Siberian Orchestra:Wizards In Winter:Normal:Echo49:526e3de8a1ffc84024de4f4d825a7977
-TRF:Survival dAnce ~no no cry more~:Easy:Echo49:974b72f33a25bd5ef297bd8682d7fa79
-TRF:Survival dAnce ~no no cry more~:Hard:Echo49:774861583d38346a3876ade4116ebbc0
-TRF:Survival dAnce ~no no cry more~:Insane:Echo49:ea0df9f890e7e9e7ad4d3862a7823359
-TV's Kyle:Sheep in the Morning:Normal:K-S-O:94dbfda5cea813f7b707456e7a8b3004
-Two - Mix:Just Communication:Easy:Elzamxrai:c8d807d2d0da513b2d0bff9c133548e9
-U2:Vertigo::eyup:2640b14cd553e1b4e8b0ac6ecd47b412
-UVERworld:D-tecnoLife(Album Version):Hard:Lumino:4cb0684a66b15d757afdf793037c631c
-UVERworld:D-tecnoLife(Album Version):Insane:Lumino:b50622944fe5d177055cc54be967d8f7
-UVERworld:D-tecnoLife(Album Version):Normal:Lumino:ec41d9b2774fc48189c6f5fc6c0db527
-UverWorld:UNKNOWN ORCHESTRA:Easy:Lumino:2a852753c93f53ba84e04f0854523460
-UverWorld:UNKNOWN ORCHESTRA:Hard:Lumino:a9ffec676c23ed70c18cc0b29ab2d6d5
-UverWorld:UNKNOWN ORCHESTRA:Insane:Lumino:40e1a0606a68381f84a7b8e48c2f478f
-UverWorld:UNKNOWN ORCHESTRA:Normal:Lumino:68e02036339a3ffe983760aeaa271f27
-Vengaboys:Boom Boom Boom:Hard:Advancechao:289473d51a4a5a4cae79d39e5aea1088
-Vengaboys:Boom Boom Boom:Normal:Advancechao:31838efb04c1f34d41258a2ee6ff9f6a
-Vision Divine:Take On Me:Hard:Kylecito:05edf9da65e6652bf5954deffc2c5723
-Wang Lee Hom:Not Your Average Thug:Hard:Chan:f9bb3d924ee9ce4d2e0e77bc55e29e83
-Whiteberry:Summer Festival:Normal:elzamxrai:41b1ee43a98626d8b0e3d5e30b040a9e
-Yasunori Mitsuda:Robo's Theme:Easy:Starrodkirby86:b48a16c62e321c2897d3693b8161eb4b
-YeLLOW Generation:Tobira no Mukou he:Hard:Echo49:0077f31a8f66d02d2d211c1162dafa89
-YeLLOW Generation:Tobira no Mukou he:Normal:Echo49:aa649fdded769d5f0c9d86bd4dac7b3c
-Yiruma:River Flows in You [Paul John's Remix]:Normal:tsububu:e7546407f5e8cbac56cdc9a74a7c3184
-Yoko Shimomura:Roxas:Easy:DS-Deluxe:b5fb8574f9086c3661d8cfb3e1c872a7
-Yu Miyake, Masayuki Tanaka:Katamari on the Rocks:Hard:Impossible:831d65ef72bec9c4ac3b838a2619b89c
-Yu Miyake, Masayuki Tanaka:Katamari on the Rocks:Normal:Impossible:de144f668c44102f6f31dcc3a783bdbf
-Yuko Miyamura:It's Only a Fairy Tell VerB:Normal:EiJi:ce1463d66ef7248678136e16c11afd3e
-Yumi Kawamura:Burn My Dread:Hard:Egg1991:a17dfafc2c9f78de3605e9110e93b26b
-Yumi Kawamura:Burn My Dread:Normal:Egg1991:9733b2db2d217d19d4bdb08eeaedb56f
-ZZ:Samurai Blue:Easy:elzamxrai:8de6830d3692ef6bc6f5e1d001275faf
-ZZ:Samurai Blue:Hard:elzamxrai:6c1afb4dd017ef3b48c20869b237d363
-ZZ:Samurai Blue:Normal:elzamxrai:242d22347473e8c9acd534579efde128
+:Christmas Memories v3:Normal:EiJi:a83c5c34fe98bc2ab5d23f81ac4a9fc6:4.078947368421052
+LM.C:BOYS & GIRLS:Normal:Donryu:54f731c8b32c1c5ce35764973e8c1e79:3.026315789473684
+:Speed Over Beethoven:Easy:Echo49:b921c0d62975bb4b7aa8935e40324df2:2.5
+:Speed Over Beethoven:Hard:Echo49:a792fe1067ea1e162595edab97687736:4.2105263157894735
+:Speed Over Beethoven:Normal:Echo49:f37034e07eddb755465f70a395aaad72:4.078947368421052
+access:Doubt & Trust:Easy:Donryu:7aa676c48e544e9ba746ac53c8ae583c:1.1842105263157894
+access:Doubt & Trust:Hard:Donryu:fa5c7dfd2d1d5a888b7ecf3ce60e1ee8:3.1578947368421053
+Ai Otsuka:Sakuranbo:Easy:Echo49:1605e41688976f212e4e1ea08fc4daf4:1.973684210526316
+Ai Otsuka:Sakuranbo:Hard:Echo49:e4282588493ffe72f3476916424edd6f:3.8157894736842106
+Ai Otsuka:Sakuranbo:Normal:Echo49:2b2beeaff4f65eb12a4f72d78fe0f217:3.4210526315789473
+Akira Yamaoka:Lion Suki:Normal:FakeJapanMan!:18f6c5c898316e01042d15778fd13394:2.7631578947368425
+Amerie:One Thing:Normal:Chan:6f995a6bb9c7af50bd893f248206ff75:3.947368421052632
+Appleseed:Good Luck:Hard:EiJi:2f7daa0fa6d9c3ee8107ac351339f117:3.026315789473684
+ASIAN KUNG-FU GENERATION:After Dark:Easy:Donryu:ff8c59d7beb8884f2b35a52e4ed45963:1.1842105263157894
+ASIAN KUNG-FU GENERATION:After Dark:Hard:Donryu:e58e2b0f4f118f7b2c3cb39890a7a904:3.026315789473684
+Asian Kung-fu Generation:Rewrite 4th Opening:Hard Rock:MCXD:6e328d20511fe59d1b1e5211b9c25a56:3.947368421052632
+Asian Kung-fu Generation:Rewrite 4th Opening:Sweatin:MCXD:205fa8024d5bf1f90fa80066a0591f50:3.552631578947368
+Back-On:CHAIN (ROCKIN' 8 GLIDER MIX):Normal:EiJi:d9bc7d16cb86d4690ea7712305511b02:3.026315789473684
+BACK-ON:Chain v3:Hard:EiJi:d310e1d6454780096985b1f619b2758b:4.078947368421052
+Back-On:Hikari Sasuhou:Hard:EiJi:ea34f51cac301ffef943677d322c32c9:4.078947368421052
+BanYa:D Gang:Easy:Starrodkirby86:f328e7464fed8f19237cd3840e3a9096:3.2894736842105265
+BanYa:D Gang:Normal:Starrodkirby86:e6f67d40b92d574afc36c206fd527ed3:3.2894736842105265
+BanYa:Pump me Amadeus:Normal:Starrodkirby86:b93b190a9b78582b5026ab484fec2885:3.026315789473684
+Beat Crusaders:Hit in the USA:Normal:Shin:5fa1b4fa6aa480c7f219220d22b04166:3.2894736842105265
+BEAT CRUSADERS:TONIGHT,TONIGHT,TONIGHT:Normal:Hitoshirenu Shourai:9b60de431a39e1214632a609c5b86717:3.026315789473684
+Beautiful Day:Bride in Dream:Hard:FFFanatic:67e5ec48c4924d0aa4b4abbee8b5b991:3.6842105263157894
+Beautiful Day:Feel The O2Jam!:Hard:FFFanatic:0f41210995434c1cb1c71d54eb21ac72:3.947368421052632
+Beck:Timebomb:Normal:IcePagoda:2da8624939e768bc27445ff7627814d5:3.026315789473684
+Berryz Koubou:安心感:Normal:Zallius:5ecd0608d1a04b3a93e45063233be748:2.236842105263158
+Billy Fogarty:Jumpin' Jack Flash:Sweatin':Aliento:934923e4218f4cf7113dc799ca5dea4d:4.473684210526316
+Billy Joel:Uptown Girl:Easy:Jay:605d6d99abf07a4c84bd347cf74a5686:1.7105263157894737
+Blur:Song 2::JacoPOP:44618ee1fcb9dacfffc0830496f81f2d:3.026315789473684
+Brandy:Cross Time:Hard:FFFanatic:3dd9f2278628fc7baa3f828f752ba273:3.6842105263157894
+Brandy:Love Fighter::FFFanatic:5b00851555cf4c8e895210dcd871f1bb:3.6842105263157894
+Buddah Bar:Mambo Craze:Hard:Extor:b58e4b6803b15e7590046c8769e2738b:3.026315789473684
+BUMP OF CHICKEN:Tentai Kansoku:Easy:Impossible:ee2f122921e699d9427d94a8958067c1:2.5
+BUMP OF CHICKEN:Tentai Kansoku:Normal:Impossible:81f95795f226c3f383acba8b3bcd0d78:3.026315789473684
+Capcom Sound Team:Silent Gravestone (Vega):Normal?:EiJi:6690be4829f7b10476a9bce74b9bd278:3.026315789473684
+Capcom Sound Team:Street Fighter 2 Megamix:Hard:EiJi:b90cd2055a1a0395ca841d6469d3f06b:4.078947368421052
+Caramell:Caramelldansen::meyou22:d80ac8fc518c0ff69d0963ef91f397f4:3.026315789473684
+Cascada:Every Time We Touch:Easy:Advancechao:dab2a665a27bba545242c5721bda1749:2.3684210526315788
+Cascada:Every Time We Touch:Hard:Advancechao:2eec37180f45b18ebfb6f46ad9dfda9c:3.552631578947368
+Cascada:Every Time We Touch:Normal:Advancechao:584b212d5a0c2df83b3cced53e1ff47d:2.8947368421052633
+Chata:Dango Daikazoku:Full:Donryu:41cb0a5bd07f71ddd745a5b8e703f535:3.026315789473684
+Chata:Dango Daikazoku:Beginner:Hitoshirenu Shourai:de4619e51ef51084dea19ac398255b50:0.39473684210526316
+Chata:Dango Daikazoku:Easy:Hitoshirenu Shourai:ba11e6c0735e57d1b0ce3083c8adab1c:2.3684210526315788
+Chieco Kawabe:Sakura Kiss:Normal:K-S-O:76c1cf489a657afbbf4bc54aae697110:2.1052631578947367
+Crystal Kay:Motherland:Easy:Hitoshirenu Shourai:8cb7820386fc48db7da53080a1128456:1.5789473684210527
+Daft Punk:Harder, Better, Faster, Stronger (edit)::JacoPOP:a14d8c4d338540f994d7566466d614b9:4.342105263157895
+Deathwish Nine:Chicks Dig Giant Robots:Hard:GuardianHX:06f83c55eb25afc8d6b2b81ddda91b5a:3.4210526315789473
+Deathwish Nine:Chicks Dig Giant Robots:Normal:GuardianHX:11d1cf8bbfb0dc9035654990ed9f2f8d:3.2894736842105265
+Die Aerzte:Junge:Hard:Fox:1f80645c63012adb4aa4acf09da1ae78:3.2894736842105265
+Die Aerzte:Junge:Normal:Fox:0910696835595d7cb100181006272287:2.7631578947368425
+Dormir:Cosmos Pop:Hard:KiRaTaTen:9332e27c9c4300c549ef51a76e4ef728:3.1578947368421053
+Drunken Tiger:Emergency:Hard:Starrodkirby86:21a29d38420f94c518253268a61ba035:4.473684210526316
+Dudelstudios:Angry Video Game Nerd Theme:Hard:Behonkiss:ea75e0ab908502254b4796688de37efd:3.026315789473684
+Earth, Wind & Fire:September:Breezin':Jay:8034df6505f8343b1f49f3cb54aaf1e5:1.0526315789473684
+Earth, Wind & Fire:September:Cruisin':Jay:bd5d521f940b97c73f8838969c6bdd44:2.631578947368421
+Earth, Wind & Fire:September:Hard ROCK!:Jay:6a0271b1a11d36cc2008c4ce4dfe8987:5.0
+Earth, Wind & Fire:September:Sweatin':Jay:564425a81f4745e1c31e8eee91892392:4.342105263157895
+ELISA:Eurphoic Field:Easy:MaxwellDemon:27c5a72ad93d5d187a26c83ca99e652f:2.5
+ELISA:Eurphoic Field:Hard:MaxwellDemon:4a3739e3409e90884b26ce25aa18177f:2.631578947368421
+Erisis:Owarinaki Tabibito:Normal:Elmo:20239cac77fcbc5105e496520d8d7530:3.026315789473684
+Erisis:Owarinaki Tabibito:Short:Elmo:6c77f9687dfcba0cf39c3d203122f4bc:3.026315789473684
+Erwin Beekveld:They're Taking The Hobbits To Isengard:Hard:GuardianHX:3aa900c6cb30121695c6737844c64ff2:3.8157894736842106
+Erwin Beekveld:They're Taking The Hobbits To Isengard:Normal:GuardianHX:8421363c24242fffc5fda118e57046cf:2.7631578947368425
+F.I.R.:Lydia::fruit:6fe20189b2f4ef5bfecf69d11810a49d:3.4210526315789473
+FAIRY FORE:Vivid:Easy:Hitoshirenu Shourai:72bdc73c3f17013c5d0ba8443c9045b2:2.236842105263158
+FAIRY FORE:Vivid:Hard:Hitoshirenu Shourai:545e306c69bf8d2d1dd6eb6731babea5:4.078947368421052
+FAIRY FORE:Vivid:Insane:Hitoshirenu Shourai:1cf5b2c2edfafd055536d2cefcb89c0e:4.078947368421052
+FAIRY FORE:Vivid:Normal:Hitoshirenu Shourai:0236aeb3bb5f110d7eacf4045092efac:3.026315789473684
+Galaxy Angel:Galaxy Bang! Bang!:Easy:Homestarrunner:89a41a83caa32c6a238c43b508d73e24:1.7105263157894737
+Galaxy Angel:Galaxy Bang! Bang!:Hard:Homestarrunner:c3f9838eaf666b50ae43453d96c14a0f:4.473684210526316
+Galaxy Angel:Galaxy Bang! Bang!:Normal:Homestarrunner:319cbb971f0c762662d22e394dd11104:2.7631578947368425
+Gitaroo Man:12 - The Legendary Theme (Album Version):Normal:darkbluetornado:719c48c20053ba0ebcda218011649d5f:2.8947368421052633
+Glay:Way Of Difference:Hard:Echo49:ead8a4651f7ccd0ee3ca269311ed2e4b:4.2105263157894735
+Glay:Way Of Difference:Normal:Echo49:3ea709cf71089c769ee4f24dc960fa32:2.631578947368421
+Going Under Ground:VISTA:Easy:ZZT:2ed9f5ccfbf6e8903bb2d4d40fa37045:0.5263157894736842
+Going Under Ground:VISTA:Hard:ZZT:c348a7e54f53392d8fc17afd9bef1d9f:4.078947368421052
+Going Under Ground:VISTA:Normal:ZZT:125b5c039fe0857a1ad29565965aba7b:2.631578947368421
+Gorillaz:Feel Good, Inc.:easy:Tapdancingmetroid:33a1932b6da57c4a66e8b97c2c9f1c60:2.3684210526315788
+Gorillaz:Feel Good, Inc.:Normal:Tapdancingmetroid:5e31ef864ffd62b3a2c18a7c8b010839:3.026315789473684
+Grandaddy:Jed's Other Poem:Easy:wiicademan:0ff148754f8be9859e824c6eaf5ed850:0.7894736842105263
+Grandaddy:Jed's Other Poem:Hard:wiicademan:e381dfd27a8593d4e1d0af6d8ff68e60:3.4210526315789473
+Green Day:Holiday:Insane:Puffles:4150d40e7fdc1974948083905227e727:4.078947368421052
+Green Day:Holiday:Normal:Puffles:56ff9c1037740083ae675a1d644ef83e:2.5
+Guang Liang:Tong Hua:Easy:Echo49:f015d5020c78d767180231b5ac5d01c9:3.026315789473684
+Gumi:Catch You Catch Me:Fun!:Hitoshirenu Shourai:4eb4bb0791671209bd71a506f643da67:3.1578947368421053
+HALCALI:Lights, Camera. Action!:Hard:Hitoshirenu Shourai:2da1cce74fd5dcf3f232dbf0a30f8c30:3.552631578947368
+Hinoi Team:Aishiteru:Breezin:MCXD:dd44ebba58f125b2be48b0345e56fca7:1.3157894736842104
+Hinoi Team:Aishiteru:Crusin:MCXD:f457792fcc72f1388963dbbe24b22c8a:2.7631578947368425
+Hinoi Team:Aishiteru:Hardrock:MCXD:3ce8eb2ba90eadd3e31493cb9d40fb76:3.8157894736842106
+Hinoi Team:Aishiteru:Sweatin:MCXD:5b8c9eeebc1b3af1535c684bdacf5340:3.2894736842105265
+Hinoi Team:Emoticons:Breezin:MCXD:cf8bd375f2708f152562a919247ba09a:1.1842105263157894
+Hinoi Team:Emoticons:Crusin:MCXD:90789138c7b1d6081315f3f264a1e7b4:2.7631578947368425
+Hinoi Team:Emoticons:Hardrock:MCXD:1bdabfa397ccd5af413ed22647bec2dd:3.8157894736842106
+Hinoi Team:Emoticons:Sweatin:MCXD:629d1b14925ed15dd5f9292b00ef2786:3.2894736842105265
+Hirano Aya:Hare Hare Yukai:Easy:Kharl:4a5ea50771612b9dc6e52946d7fb9605:2.1052631578947367
+Hirano Aya:Hare Hare Yukai:Hard:Kharl:78a084bba1d02c3aa6e7953b98e369ce:4.2105263157894735
+Hirano Aya:Hare Hare Yukai:Normal:Kharl:6bb62fe98669fe966233a3f7f3a172cd:2.631578947368421
+Hiro-X & Kimeru:Future(TV Size):Hard:EiJi:14b3ba63028dbe10028caf65a1ca97c6:4.078947368421052
+Hiro-X:Driving Myself:Hard:EiJi:bfb78a9a998b5f6974d1e101ba71f5fc:4.078947368421052
+HOME MADE KAZOKU:Nagareboshi ~Shooting Star~:Normal:Hitoshirenu Shourai:e97900f9aaee1f2d8327040fe955d6d5:2.5
+Hoshimura Mai:Sakura Biyori:Easy:Hitoshirenu Shourai:9e1a4ea2ae69a278b41421f8dfe29bbd:1.5789473684210527
+Hoshimura Mai:Sakura Biyori:Normal:Hitoshirenu Shourai:f88428959b341b008a49dc00f46c8b75:3.2894736842105265
+HY:AM11:Normal:tsububu:ee52b4c498a29478b73fb4f17a456458:3.026315789473684
+IOSYS:FOE to no Souguu:Easy:Kharl:1ead9803e44440628163ed7e3dcc1319:2.3684210526315788
+IOSYS:FOE to no Souguu:Normal:Kharl:e794ad40dac66fcc5170798dd47bca4b:3.026315789473684
+IOSYS:Marisa wa Taihen na Mono wo Nusunde Ikimashita:Easy:DJPop:8b29e773161340bc1fff247a6ab749d1:2.236842105263158
+IOSYS:Marisa wa Taihen na Mono wo Nusunde Ikimashita:Hard:DJPop:7553a13a8c4a518c25e37d1ca6483303:4.2105263157894735
+IOSYS:Marisa wa Taihen na Mono wo Nusunde Ikimashita:Normal:DJPop:522a6f8efbc58a6bdddacc7dd5810747:2.7631578947368425
+J.P. ROOM:Da Ban Odori:Hard:Fox:78fa3fc60996503807ae3d069bb50a61:3.2894736842105265
+J.P. ROOM:Da Ban Odori:Insane!!:Fox:c8df916dfc8ccd8b7c9d2b5121a3d3cb:4.342105263157895
+J.P. ROOM:Da Ban Odori:Normal:Fox:33c4b8ac4f097f7562fdfbbc5dede968:2.1052631578947367
+Jam Project:Fire Wars:Easy:elzamxrai:f30f63720f2f18abaf737f2ba59b11cd:1.5789473684210527
+Jam Project:Fire Wars:Hard:elzamxrai:9bc4ca5bf71e4516a8ffd483bca7852e:4.342105263157895
+Jam Project:Fire Wars:Normal:elzamxrai:8301c1f2d847fe085d4a14dd07492a75:3.1578947368421053
+Jam Project:Stormbringer:Hard:Headbang:41c93281ea0ec2c81940d48cebbe4cd9:4.342105263157895
+Jam Project:Stormbringer:Normal:Headbang:c6677f2688c3a3a92ed8ba03dcf0d99f:3.026315789473684
+Jamiroquai:Canned Heat:Cruisin':ZZT the Fifth:e4245c3a17188bc6d5078e9df5af9152:2.7631578947368425
+Jamiroquai:Canned Heat:Sweatin':ZZT the Fifth:fd8f8287991a7c3f27e691ead19ec0b8:4.078947368421052
+Jamiroquai:Soul Education:Hard:K-S-O:43fe434caa5f5292e5cd258304fa9b32:4.342105263157895
+Jamiroquai:Soul Education:Normal:K-S-O:bc1595f9932cc7e2fc298cd99e12b23d:1.8421052631578947
+Jay Chou:Tornado (Long Juan Feng)::fruit:f81565675a98c7ae0e5c5f7af5420d5a:3.4210526315789473
+JENNY ROM vs ZIPPERS:WAKA LAKA:Easy:Bonesnake:e61e4d1650ed791abe866d4ac52e1c67:2.1052631578947367
+JENNY ROM vs ZIPPERS:WAKA LAKA:Hard:Bonesnake:7b80174441b38016ad3f491bba47c9b7:4.473684210526316
+JENNY ROM vs ZIPPERS:WAKA LAKA:Insane:Bonesnake:cfa625330e83eed2192e11cd94f35de5:4.7368421052631575
+JENNY ROM vs ZIPPERS:WAKA LAKA:Normal:Bonesnake:7606b1aff158a4d9f30090b272ed0be3:2.7631578947368425
+Jin Senbonmatsu:AXIS:Easy:Elvana:0baa0eb73fb4f127bf3cbb6d571b48df:2.1052631578947367
+Jin Senbonmatsu:AXIS:Hard:Elvana:bc696607f33bae24ddd82d260078cd8e:3.1578947368421053
+Joe Redifer:Final Fantasy 5 ROBOVoice OC ReMix:Normal:Hitoshirenu Shourai:60bfd3dbf771dfac62213316afe589db:4.078947368421052
+Jonathan Coulton:Mandelbrot Set:Easy:Manabeast:72f0269062fcddd67343f17d8eb7378e:2.7631578947368425
+Jonathan Coulton:Mandelbrot Set:Normal:Manabeast:fb46eeffb4e1513b897c622aff7ffdab:4.342105263157895
+Judy and Mary:Freckles:Hard:cecilthemos:eae1f0060df19f9e0ce45daf19e59dcf:4.078947368421052
+Judy and Mary:Freckles:Normal:cecilthemos:ee07600fb1e9a1dac481c4e9a8a95385:3.026315789473684
+Justice:D.A.N.C.E::caelus:9912def545fe57e61dc0f5aad31eb3d9:4.078947368421052
+Kana Ueda:Pumpkin Ondo:Normal:Hitoshirenu Shourai:a6ec4ed98bf7cb7a426f8d7b3ad41018:2.5
+Kaori Oda:Brilliant World:Hard:Echo49:7702876988020b001b4fca6816529b2e:3.8157894736842106
+Kaori Oda:Brilliant World:Normal:Echo49:019f6a4a2e118899659341748e9fb057:1.973684210526316
+Katrina & The Waves:I'm Walking On Sunshine::Aliento:a8860ec5a4f61f667c054c948dab6741:2.8947368421052633
+Kelly Clarkson - Breakaway:Because Of You:Normal:SixtySevenFrogs:685ca915437173e7796a6635df390185:3.026315789473684
+Ken Clinger:Babilfrenzo:Easy:Fraeon:1a04b06419063a6014766862c6f0fcf0:1.1842105263157894
+Ken Clinger:Babilfrenzo:Hard:Fraeon:2f8074b3fea80d845bf0be2d46c85cb9:3.4210526315789473
+Ken Hirai:Pop Star::Chan:bfe8f7ccd03253bf36d7faabd61be2e0:2.631578947368421
+Kenji Ninuma:DISCO★PRINCE:Normal:peppy:a5b99395a42bd55bc5eb1d2411cbdf8b:3.1578947368421053
+Kenji Ohtsuki:Hitotoshite Jiku ga Bureteiru::Elle:bdbfa2417d3d296211424441684d8539:2.3684210526315788
+Kimeru:Make You Free (TV Size):Hard:EiJi:1c055128dc38cedf058ba56fc474ee2d:3.026315789473684
+King Kong & D. Jungle Girls:BOOM BOOM DOLLAR:Easy:Bonesnake:f252f786ef98140ec285000bc5d0dd19:2.7631578947368425
+King Kong & D. Jungle Girls:BOOM BOOM DOLLAR:Hard:Bonesnake:ccc696971956466bf7a07c415d865f8d:4.342105263157895
+King Kong & D. Jungle Girls:BOOM BOOM DOLLAR:Normal:Bonesnake:13fddb9c5a8da8b166c3081b372399b6:3.026315789473684
+Kishidan:One Night Carnival:Hard:ZZT the Fifth:958d14723e7151dda23fe882ccfd00ac:4.078947368421052
+Komputer Kontroller:Robot Rockerz:Hard:Shadowtje:e0efc7b501966d33a2a7bb2e0a25c1a7:4.2105263157894735
+Komputer Kontroller:Robot Rockerz:Normal:Shadowtje:477367d2928c7ad8d66183168522369d:2.631578947368421
+KOTOKO:agony:Easy:K-S-O:3db2e31044d4a3aabf37e1f939f5f6ef:1.1842105263157894
+KOTOKO:agony:Hard:K-S-O:691a94a89e46ccbd033ca66cea2aa43d:4.473684210526316
+KOTOKO:agony:Insane:K-S-O:3ceacf28711fd5eeaeab08faa9db3cb4:5.131578947368421
+KOTOKO:agony:Normal:K-S-O:12eb0d246e1feb79f67feba5d8bcc687:2.631578947368421
+KOTOKO:Shichiten Hakki ☆ Shijou Shugi:Normal:Donryu:1d1532ad4553f593cf13461bb11a5ad9:4.078947368421052
+Kurei Soshi:WISH ~ Kimi wo Matenakute::ZZT the Fifth:022ea71a85dc4b8e147b498e03114e71:2.7631578947368425
+L'Arc~en~Ciel:READY STEADY GO:Normal:Hitoshirenu Shourai:e9b5e31d6b0421f84322ca7f0fec3b44:3.026315789473684
+LAST ALLIANCE:Shissou:Easy:Advancechao:1b65d233a717cbde21c8c884ada4e46a:2.5
+LAST ALLIANCE:Shissou:Hard:Advancechao:e29a2fdd111a08fc2f7acec27e0caa35:4.342105263157895
+LAST ALLIANCE:Shissou:Normal:Advancechao:8d2e88ffab0b85d430b39a657f8c541d:3.026315789473684
+Laugh and Beats:Universal Dance:Easy:K-S-O:778dd51e38efff232e7f0e91e3ab37ce:0.7894736842105263
+Laugh and Beats:Universal Dance:Hard:K-S-O:98a76b444890a07d7136f7f321b00b2e:4.473684210526316
+Laugh and Beats:Universal Dance:Normal:K-S-O:9d7dd7eabb2cafb9f77283aa48b65b22:2.631578947368421
+Lazy Town:Cooking by the Book:Easy/Normal:Hitoshirenu Shourai:1d041315a49a1d014c76d023af4ab539:2.3684210526315788
+Lazy Town:Cooking by the Book:Hard:Hitoshirenu Shourai:97062d02e8429730cbf554ac80b2f12c:4.078947368421052
+LB:Dreams Of An Absolution::Oddbrother:f4edfb9586bcd154bb96f43cff01e3e3:1.1842105263157894
+Lemon Demon:The Ultimate Showdown of Ultimate Destiny:Normal:RatherDashing42:1d483d569ecc2eb832d485a89fc555b3:3.1578947368421053
+Lily Allen:Smile:Normal:meyou22:49b69c5e2e1c928707989af089430c73:3.026315789473684
+Linkin Park:Numb::fruit:4451cfbaa62488b97ee07bd58d95f8ff:2.1052631578947367
+Linkin Park:What I've Done:Hard:eyup:fa06c909fbe8e5fdd178ee8c46d8fd28:3.552631578947368
+Linkin Park:What I've Done:Normal:eyup:6d37995ba1503eb1a7b0b693767a012b:3.026315789473684
+Little Non:Aijou Education:Easy:DJPop:80df7634a439c7e95914bf2e27a56a1a:2.236842105263158
+Little Non:Aijou Education:Hard:DJPop:81581777d8a459655acc3276ee3b059c:4.473684210526316
+Little Non:Aijou Education:Normal:DJPop:9d0057f1de80a0ec05f505ad6ab51a66:3.8157894736842106
+Little Non:Hana Maru Sensation:Normal:Donryu:75881ec7eac3a5252d52740eec1dbf1b:3.026315789473684
+Lordi:Hardrock Hallelujah:Easy:Machu:0090b59c26abdcfbab219b4e681bbab6:1.4473684210526316
+Lordi:Hardrock Hallelujah:Hard:Machu:a36a02bc82322eaabdd6858769a7ecbc:2.7631578947368425
+Lordi:Hardrock Hallelujah:Normal:Machu:984e1068421be9e307fb07f1d2308e52:2.631578947368421
+LOVERIN TAMBURIN:Aishitageru:Easy:awp:4f1d91c34f71a3de7f64fb3c06ec9a1f:2.5
+LOVERIN TAMBURIN:Aishitageru:Hard:awp:144e50548804392a565efef8a7769f70:3.2894736842105265
+M2U:World Opening:Easy:Kharl:cc93e017281523f6aafe3e1bd1f6c189:2.3684210526315788
+M2U:World Opening:Hard:Kharl:35c61df60f94115911e5c49349ea6b7e:4.473684210526316
+M2U:World Opening:Normal:Kharl:9966b3fa832babcb6958d5eaa753373e:2.8947368421052633
+Maeken Trance Project:Koi no Maiahi:Easy:Lumino:20e131384bbb7269003c4feb9caf26d9:1.7105263157894737
+Maeken Trance Project:Koi no Maiahi:Hard:Lumino:4cdf98a78bd16c3b7a8a50102d5435ea:3.4210526315789473
+Maeken Trance Project:Koi no Maiahi:Insane:Lumino:7350c490ce64c63abada98d039e5c480:4.342105263157895
+Maeken Trance Project:Koi no Maiahi:Normal:Lumino:ef05b3f8e90045fc1264b78ea9134d7c:3.026315789473684
+Magical Trick Society:Examination ~ Allegro:Hard:eyup:3ed6c8708b93c61f0463ba859e903ad1:2.8947368421052633
+Magical Trick Society:Examination ~ Allegro:Insane:eyup:15bbf7c05d03b3e0c199b5a5b2635c20:4.605263157894736
+Magical Trick Society:Investigation ~ Cornered:Hard:eyup:c0581c1713071a05e4eca07ea6c4b7d5:3.6842105263157894
+Magical Trick Society:Investigation ~ Cornered:Insane:eyup:c62273f24fbf866d81d14b0f2685daa2:4.2105263157894735
+Magical Trick Society:Phoenix Wright ~ Objection!:Insane:eyup:c0eb6fd20c88633f560ea9d5956e3fca:4.2105263157894735
+Magical Trick Society:Phoenix Wright ~ Objection!:Normal:eyup:0bbddc7549c9bfc786dc447cff9d9a53:2.7631578947368425
+Marilyn Manson:This is Halloween:Insane:RatherDashing42:440395d5c1483a56dbc006ed8491ff94:4.078947368421052
+Marilyn Manson:This is Halloween:Normal:RatherDashing42:3dbd0d8ff9d6e8619a9274ac4bf5f40d:2.8947368421052633
+Maroon 5:Sunday Morning:Normal:eyup:a2fc0826b4eea3b335bdb854ff90dacc:3.4210526315789473
+Marron Koshaku (feat. Shin):パリジョナ大作戦::Oddbrother:b960413eab9fdb694a696653874c5333:2.7631578947368425
+Marta:The SMRPG Song:Normal:Level-Up:794b005ae3fdcc845b11cc3b2006a163:3.026315789473684
+Masuda Toshiro:Jubei Chan - Main Theme:Hard:EiJi:03d4ab2a02deb8ab9af006d8bbca7f1e:4.078947368421052
+Meguro Masashi:Burn My Dread:Easy:Leniad:0da02259dc59347ee27a2ad119daf1f2:2.631578947368421
+Meguro Masashi:Burn My Dread:Normal:Leniad:cf9b62a7f25c0be8e12ffa61b425378a:3.026315789473684
+Michael Jackson:Bad:Easy:Loginer:f0dc376fc1a1855861b4b20f8e7de99b:2.236842105263158
+Michael Jackson:Bad:Hard:Loginer:a2e5e0cc16fe087456da37ab649f7a68:4.078947368421052
+Michael Jackson:Thriller:Easy:Loginer:71fc4eafc326b358306a2f6b8beedae8:2.236842105263158
+Michael Jackson:Thriller:Hard:Loginer:23a7447dff7507a6701deeb2ab69c1b0:3.947368421052632
+misono:VS:Normal:Donryu:fb099ade581d16f3a69926ccf8f2cf7a:3.026315789473684
+MR.ED JUMPS THE GUN:SMOKE:Easy:Bonesnake:0d0fe9d2697da242f6997be7a57ef446:2.236842105263158
+MR.ED JUMPS THE GUN:SMOKE:Normal:Bonesnake:211a8b9a0a68cd59fd3fbb4104d09bcb:3.026315789473684
+Muse:Unintended:Easy:Puffles:b397897f73a4dd42873cdbab9d1c67bd:1.973684210526316
+Ni-Ni:1,2,3,4, 007 [Wipeout Series]:-Breezin-:MCXD:3a0caa344183a9603448136609ad1370:1.1842105263157894
+Ni-Ni:1,2,3,4, 007 [Wipeout Series]:-Crusin-:MCXD:1d23c37a2fda439be752ae2bca06c0cd:2.631578947368421
+Ni-Ni:1,2,3,4, 007 [Wipeout Series]:-Hardrock-:MCXD:e6f48da7f132c909accc677b77f231b8:3.552631578947368
+Ni-Ni:1,2,3,4, 007 [Wipeout Series]:-Sweatin-:MCXD:a5372216d0902bacc7eb081e15e36bb9:3.1578947368421053
+Niko:NIGHT OF FIRE:Easy:Bonesnake:2f2e7dd94d9904ba7eecc1bbdd3d2ca6:2.5
+Niko:NIGHT OF FIRE:Hard:Bonesnake:74c7fc465e1af81019b9daace0c9000a:4.078947368421052
+Nintendo:Here We Go!:Hard:eyup:3863f6ad53e3139d876c084cd16ff758:3.1578947368421053
+Nobuo Uematsu:Tatakau Monotachi (FFVII AC Version):Hard:eyup:4d101cae375f70cb97631876777d079b:4.2105263157894735
+Nobuo Uematsu:Tatakau Monotachi (FFVII AC Version):Insane:eyup:1128facc8d4f694b9cde032c8fc0fdb1:4.473684210526316
+Nobuo Uematsu:Tatakau Monotachi (FFVII AC Version):Normal:eyup:055e7f6d6fc6c6d5838b633038f38aff:3.026315789473684
+Nobuo Uematsu:You're Not Alone:Hard:Cecilthemos:a707833e2240c6e0f693e7746b81e73e:3.4210526315789473
+Nobuo Uematsu:You're Not Alone:Normal:Cecilthemos:19a893e21cf2f2e29745bd4cdb0db1c4:3.026315789473684
+Nori Horikoshi:Guru Guru Gravity:Normal:darkbluetornado:159d53a42f9593fc8896a2bd1f9ea4b7:3.1578947368421053
+Noriyuki Iwadare:Pursuit ~ Caught:Easy:Kharl:0ba8e7cca4148229dbf036587b8d2a7f:2.3684210526315788
+Noriyuki Iwadare:Pursuit ~ Caught:Hard:Kharl:27ecaaf3928cc4c4dff2c7ac7c9ed3ae:3.552631578947368
+Noriyuki Iwadare:Pursuit ~ Caught:Normal:Kharl:293762d58c2c44901666ff97dfc4577c:2.7631578947368425
+O-Zone:Dragostea Din Tei:Hard:hadoken_zero:fa63742f3393c1a02c15cdfbf020a0c1:4.473684210526316
+O-Zone:Dragostea Din Tei:Normal:hadoken_zero:3741781d047db5dc52d89c730f2f4d29:2.631578947368421
+Orange Range:Shanghai Honey:Easy:elzamxrai:31ba902aaa302412714725de834c30b4:2.7631578947368425
+Orange Range:Shanghai Honey:Normal:elzamxrai:60aa31e0b916e97156513ef083fc68a4:3.026315789473684
+Phantasma:Fall Memories:Hard:Kylecito:52921ef98dcff9883b8cc0567afc730f:3.026315789473684
+POLYSICS:Rocket (Moyashimon ED):Easy:flakmonkey:94e1cf4523df9e74b4d3010f5a793d94:3.026315789473684
+POLYSICS:Rocket (Moyashimon ED):Insane:flakmonkey:ca09c2fb864ed02aca63384630deaa00:4.473684210526316
+Porno Graffitti:Mellisa (TV Size):Easy:SixtySevenFrogs:219f4ad3a1e930c8660e7bf99f9cbd69:2.631578947368421
+Porno Graffitti:Mellisa (TV Size):Normal:SixtySevenFrogs:381f7b3d66ee447e6e9128f7a64a93b7:2.7631578947368425
+Portal:Still Alive:Easy:Hitoshirenu Shourai:f57367f4b8a696bcc77433d98f4ebe08:3.026315789473684
+Portal:Still Alive:Normal:Hitoshirenu Shourai:2162a03014f463b708605b81098bcb5e:3.026315789473684
+R.E.M.:It's the End of the World as We Know It (and I feel fine):Hard:caelus:ecb144677d96cc7997ecb5d504bddc30:4.2105263157894735
+R.E.M.:It's the End of the World as We Know It (and I feel fine):Normal:caelus:b33c8dcc24c9990c9a9aa464c4f33c79:2.631578947368421
+Rabbit Joint:Legend of Zelda:Easy:Hitoshirenu Shourai:cef87e9def847fb1061186e0882b079e:2.236842105263158
+Rabbit Joint:Legend of Zelda:Normal:Hitoshirenu Shourai:36c1fb75250881f658eef4e221ea9df0:4.078947368421052
+Rie Tanaka:Ningyo Hime:Normal:Puffles:de538fabc2849d719933850abf527cff:3.026315789473684
+Road of Major:Taisetsu na Mono:Easy:elzamxrai:c9651eb5a23d9db7eb6f20c0af7be94d:1.5789473684210527
+Romantic Mode:Dreams:Normal:Elzamxrai:50791b017c9d43382403f343fdb62c77:3.026315789473684
+Sakai Kanako:Cheer! ~Makkana Kimochi~:Easy:DJPop:8a4c57c3d5b273156544b643205b094c:0.7894736842105263
+Sakai Kanako:Cheer! ~Makkana Kimochi~:Hard:DJPop:236e433f896df6a036f4a87bde9dc70a:4.473684210526316
+Sakai Kanako:Cheer! ~Makkana Kimochi~:Normal:DJPop:df2e1fe29b02acc55631b13bbce82f1c:2.7631578947368425
+Sakamoto Maaya:Kazemachi Jet::KiraCatgirl:44abebf44f8c91189e679206615638a4:3.026315789473684
+Sambomaster:Sekai wa Sore wo Ai to Yobunda ze:Normal:ZZT the Fifth:9024a2fa53214f69bf993aa2d85cdd25:3.2894736842105265
+Scatman John:Scatman:Insane:Extor:ea43709e1e9056879e59860b286895be:3.8157894736842106
+SEAMO:Mata Ai Mashou:Normal:tsububu:f439f303808e1b07920037352184face:3.026315789473684
+Seether:Remedy:Easy:Bonesnake:ca3fe575ea502888a1b58418def79ec6:2.7631578947368425
+Seether:Remedy:Hard:Bonesnake:96cf7fa16962447c38173954ef505a8b:3.1578947368421053
+Shimamiya Eiko:Naraku no Hana:Easy:Donryu:b3e4b467b37ae17d1d0b87190516886a:3.026315789473684
+Shin Ji:Always:Hard:Donryu:6eb9c2a2283b7d0352dc4038ef234d8d:3.2894736842105265
+Shin Ji:Always:Normal:Donryu:d8e277b4950f34e41be1b660c73239d6:2.3684210526315788
+Sigh:Midnight Sun:Easy:awp:7c9316adc45766c8438f871dfdaa0919:2.7631578947368425
+Sigh:Midnight Sun:Hard:awp:0d9032550950c508209678bd77e8280d:3.4210526315789473
+SION:Funky Cat Maybe:Hard:peppy:995b43db9c620cc8a34e356154faacd8:4.473684210526316
+SION:Funky Cat Maybe:Normal:peppy:37a473aec6c0f8f50c863ff5ca0f5961:2.631578947368421
+Sister Mayo:Love Tropicana:Hard:Lancer:447288e5533fc28f8bbd9527a98bd060:4.342105263157895
+Sister Mayo:Love Tropicana:Normal:Lancer:109ded5dfb06b5e7e4a69d90aea29f0d:2.5
+Smash Mouth:All Star:Easy:Bonesnake:bec2d4ed7d91301214d8c00849ac3a17:2.5
+Smash Mouth:All Star:Normal:Bonesnake:5b06c46fa8b790bc59061ea8f53983a5:3.2894736842105265
+Sonata Arctica:Black Sheep:Hard:ZZT the Fifth:2c292eeb874fffc5d11f639a5805a320:2.8947368421052633
+South Park:Let's Fighting Love!:Easy:Jean:272b943a31328e6674da28f509647615:2.7631578947368425
+South Park:Let's Fighting Love!:Normal:Jean:f142dda4be5296f450d484d7b678a3e7:4.342105263157895
+Spoon:Don't You Evah:Easy:Puffles:efe32cbd5ec8fe9d2b9d761a8cbd6c31:1.4473684210526316
+Spoon:Don't You Evah:Insane:Puffles:641844fc6a882f671ac554f8d3a4b74f:4.342105263157895
+Spoon:Don't You Evah:Normal:Puffles:4f2c2e1235e440dae16b06b861e06418:1.973684210526316
+Storm Lee:Comin' Up For Air::Behonkiss:74c29c4a354125c5f53ac73dc2c5c1a7:3.026315789473684
+Strapping Young Lad:Far beyond metal:Easy:awp:1f1a056da5c98ecc38d07c84279231b4:2.236842105263158
+Strapping Young Lad:Far beyond metal:Hard:awp:62e6ce737bf4c43d6653094f725c789f:3.4210526315789473
+Sukima Switch:Zenryoku Shounen:Insane:Echo49:42a6f8de3c5d0ab0a7afc645eb216719:4.605263157894736
+Sukima Switch:Zenryoku Shounen:Normal:Echo49:f4327291c5dc3c8cedf4aa0ac7e7a3ff:3.026315789473684
+Sukima Switch:Zenryoku Shounen:Insane:Egg1991:949614c770fd5f56e4a03f24779b99ed:4.078947368421052
+SUN & LUNAR:your gravitation:Easy:Donryu:b21f9359b4c823aec72f61ee1c47e5e4:0.9210526315789473
+SUN & LUNAR:your gravitation:Normal:Donryu:deada53b8cc1587e258638b56917ee63:2.8947368421052633
+SUN & LUNAR:your gravitation:Very Hard:Donryu:4d7d8665cc7f949e209f1b719a922da7:3.552631578947368
+Super Mario Galaxy:Gusty Garden:Hard:Gunzil:eee67ad7b18d7d6a6427c1861d8d728e:4.342105263157895
+Super Mario Galaxy:Gusty Garden:Normal:Gunzil:d1e03c31255be8036f5486fbdc6967e2:3.026315789473684
+t+pazolite feat.:Okkusenman (Hardcore Mix):easy:Bonesnake:517ab06095305f0ad05ae93486131860:2.5
+t+pazolite feat.:Okkusenman (Hardcore Mix):Hard:Bonesnake:eb075c83c8e43b5cd1e9114596818029:4.078947368421052
+t+pazolite feat.:Okkusenman (Hardcore Mix):normal:Bonesnake:2feee796a9bc80e095b6c6b7689c98f6:3.026315789473684
+Takashi matsumoto:Ichirin No Hana ~HHM~:Insane Long:GuardianHX:e3ae6cb1c7cb7baf5147f5871584dd55:4.078947368421052
+Takashi matsumoto:Ichirin No Hana ~HHM~:Normal Short:GuardianHX:47efda5ab1c3438cbae0609534c5c0d4:2.7631578947368425
+Takeharu Ishimoto:The Price of Freedom:Hard:Elmo:c1cabc12d560ede68446f6931f1baf7c:2.7631578947368425
+Takeharu Ishimoto:The Price of Freedom:Normal:Elmo:ab5ed06fd7bbfb7fcbb9aaf70d96dd96:1.7105263157894737
+Tamura Yukari:Sweet Darlin':Easy:DJPop:a39a23c38b214b623d5758e8a0e3d88d:1.8421052631578947
+Tamura Yukari:Sweet Darlin':Hard:DJPop:63fb0e1b2961b2deadfb90a4a2d92d03:4.473684210526316
+Tamura Yukari:Sweet Darlin':Normal:DJPop:ae66bee634f404d0c6fdb84639bd7485:3.8157894736842106
+Team Nekokan:Can't Defeat Airman::HolyCOW:b6daefe2b522d79b202f77c4a84045aa:3.4210526315789473
+The Chemical Brothers:Galvanize:Normal:IcePagoda:dea97e08396e429036f97af50dc66c23:3.026315789473684
+The Cloud Room:Hey Now Now:Hard:Extor:0b24b64504036a0b08f17a4276314a90:3.552631578947368
+The INTERNET:At The Playground:Easy:awp:61e4871fb8005e9b0049e2fa36b71b78:2.236842105263158
+The INTERNET:At The Playground:Hard:awp:65709968028b11ce1de559460ae15d2a:4.605263157894736
+The INTERNET:At The Playground:Normal:awp:b770f06ea81fc1a15846630b153b83ab:2.631578947368421
+The King of Fighters '98 Arranged Sound Trax:Fanatic Waltz Version B:Hard:EiJi:a507f27b925206651d71c4673eccc515:3.026315789473684
+The Laziest Men on Mars:Invasion of the Gabber Robots:Easy:GuardianHX:d3aa570f42e182d1989bd611a59b91ad:1.8421052631578947
+The Laziest Men on Mars:Invasion of the Gabber Robots:Hard:GuardianHX:58ce102f80445d429882713d7ae89858:3.026315789473684
+The Lion King:I Just Can't Wait to Be King:Normal:Impossible:212bc0e7bdab901f031c86a234a0ab10:2.8947368421052633
+The Pillows:All The Way To The Edge Of This World:Hard:Gilrad:d78a9f8b4e1eee0cfc57a97a866d289c:3.026315789473684
+The Pillows:All The Way To The Edge Of This World:Insane:Gilrad:64fb957267ae29dd7d7960f213cda4b2:3.552631578947368
+The Pillows:Ride on shooting star:Normal:Hitoshirenu Shourai:fcf6f7640c0e434306554262f9ea2bee:3.026315789473684
+The Strokes:You Only Live Once:For Beginners:JacoPOP:302dfa48d19637cf17c8511a2c74a4bb:2.631578947368421
+tiger YAMATO:tiger yamato:Hard:qudfo9:43ded64d75a668e52c23d7121fd981e8:4.473684210526316
+tiger YAMATO:tiger yamato:Normal:qudfo9:5a9f7614e4b1efde8c291b9a76712f89:2.7631578947368425
+Trans-Siberian Orchestra:Wizards In Winter:Hard:Echo49:c5fb99eb618e1663ecfaaddf75354eee:3.947368421052632
+Trans-Siberian Orchestra:Wizards In Winter:Impossible:Echo49:53492484dec13e1be44b2b0fb9e037f1:3.947368421052632
+Trans-Siberian Orchestra:Wizards In Winter:Insane:Echo49:dcbe5f46a61ba3e76e69fe22b4fde7f4:4.078947368421052
+Trans-Siberian Orchestra:Wizards In Winter:Normal:Echo49:526e3de8a1ffc84024de4f4d825a7977:2.5
+TRF:Survival dAnce ~no no cry more~:Easy:Echo49:974b72f33a25bd5ef297bd8682d7fa79:2.3684210526315788
+TRF:Survival dAnce ~no no cry more~:Hard:Echo49:774861583d38346a3876ade4116ebbc0:3.947368421052632
+TRF:Survival dAnce ~no no cry more~:Insane:Echo49:ea0df9f890e7e9e7ad4d3862a7823359:2.7631578947368425
+TV's Kyle:Sheep in the Morning:Normal:K-S-O:94dbfda5cea813f7b707456e7a8b3004:2.1052631578947367
+Two - Mix:Just Communication:Easy:Elzamxrai:c8d807d2d0da513b2d0bff9c133548e9:2.5
+U2:Vertigo::eyup:2640b14cd553e1b4e8b0ac6ecd47b412:3.026315789473684
+UVERworld:D-tecnoLife(Album Version):Hard:Lumino:4cb0684a66b15d757afdf793037c631c:4.078947368421052
+UVERworld:D-tecnoLife(Album Version):Insane:Lumino:b50622944fe5d177055cc54be967d8f7:4.868421052631579
+UVERworld:D-tecnoLife(Album Version):Normal:Lumino:ec41d9b2774fc48189c6f5fc6c0db527:3.026315789473684
+UverWorld:UNKNOWN ORCHESTRA:Easy:Lumino:2a852753c93f53ba84e04f0854523460:1.7105263157894737
+UverWorld:UNKNOWN ORCHESTRA:Hard:Lumino:a9ffec676c23ed70c18cc0b29ab2d6d5:3.947368421052632
+UverWorld:UNKNOWN ORCHESTRA:Insane:Lumino:40e1a0606a68381f84a7b8e48c2f478f:4.342105263157895
+UverWorld:UNKNOWN ORCHESTRA:Normal:Lumino:68e02036339a3ffe983760aeaa271f27:3.026315789473684
+Vengaboys:Boom Boom Boom:Hard:Advancechao:289473d51a4a5a4cae79d39e5aea1088:4.342105263157895
+Vengaboys:Boom Boom Boom:Normal:Advancechao:31838efb04c1f34d41258a2ee6ff9f6a:2.8947368421052633
+Vision Divine:Take On Me:Hard:Kylecito:05edf9da65e6652bf5954deffc2c5723:3.8157894736842106
+Wang Lee Hom:Not Your Average Thug:Hard:Chan:f9bb3d924ee9ce4d2e0e77bc55e29e83:4.2105263157894735
+Whiteberry:Summer Festival:Normal:elzamxrai:41b1ee43a98626d8b0e3d5e30b040a9e:3.026315789473684
+Yasunori Mitsuda:Robo's Theme:Easy:Starrodkirby86:b48a16c62e321c2897d3693b8161eb4b:1.973684210526316
+YeLLOW Generation:Tobira no Mukou he:Hard:Echo49:0077f31a8f66d02d2d211c1162dafa89:3.2894736842105265
+YeLLOW Generation:Tobira no Mukou he:Normal:Echo49:aa649fdded769d5f0c9d86bd4dac7b3c:4.078947368421052
+Yiruma:River Flows in You [Paul John's Remix]:Normal:tsububu:e7546407f5e8cbac56cdc9a74a7c3184:3.026315789473684
+Yoko Shimomura:Roxas:Easy:DS-Deluxe:b5fb8574f9086c3661d8cfb3e1c872a7:1.5789473684210527
+Yu Miyake, Masayuki Tanaka:Katamari on the Rocks:Hard:Impossible:831d65ef72bec9c4ac3b838a2619b89c:4.342105263157895
+Yu Miyake, Masayuki Tanaka:Katamari on the Rocks:Normal:Impossible:de144f668c44102f6f31dcc3a783bdbf:2.8947368421052633
+Yuko Miyamura:It's Only a Fairy Tell VerB:Normal:EiJi:ce1463d66ef7248678136e16c11afd3e:3.026315789473684
+Yumi Kawamura:Burn My Dread:Hard:Egg1991:a17dfafc2c9f78de3605e9110e93b26b:3.026315789473684
+Yumi Kawamura:Burn My Dread:Normal:Egg1991:9733b2db2d217d19d4bdb08eeaedb56f:3.026315789473684
+ZZ:Samurai Blue:Easy:elzamxrai:8de6830d3692ef6bc6f5e1d001275faf:2.8947368421052633
+ZZ:Samurai Blue:Hard:elzamxrai:6c1afb4dd017ef3b48c20869b237d363:4.342105263157895
+ZZ:Samurai Blue:Normal:elzamxrai:242d22347473e8c9acd534579efde128:3.026315789473684

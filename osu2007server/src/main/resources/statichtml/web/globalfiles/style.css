@@ -121,7 +121,7 @@ margin-top: 0;
 .subject {
 display: block;
 width: 100%;
-background-image: url('/web/20071027211326im_/http://osu.ppy.sh/img/grad.png');
+background-image: url('/web/globalfiles/grad.png');
 background-repeat: repeat-x;
 font-size: 2em;
 color: #000;
@@ -247,7 +247,7 @@ background-color: #fff0f0;
 #scorelist h2 {
 display: block;
 width: 100%;
-background-image: url('/web/20071027211326im_/http://osu.ppy.sh/img/grad.png');
+background-image: url('/web/globalfiles/grad.png');
 background-repeat: repeat-x;
 font-size: 2em;
 color: #000;
@@ -364,28 +364,28 @@ font-weight: bold;
 float: left;
 width: 30;
 height: 10;
-background: url('/web/20071027211326im_/http://osu.ppy.sh/img/easy.png');
+background: url('/web/globalfiles/easy.png');
 }
 
 .med {
 float: left;
 width: 30;
 height: 10;
-background: url('/web/20071027211326im_/http://osu.ppy.sh/img/med.png');
+background: url('/web/globalfiles/med.png');
 }
 
 .hard {
 float: left;
 width: 30;
 height: 10;
-background: url('/web/20071027211326im_/http://osu.ppy.sh/img/hard.png');
+background: url('/web/globalfiles/hard.png');
 }
 
 .insane {
 float: left;
 width: 30;
 height: 10;
-background: url('/web/20071027211326im_/http://osu.ppy.sh/img/insane.png');
+background: url('/web/globalfiles/insane.png');
 }
 
 /*ratings*/
@@ -405,7 +405,7 @@ See readme.txt for full credit details.
 
 .loading {
         height: 30px;
-        background: url('/web/20071027211326im_/http://osu.ppy.sh/img/working.gif') 50% 50% no-repeat;
+        background: url('/web/globalfiles/working.gif') 50% 50% no-repeat;
         }
 
 .unit-rating { /* the UL */
@@ -414,7 +414,7 @@ See readme.txt for full credit details.
         padding:0px;
         height: 14px;
         position: relative;
-        background: url('/web/20071027211326im_/http://osu.ppy.sh/img/starrating.gif') top left repeat-x;
+        background: url('/web/globalfiles/starrating.gif') top left repeat-x;
         }
 
 .unit-rating li{
@@ -439,7 +439,7 @@ See readme.txt for full credit details.
         }
 
 .unit-rating li a:hover{
-        background: url('/web/20071027211326im_/http://osu.ppy.sh/img/starrating.gif') left center;
+        background: url('/web/globalfiles/starrating.gif') left center;
         z-index: 2;
         left: 0px;
         }
@@ -466,7 +466,7 @@ See readme.txt for full credit details.
 .unit-rating a.r10-unit:hover{width: 140px;}
 
 .unit-rating li.current-rating {
-        background: url('/web/20071027211326im_/http://osu.ppy.sh/img/starrating.gif') left bottom;
+        background: url('/web/globalfiles/starrating.gif') left bottom;
         position: absolute;
         height: 14px;
         display: block;

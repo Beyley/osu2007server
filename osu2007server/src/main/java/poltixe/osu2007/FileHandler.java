@@ -21,8 +21,9 @@ public class FileHandler {
             String diffName = split[2];
             String creator = split[3];
             String md5 = split[4];
+            String sr = split[5];
 
-            rankedMaps.add(new BeatMap(artist, songName, diffName, creator, md5));
+            rankedMaps.add(new BeatMap(artist, songName, diffName, creator, md5, sr));
         }
 
         myReader.close();

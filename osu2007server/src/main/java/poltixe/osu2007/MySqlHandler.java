@@ -54,7 +54,7 @@ public class MySqlHandler {
     }
 
     public void addRankedMapsToTable(List<BeatMap> rankedMaps) {
-        String query = "CREATE TABLE `osu2007`.`ranked_maps` ( `id` INT NOT NULL AUTO_INCREMENT, `md5` VARCHAR(100) NULL, `artist` VARCHAR(250) NULL, `songname` VARCHAR(250) NULL, `diffname` VARCHAR(250) NULL, `creator` VARCHAR(250) NULL, PRIMARY KEY (`id`));";
+        String query = "CREATE TABLE `osu2007`.`ranked_maps` ( `id` INT NOT NULL AUTO_INCREMENT, `md5` VARCHAR(100) NULL, `starrating` DOUBLE NOT NULL, `artist` VARCHAR(250) NULL, `songname` VARCHAR(250) NULL, `diffname` VARCHAR(250) NULL, `creator` VARCHAR(250) NULL, PRIMARY KEY (`id`));";
 
         try (Statement st = (Statement) con.createStatement()) {
 
@@ -70,16 +70,17 @@ public class MySqlHandler {
                 map.artist = "none";
             }
 
-            query = "INSERT INTO `osu2007`.`ranked_maps` (`md5`, `artist`, `songname`, `diffname`, `creator`) VALUES (?, ?, ?, ?, ?);";
+            query = "INSERT INTO `osu2007`.`ranked_maps` (`md5`, `starrating`, `artist`, `songname`, `diffname`, `creator`) VALUES (?, ?, ?, ?, ?, ?);";
 
             try {
                 PreparedStatement stmt = con.prepareStatement(query);
 
                 stmt.setString(1, map.md5);
-                stmt.setString(2, map.artist);
-                stmt.setString(3, map.songName);
-                stmt.setString(4, map.diffName);
-                stmt.setString(5, map.creator);
+                stmt.setDouble(2, map.starRating);
+                stmt.setString(3, map.artist);
+                stmt.setString(4, map.songName);
+                stmt.setString(5, map.diffName);
+                stmt.setString(6, map.creator);
 
                 stmt.execute();
             } catch (SQLException ex) {
