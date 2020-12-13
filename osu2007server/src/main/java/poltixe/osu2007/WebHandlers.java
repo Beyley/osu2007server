@@ -4,9 +4,13 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import poltixe.osu2007.Html.Image;
 import spark.Request;
@@ -178,6 +182,39 @@ public class WebHandlers {
         return returnString;
     }
 
+    public static String getSecondsFixed(double seconds) {
+        double year = 31540000;
+        double month = 2628000; // assume 30 days in a month
+        double day = 86400;
+        double hour = 3600;
+        double minute = 60;
+
+        long years = (long) Math.floor(seconds / year);
+        long months = (long) Math.floor((seconds - years * year) / month);
+        long days = (long) Math.floor(((seconds - years * year) - months * month) / day);
+        long hours = (long) Math.floor((((seconds - years * year) - months * month) - days * day) / hour);
+        long minutes = (long) Math
+                .floor(((((seconds - years * year) - months * month) - days * day) - hours * hour) / minute);
+        long seconds2 = (long) Math
+                .floor(((((seconds - years * year) - months * month) - days * day) - hours * hour) - minutes * minute);
+
+        String str = "";
+        if (years != 0)
+            str += String.format("%s Year%s, ", years, years > 1 ? "s" : "");
+        if (months != 0)
+            str += String.format("%s Month%s, ", months, months > 1 ? "s" : "");
+        if (days != 0)
+            str += String.format("%s Day%s, ", days, days > 1 ? "s" : "");
+        if (hours != 0)
+            str += String.format("%s Hour%s, ", hours, hours > 1 ? "s" : "");
+        if (minutes != 0)
+            str += String.format("%s Minute%s, ", years, years > 1 ? "s" : "");
+        // if (seconds2 != 0)
+        // str += String.format("%s Second%s, ", seconds2, seconds2 > 1 ? "s" : "");
+
+        return str.substring(0, str.length() - 2);
+    }
+
     public static String mapPage(Request req) {
         String content = "";
 
@@ -239,6 +276,11 @@ public class WebHandlers {
         content = content.replace("%NUMBERONEGEKI%", String.valueOf(topScore.hitGeki));
         content = content.replace("%NUMBERONEKATU%", String.valueOf(topScore.hitKatu));
         content = content.replace("%NUMBERONEMODS%", String.valueOf(topScore.mods));
+
+        long currentTime = (long) (System.currentTimeMillis() / 1000F);
+
+        content = content.replace("%NUMBERONENAMETIMESINCESUBMIT%",
+                getSecondsFixed(currentTime - topScore.timeSubmitted));
 
         content = content.replace("%CSSTARS%", createStarPattern((int) Math.round(map.circleSize), 10));
         content = content.replace("%HPSTARS%", createStarPattern((int) Math.round(map.hpDrainRate), 10));
