@@ -208,7 +208,7 @@ public class WebHandlers {
         if (hours != 0)
             str += String.format("%s Hour%s, ", hours, hours > 1 ? "s" : "");
         if (minutes != 0)
-            str += String.format("%s Minute%s, ", years, years > 1 ? "s" : "");
+            str += String.format("%s Minute%s, ", minutes, minutes > 1 ? "s" : "");
         // if (seconds2 != 0)
         // str += String.format("%s Second%s, ", seconds2, seconds2 > 1 ? "s" : "");
 
