@@ -18,6 +18,7 @@ public class Score {
     public int score;
     public int maxCombo;
     public boolean perfectCombo;
+    public long timeSubmitted;
     public char grade;
     public int mods;
     public boolean pass;
@@ -149,6 +150,7 @@ public class Score {
 
             this.mods = rs.getInt(15);
             this.pass = Boolean.parseBoolean(rs.getString(16));
+            this.timeSubmitted = rs.getLong(17);
 
             this.accuracy = calculateAccuracy();
         } catch (SQLException e) {

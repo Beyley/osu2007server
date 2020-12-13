@@ -1,8 +1,15 @@
 package poltixe.osu2007;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.*;
+import java.nio.file.*;
+import java.nio.file.attribute.*;
+import java.security.MessageDigest;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.mysql.cj.jdbc.DatabaseMetaData;
 
@@ -142,7 +149,7 @@ public class MySqlHandler {
         }
 
         if (!scoreListExist) {
-            query = "CREATE TABLE `osu2007`.`score_list` ( `id` INT NOT NULL AUTO_INCREMENT, `maphash` VARCHAR(100) NOT NULL, `userid` INT NOT NULL, `replayhash` VARCHAR(100) NOT NULL, `hit300` INT NOT NULL, `hit100` INT NOT NULL, `hit50` INT NOT NULL, `hitgeki` INT NOT NULL, `hitkatu` INT NOT NULL, `hitmiss` INT NOT NULL, `score` INT NOT NULL, `maxcombo` INT NOT NULL, `perfect` VARCHAR(5) NOT NULL, `grade` VARCHAR(1) NOT NULL, `mods` INT NOT NULL, `pass` VARCHAR(5) NOT NULL, PRIMARY KEY (`id`));";
+            query = "CREATE TABLE `osu2007`.`score_list` ( `id` INT NOT NULL AUTO_INCREMENT, `maphash` VARCHAR(100) NOT NULL, `userid` INT NOT NULL, `replayhash` VARCHAR(100) NOT NULL, `hit300` INT NOT NULL, `hit100` INT NOT NULL, `hit50` INT NOT NULL, `hitgeki` INT NOT NULL, `hitkatu` INT NOT NULL, `hitmiss` INT NOT NULL, `score` INT NOT NULL, `maxcombo` INT NOT NULL, `perfect` VARCHAR(5) NOT NULL, `grade` VARCHAR(1) NOT NULL, `mods` INT NOT NULL, `pass` VARCHAR(5) NOT NULL, `timesubmitted` INT NULL, PRIMARY KEY (`id`));";
 
             try (Statement st = (Statement) con.createStatement()) {
 
@@ -314,6 +321,51 @@ public class MySqlHandler {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
+        }
+
+        boolean dateSubmittedExist = false;
+
+        query = "SHOW COLUMNS FROM `score_list` LIKE 'datesubmitted';";
+
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                dateSubmittedExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        if (!dateSubmittedExist) {
+            query = "ALTER TABLE `osu2007`.`score_list` ADD COLUMN `timesubmitted` INT NULL AFTER `pass`";
+
+            try (Statement st = (Statement) con.createStatement()) {
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+            Path startingDir = Paths.get("replays");
+            GetAllReplays gar = new GetAllReplays();
+            try {
+                Files.walkFileTree(startingDir, gar);
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    public void setTimeOfScore(int id, long time) {
+        String query = "UPDATE score_list SET timesubmitted=? WHERE id=?";
+
+        try (Statement st = (Statement) con.createStatement()) {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setLong(1, time);
+            stmt.setInt(2, id);
+
+            stmt.execute();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
