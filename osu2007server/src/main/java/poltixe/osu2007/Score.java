@@ -142,7 +142,7 @@ public class Score {
             this.hitMiss = rs.getInt(10);
             this.score = rs.getInt(11);
             this.maxCombo = rs.getInt(12);
-            this.perfectCombo = Boolean.parseBoolean(rs.getString(13));
+            this.perfectCombo = rs.getBoolean(13);
 
             if (isAlphaNumeric(rs.getString(14))) {
                 this.grade = rs.getString(14).charAt(0);
@@ -151,7 +151,7 @@ public class Score {
             }
 
             this.mods = rs.getInt(15);
-            this.pass = Boolean.parseBoolean(rs.getString(16));
+            this.pass = rs.getBoolean(16);
             this.timeSubmitted = rs.getLong(17);
 
             this.accuracy = calculateAccuracy();

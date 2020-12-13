@@ -828,6 +828,92 @@ public class MySqlHandler {
         return scores;
     }
 
+    public double getMapSuccessRate(String mapHash) {
+        String query = "SELECT * FROM score_list WHERE maphash = ? ORDER BY score DESC";
+
+        List<Score> scores = new ArrayList<Score>();
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, mapHash);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Score currentScore = new Score(rs);
+
+                scores.add(currentScore);
+            }
+        } catch (SQLException | ParseException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        double total = 0;
+
+        for (Score score : scores) {
+            total += (score.pass ? 1 : 0);
+        }
+
+        double average = (double) total / (double) scores.size();
+
+        return average * (double) 100.0;
+    }
+
+    public double getMapTotalTries(String mapHash) {
+        String query = "SELECT * FROM score_list WHERE maphash = ? ORDER BY score DESC";
+
+        List<Score> scores = new ArrayList<Score>();
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, mapHash);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Score currentScore = new Score(rs);
+
+                scores.add(currentScore);
+            }
+        } catch (SQLException | ParseException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return scores.size();
+    }
+
+    public double getMapTotalPasses(String mapHash) {
+        String query = "SELECT * FROM score_list WHERE maphash = ? ORDER BY score DESC";
+
+        List<Score> scores = new ArrayList<Score>();
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, mapHash);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Score currentScore = new Score(rs);
+
+                scores.add(currentScore);
+            }
+        } catch (SQLException | ParseException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        double total = 0;
+
+        for (Score score : scores) {
+            total += (score.pass ? 1 : 0);
+        }
+
+        return total;
+    }
+
     public List<Score> getAllScores() {
         String query = "SELECT * FROM score_list WHERE pass=? ORDER BY score DESC";
 

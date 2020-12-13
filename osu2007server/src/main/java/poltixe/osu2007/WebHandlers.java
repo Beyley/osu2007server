@@ -213,10 +213,10 @@ public class WebHandlers {
         } catch (IOException e) {
         }
 
-        Image easyDiff = new Image("/web/globalfiles/easy.png");
-        Image normalDiff = new Image("/web/globalfiles/med.png");
-        Image hardDiff = new Image("/web/globalfiles/hard.png");
-        Image insaneDiff = new Image("/web/globalfiles/insane.png");
+        String easyDiff = "<img class=\"easy\" src=\"/web/globalfiles/n.gif\">";
+        String normalDiff = "<img class=\"med\" src=\"/web/globalfiles/n.gif\">";
+        String hardDiff = "<img class=\"hard\" src=\"/web/globalfiles/n.gif\">";
+        String insaneDiff = "<img class=\"insane\" src=\"/web/globalfiles/n.gif\">";
 
         int i = 0;
 
@@ -235,18 +235,18 @@ public class WebHandlers {
             String diff = "";
 
             if (map.starRating >= 4) {
-                diff = insaneDiff.getAsHtml();
+                diff = insaneDiff;
             }
 
             if (map.starRating < 4) {
-                diff = hardDiff.getAsHtml();
+                diff = hardDiff;
             }
 
             if (map.starRating < 3.15) {
-                diff = normalDiff.getAsHtml();
+                diff = normalDiff;
             }
             if (map.starRating < 2.5) {
-                diff = easyDiff.getAsHtml();
+                diff = easyDiff;
             }
 
             currentRow = currentRow.replace("%DIFFLIST%", diff);
@@ -431,6 +431,13 @@ public class WebHandlers {
         content = content.replace("%ODSTARS%", createStarPattern((int) Math.round(map.overallDifficulty), 10));
 
         content = content.replace("%SRSTARS%", createStarPattern((int) Math.round(map.starRating), 5));
+
+        content = content.replace("%SUCCESSRATE%",
+                new DecimalFormat("0").format(sqlHandler.getMapSuccessRate(map.md5)));
+
+        content = content.replace("%PASSEDTRIES%",
+                new DecimalFormat("0").format(sqlHandler.getMapTotalPasses(map.md5)));
+        content = content.replace("%TOTALTRIES%", new DecimalFormat("0").format(sqlHandler.getMapTotalTries(map.md5)));
 
         String leaderboardContents = "";
 
