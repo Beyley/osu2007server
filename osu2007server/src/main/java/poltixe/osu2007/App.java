@@ -29,7 +29,7 @@ public class App {
         sqlHandler.checkForDatabase();
         sqlHandler.checkForTables();
 
-        // FileHandler.rankedDatabaseCheck();
+        FileHandler.rankedDatabaseCheck();
 
         for (int i = 0; i < sqlHandler.getAllPlayers().size() + 100; i++) {
             knownNames.add(null);

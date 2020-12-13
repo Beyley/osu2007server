@@ -502,7 +502,7 @@ public class MySqlHandler {
     }
 
     public void updateScore(int oldId, Score newScore, byte[] replayData) {
-        String query = "UPDATE score_list SET replayhash=?, hit300=?, hit100=?, hit50=?, hitgeki=?, hitkatu=?, hitmiss=?, score=?, maxcombo=?, perfect=?, grade=?, mods=?, pass=? WHERE id=?;";
+        String query = "UPDATE score_list SET replayhash=?, hit300=?, hit100=?, hit50=?, hitgeki=?, hitkatu=?, hitmiss=?, score=?, maxcombo=?, perfect=?, grade=?, mods=?, pass=?, timesubmitted=? WHERE id=?;";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -520,7 +520,8 @@ public class MySqlHandler {
             stmt.setString(11, Character.toString(newScore.grade));
             stmt.setInt(12, newScore.mods);
             stmt.setBoolean(13, newScore.pass);
-            stmt.setInt(14, oldId);
+            stmt.setLong(14, newScore.timeSubmitted);
+            stmt.setInt(15, oldId);
 
             stmt.execute();
         } catch (SQLException ex) {
@@ -620,8 +621,8 @@ public class MySqlHandler {
     }
 
     public void addScore(Score score, byte[] replayData) {
-        String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass)"
-                + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass, timesubmitted)"
+                + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -641,6 +642,7 @@ public class MySqlHandler {
             stmt.setString(13, Character.toString(score.grade));
             stmt.setInt(14, score.mods);
             stmt.setBoolean(15, score.pass);
+            stmt.setLong(16, score.timeSubmitted);
 
             stmt.execute();
         } catch (SQLException ex) {
