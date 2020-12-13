@@ -274,6 +274,85 @@ public class WebHandlers {
             content = content.replace("%ISPERFECT%", "");
         }
 
+        String leaderboardContents = "";
+
+        String oddScoreTemplate = "";
+
+        is = App.class.getClassLoader().getResourceAsStream("htmltemplates/oddmapscoretemplate.html");
+
+        try {
+            oddScoreTemplate = new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        String evenScoreTemplate = "";
+
+        is = App.class.getClassLoader().getResourceAsStream("htmltemplates/evenmapscoretemplate.html");
+
+        try {
+            evenScoreTemplate = new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        for (int rank = 1; rank < allMapScores.size(); rank++) {
+            Score score = allMapScores.get(rank);
+
+            String currentScore = "";
+
+            if ((rank | 1) > rank) {
+                currentScore = evenScoreTemplate;
+            } else {
+                currentScore = oddScoreTemplate;
+            }
+
+            currentScore = currentScore.replace("%RANK%", String.valueOf(rank + 1));
+
+            switch (score.grade) {
+                case 'S':
+                    if (topScore.accuracy != 100) {
+                        currentScore = currentScore.replace("%GRADEIMAGE%", sRankSmall.getAsHtml());
+                    } else {
+                        currentScore = currentScore.replace("%GRADEIMAGE%", xRankSmall.getAsHtml());
+                    }
+                    break;
+                case 'A':
+                    currentScore = currentScore.replace("%GRADEIMAGE%", aRankSmall.getAsHtml());
+                    break;
+                case 'B':
+                    currentScore = currentScore.replace("%GRADEIMAGE%", bRankSmall.getAsHtml());
+                    break;
+                case 'C':
+                    currentScore = currentScore.replace("%GRADEIMAGE%", cRankSmall.getAsHtml());
+                    break;
+                case 'D':
+                    currentScore = currentScore.replace("%GRADEIMAGE%", dRankSmall.getAsHtml());
+                    break;
+            }
+
+            currentScore = currentScore.replace("%SCORE%", String.valueOf(score.score));
+            currentScore = currentScore.replace("%ACCURACY%", new DecimalFormat("0.00").format(score.accuracy));
+            currentScore = currentScore.replace("%USERNAME%", sqlHandler.checkUserData(score.userId).displayUsername);
+            currentScore = currentScore.replace("%MAXCOMBO%", String.valueOf(score.maxCombo));
+
+            if (topScore.perfectCombo) {
+                currentScore = currentScore.replace("%ISPERFECT%", " - Perfect!");
+            } else {
+                currentScore = currentScore.replace("%ISPERFECT%", "");
+            }
+
+            currentScore = currentScore.replace("%HIT50%", String.valueOf(score.hit50));
+            currentScore = currentScore.replace("%HIT100%", String.valueOf(score.hit100));
+            currentScore = currentScore.replace("%HIT300%", String.valueOf(score.hit300));
+            currentScore = currentScore.replace("%HITMISS%", String.valueOf(score.hitMiss));
+            currentScore = currentScore.replace("%HITGEKI%", String.valueOf(score.hitGeki));
+            currentScore = currentScore.replace("%HITKATU%", String.valueOf(score.hitKatu));
+            currentScore = currentScore.replace("%MODS%", String.valueOf(score.mods));
+
+            leaderboardContents += currentScore;
+        }
+
+        content = content.replace("%LEADERBOARDCONTENTS%", leaderboardContents);
+
         return createHtmlPage(content);
     }
 

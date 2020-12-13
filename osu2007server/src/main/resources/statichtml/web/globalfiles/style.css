@@ -2,7 +2,7 @@
 
 html {
 	font-size: 100%;
-	background: #CF4D37 url(https://web.archive.org/web/20071027211326im_/http://osu.ppy.sh/forum/styles/GlossyOrange/theme/images/background.jpg);
+	background: #CF4D37 url(/web/globalfiles/style/background.jpg);
 	background-repeat: repeat-x;
 }
 
@@ -23,7 +23,7 @@ body {
 	margin-bottom: 0px;
 	padding: 17px 27px;
 	background: #FFFFFF;
-	background-image: url('https://web.archive.org/web/20071027211326im_/http://osu.ppy.sh/forum/styles/GlossyOrange/theme/images/header_bg.jpg');
+	background-image: url(/web/globalfiles/style/header_bg.jpg);
 	background-repeat: repeat-x;
 	height: 104px;
 }
@@ -279,7 +279,7 @@ h1 {
 	font-weight: bold;
 	display: block;
 	margin-left: 5px;
-	background: url('https://web.archive.org/web/20071027211326im_/http://osu.ppy.sh/forum/styles/GlossyOrange/theme/images/cellpic1.jpg');
+	background: url(/web/globalfiles/style/cellpic1.jpg);
 	background-repeat: repeat-x;
 	color: #fff;
 	width: 50%;
