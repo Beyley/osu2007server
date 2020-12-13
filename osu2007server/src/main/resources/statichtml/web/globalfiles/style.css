@@ -1,391 +1,378 @@
 html {
-        font-size: 100%;
-    background:#CF4D37 url(https://web.archive.org/web/20071027211326im_/http://osu.ppy.sh/forum/styles/GlossyOrange/theme/images/background.jpg);
-    background-repeat: repeat-x;
-
+	font-size: 100%;
+	background: #CF4D37 url(https://web.archive.org/web/20071027211326im_/http://osu.ppy.sh/forum/styles/GlossyOrange/theme/images/background.jpg);
+	background-repeat: repeat-x;
 }
 
 body {
-        font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
-        color: #000000;
-        background-color: #FFFFFF;
-        font-size: 62.5%; /* This sets the default font size to be equivalent to 10px */
-        margin: 15px 15px 15px 15px;
-    padding: 0px;
-    border-color: #000000;
-        border-width: 2px 2px 2px 2px;
-        border-style: solid;
-
+	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+	color: #000000;
+	background-color: #FFFFFF;
+	font-size: 62.5%;
+	/* This sets the default font size to be equivalent to 10px */
+	margin: 15px 15px 15px 15px;
+	padding: 0px;
+	border-color: #000000;
+	border-width: 2px 2px 2px 2px;
+	border-style: solid;
 }
 
 #header {
-        margin-bottom: 0px;
-        padding: 17px 27px;
-        background: #FFFFFF;
-    background-image: url('https://web.archive.org/web/20071027211326im_/http://osu.ppy.sh/forum/styles/GlossyOrange/theme/images/header_bg.jpg');
-        background-repeat: repeat-x;
-    height: 104px;
+	margin-bottom: 0px;
+	padding: 17px 27px;
+	background: #FFFFFF;
+	background-image: url('https://web.archive.org/web/20071027211326im_/http://osu.ppy.sh/forum/styles/GlossyOrange/theme/images/header_bg.jpg');
+	background-repeat: repeat-x;
+	height: 104px;
 }
 
 #header a {
-border: 0;
-text-decoration: none;
+	border: 0;
+	text-decoration: none;
 }
+
 #osu {
-border: 0;
-margin-right: 20px;
-float: left;
+	border: 0;
+	margin-right: 20px;
+	float: left;
 }
 
 a {
-        color: #CF4D37;
-        text-decoration: none;
+	color: #CF4D37;
+	text-decoration: none;
 }
 
 /* stolen from listmatic =D */
-#navcontainer
-{
-margin: 0;
-padding: 2px 0 0 0px;
-float: left;
+
+#navcontainer {
+	margin: 0;
+	padding: 2px 0 0 0px;
+	float: left;
 }
 
-#navcontainer UL
-{
-list-style: none;
-margin: 0;
-padding: 0;
-border: none;
+#navcontainer UL {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border: none;
 }
 
-#navcontainer LI
-{
-display: block;
-margin: 0;
-padding: 0;
-float: left;
-width: auto;
+#navcontainer LI {
+	display: block;
+	margin: 0;
+	padding: 0;
+	float: left;
+	width: auto;
 }
 
-#navcontainer A
-{
-color: #444;
-display: block;
-width: auto;
-text-decoration: none;
-background: #DDDDDD;
-margin: 0;
-padding: 2px 10px;
-border-left: 1px solid #fff;
-border-top: 1px solid #fff;
-border-right: 1px solid #aaa;
+#navcontainer A {
+	color: #444;
+	display: block;
+	width: auto;
+	text-decoration: none;
+	background: #DDDDDD;
+	margin: 0;
+	padding: 2px 10px;
+	border-left: 1px solid #fff;
+	border-top: 1px solid #fff;
+	border-right: 1px solid #aaa;
 }
 
-#navcontainer A:hover, #navcontainer A:active { background: #BBBBBB; }
-
-#navcontainer A.active:link, #navcontainer A.active:visited
-{
-position: relative;
-z-index: 102;
-background: #BBBBBB;
-font-weight: bold;
+#navcontainer A:hover, #navcontainer A:active {
+	background: #BBBBBB;
 }
 
+#navcontainer A.active:link, #navcontainer A.active:visited {
+	position: relative;
+	z-index: 102;
+	background: #BBBBBB;
+	font-weight: bold;
+}
 
+.starfield {
+	height: 14px;
+	background: url(/web/globalfiles/starn.png);
+	background-repeat: repeat-x;
+}
 
+.starfield>.active {
+	height: 14px;
+	background: url(/web/globalfiles/star.png);
+	background-repeat: repeat-x;
+}
 
 .sub_title {
-        color: #D9705D;
-        font-family: Verdana, "Lucida Grande", "Trebuchet MS", sans-serif;
-        font-weight: normal;
-        font-size: 1.0em;
-        text-decoration: none;
-        margin: 1px 1px;
+	color: #D9705D;
+	font-family: Verdana, "Lucida Grande", "Trebuchet MS", sans-serif;
+	font-weight: normal;
+	font-size: 1.0em;
+	text-decoration: none;
+	margin: 1px 1px;
 }
 
 h1 {
-        color: #FFFFFF;
-        font-family: Verdana, "Lucida Grande", "Trebuchet MS", sans-serif;
-        font-weight: normal;
-        font-size: 2.5em;
-        text-decoration: none;
-        display: inline;
+	color: #FFFFFF;
+	font-family: Verdana, "Lucida Grande", "Trebuchet MS", sans-serif;
+	font-weight: normal;
+	font-size: 2.5em;
+	text-decoration: none;
+	display: inline;
 }
 
 #article {
-background-color: #fff0f0;
-margin-top: 0;
-
+	background-color: #fff0f0;
+	margin-top: 0;
 }
 
 .subject {
-display: block;
-width: 100%;
-background-image: url('/web/globalfiles/grad.png');
-background-repeat: repeat-x;
-font-size: 2em;
-color: #000;
-border-bottom: 1px solid #ffa2a2;
+	display: block;
+	width: 100%;
+	background-image: url('/web/globalfiles/grad.png');
+	background-repeat: repeat-x;
+	font-size: 2em;
+	color: #000;
+	border-bottom: 1px solid #ffa2a2;
 }
 
 #article .byline {
-display: block;
-width: 100%;
-background-color: #fff0f0;
-font-size: 1em;
-padding-top: 6px;
-
+	display: block;
+	width: 100%;
+	background-color: #fff0f0;
+	font-size: 1em;
+	padding-top: 6px;
 }
-#article .byline img{
-float: left;
-margin-right: 5px;
-border: 1px solid #ffa2a2;
-margin-left: 15px;
+
+#article .byline img {
+	float: left;
+	margin-right: 5px;
+	border: 1px solid #ffa2a2;
+	margin-left: 15px;
 }
 
 #article .message {
-display: block;
-background-color: #ffffff;
-clear: both;
-margin-left: 15px;
-padding: 5px;
-border-top: 1px solid #ffa2a2;
-border-left: 1px solid #ffa2a2;
-border-bottom: 1px solid #ffa2a2;
-font-size: 1.2em;
+	display: block;
+	background-color: #ffffff;
+	clear: both;
+	margin-left: 15px;
+	padding: 5px;
+	border-top: 1px solid #ffa2a2;
+	border-left: 1px solid #ffa2a2;
+	border-bottom: 1px solid #ffa2a2;
+	font-size: 1.2em;
 }
 
 #article .links {
-display: block;
-text-align: right;
-background-color: #fff0f0;
-clear: both;
-margin-left: 15px;
-padding: 5px;
+	display: block;
+	text-align: right;
+	background-color: #fff0f0;
+	clear: both;
+	margin-left: 15px;
+	padding: 5px;
 }
 
-
-#vertable
-{
-margin: 0;
-margin-top: -1px;
-padding: 0px 0 0 0px;
-float: left;
-border-bottom: 1px solid #ffa2a2;
-width: 100%;
-background: #ffcfd0;
-font-size: 1.3em;
+#vertable {
+	margin: 0;
+	margin-top: -1px;
+	padding: 0px 0 0 0px;
+	float: left;
+	border-bottom: 1px solid #ffa2a2;
+	width: 100%;
+	background: #ffcfd0;
+	font-size: 1.3em;
 }
 
-#vertable UL
-{
-display: inline;
-list-style: none;
-margin: 0;
-padding: 0;
-border: none;
-
+#vertable UL {
+	display: inline;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border: none;
 }
 
-#vertable LI
-{
-
-display: block;
-margin: 0;
-padding: 0;
-float: left;
-width: auto;
+#vertable LI {
+	display: block;
+	margin: 0;
+	padding: 0;
+	float: left;
+	width: auto;
 }
 
-#vertable a
-{
-color: #5e5e5e;
-display: block;
-width: auto;
-text-decoration: none;
-background: #ffcfd0;
-margin: 0;
-padding: 2px 10px;
-
+#vertable a {
+	color: #5e5e5e;
+	display: block;
+	width: auto;
+	text-decoration: none;
+	background: #ffcfd0;
+	margin: 0;
+	padding: 2px 10px;
 }
 
-#vertable A:hover, #vertable A:active { background: #ffefef; }
-
-#vertable A.active:link, #vertable A.active:visited
-{
-position: relative;
-z-index: 102;
-background: #fcb5b6;
-
+#vertable A:hover, #vertable A:active {
+	background: #ffefef;
 }
 
-#songinfo  table
-{
-clear: both;
-color: #000;
-background-color: #ffe2e3;
-border-bottom: 1px solid #ffa2a2;
+#vertable A.active:link, #vertable A.active:visited {
+	position: relative;
+	z-index: 102;
+	background: #fcb5b6;
 }
 
-#songinfo  table .colour
-{
-color: #CF4D37;
+#songinfo table {
+	clear: both;
+	color: #000;
+	background-color: #ffe2e3;
+	border-bottom: 1px solid #ffa2a2;
+}
+
+#songinfo table .colour {
+	color: #CF4D37;
 }
 
 /* scorelist css */
 
-#scorewrap {
-
-}
+#scorewrap {}
 
 #scorelist {
-background-color: #fff0f0;
-
-
+	background-color: #fff0f0;
 }
 
 #scorelist h2 {
-display: block;
-width: 100%;
-background-image: url('/web/globalfiles/grad.png');
-background-repeat: repeat-x;
-font-size: 2em;
-color: #000;
-border-bottom: 1px solid #ffa2a2;
+	display: block;
+	width: 100%;
+	background-image: url('/web/globalfiles/grad.png');
+	background-repeat: repeat-x;
+	font-size: 2em;
+	color: #000;
+	border-bottom: 1px solid #ffa2a2;
 }
 
 #scorelist table {
-padding-left: 2px;
+	padding-left: 2px;
 }
 
 #scorelist .head {
-font-size: 1.2em;
-color: #000;
-border-bottom: 1px solid #ffa2a2;
+	font-size: 1.2em;
+	color: #000;
+	border-bottom: 1px solid #ffa2a2;
 }
 
 #scorelist td {
-font-size: 1.1em;
-padding: 2px;
+	font-size: 1.1em;
+	padding: 2px;
 }
 
 #scorelist .odd {
-background-color: #fff;
+	background-color: #fff;
 }
 
 /*#scorelist a {display: block; width: 100%}*/
 
-
-#scorelist .artist{
-position: absolute;
-margin-right: 200px;
+#scorelist .artist {
+	position: absolute;
+	margin-right: 200px;
 }
 
 #scoresheet .leader_title {
-font-size: 1.4em;
-font-weight: bold;
-display: block;
-margin-left: 5px;
-background: url('https://web.archive.org/web/20071027211326im_/http://osu.ppy.sh/forum/styles/GlossyOrange/theme/images/cellpic1.jpg');
-background-repeat: repeat-x;
-color: #fff;
-width: 50%;
-height: 1.7em;
+	font-size: 1.4em;
+	font-weight: bold;
+	display: block;
+	margin-left: 5px;
+	background: url('https://web.archive.org/web/20071027211326im_/http://osu.ppy.sh/forum/styles/GlossyOrange/theme/images/cellpic1.jpg');
+	background-repeat: repeat-x;
+	color: #fff;
+	width: 50%;
+	height: 1.7em;
 }
 
 #scoresheet .leader_title a {
-color: #ffe0d0;
+	color: #ffe0d0;
 }
 
 #scoresheet table {
-
-width: 50%;
-margin-left: 5px;
-border-left: 1px solid;
-border-right: 1px solid;
-border-bottom: 1px solid;
+	width: 50%;
+	margin-left: 5px;
+	border-left: 1px solid;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
 }
 
 #scoresheet tr {
-font-size: 1.3em;
-height: 1.4em;
-background-color: #ffe0d0;
+	font-size: 1.3em;
+	height: 1.4em;
+	background-color: #ffe0d0;
 }
 
 #scoresheet td {
-padding-left: 4px;
+	padding-left: 4px;
 }
 
-
-
 #scoresheet .rank {
-border-left: 1px solid;
+	border-left: 1px solid;
 }
 
 #scoresheet .odd {
-background-color: #fff0f0;
+	background-color: #fff0f0;
 }
 
 #osudownload {
-float: right;
-padding-right: 5%;
-
+	float: right;
+	padding-right: 5%;
 }
+
 #osudownload img {
-border: 0;
+	border: 0;
 }
 
 #scoreboard {
-width: 100%;
+	width: 100%;
 }
 
 #scoreboard .odd {
-background-color: #fff0f0;
+	background-color: #fff0f0;
 }
 
-.titlerow td
-{
-padding:1px;
-font-size: 1.1em;
-color: #000;
-background-color: #ffe2e3;
-border-top: 1px solid #ffa2a2;
-border-bottom: 1px solid #ffa2a2;
+.titlerow td {
+	padding: 1px;
+	font-size: 1.1em;
+	color: #000;
+	background-color: #ffe2e3;
+	border-top: 1px solid #ffa2a2;
+	border-bottom: 1px solid #ffa2a2;
 }
 
 .abt {
-font-size: 1.1em;
-padding: 2px;
-text-align: center;
-font-weight: bold;
+	font-size: 1.1em;
+	padding: 2px;
+	text-align: center;
+	font-weight: bold;
 }
 
 .easy {
-float: left;
-width: 30;
-height: 10;
-background: url('/web/globalfiles/easy.png');
+	float: left;
+	width: 30;
+	height: 10;
+	background: url('/web/globalfiles/easy.png');
 }
 
 .med {
-float: left;
-width: 30;
-height: 10;
-background: url('/web/globalfiles/med.png');
+	float: left;
+	width: 30;
+	height: 10;
+	background: url('/web/globalfiles/med.png');
 }
 
 .hard {
-float: left;
-width: 30;
-height: 10;
-background: url('/web/globalfiles/hard.png');
+	float: left;
+	width: 30;
+	height: 10;
+	background: url('/web/globalfiles/hard.png');
 }
 
 .insane {
-float: left;
-width: 30;
-height: 10;
-background: url('/web/globalfiles/insane.png');
+	float: left;
+	width: 30;
+	height: 10;
+	background: url('/web/globalfiles/insane.png');
 }
 
 /*ratings*/
@@ -400,90 +387,151 @@ See readme.txt for full credit details.
 --------------------------------------------------------- */
 
 .ratingblock {
-        display:block;
-        }
+	display: block;
+}
 
 .loading {
-        height: 30px;
-        background: url('/web/globalfiles/working.gif') 50% 50% no-repeat;
-        }
+	height: 30px;
+	background: url('/web/globalfiles/working.gif') 50% 50% no-repeat;
+}
 
-.unit-rating { /* the UL */
-        list-style:none;
-        margin: 0px;
-        padding:0px;
-        height: 14px;
-        position: relative;
-        background: url('/web/globalfiles/starrating.gif') top left repeat-x;
-        }
+.unit-rating {
+	/* the UL */
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	height: 14px;
+	position: relative;
+	background: url('/web/globalfiles/starrating.gif') top left repeat-x;
+}
 
-.unit-rating li{
-    text-indent: -90000px;
-        padding:0px;
-        margin:0px;
-        /*\*/
-        float: left;
-        /* */
-        }
+.unit-rating li {
+	text-indent: -90000px;
+	padding: 0px;
+	margin: 0px;
+	/*\*/
+	float: left;
+	/* */
+}
 
 .unit-rating li a {
-        outline: none;
-        display:block;
-        width:14px;
-        height: 14px;
-        text-decoration: none;
-        text-indent: -9000px;
-        z-index: 20;
-        position: absolute;
-        padding: 0px;
-        }
+	outline: none;
+	display: block;
+	width: 14px;
+	height: 14px;
+	text-decoration: none;
+	text-indent: -9000px;
+	z-index: 20;
+	position: absolute;
+	padding: 0px;
+}
 
-.unit-rating li a:hover{
-        background: url('/web/globalfiles/starrating.gif') left center;
-        z-index: 2;
-        left: 0px;
-        }
+.unit-rating li a:hover {
+	background: url('/web/globalfiles/starrating.gif') left center;
+	z-index: 2;
+	left: 0px;
+}
 
-.unit-rating a.r1-unit{left: 0px;}
-.unit-rating a.r1-unit:hover{width:14px;}
-.unit-rating a.r2-unit{left:14px;}
-.unit-rating a.r2-unit:hover{width: 28px;}
-.unit-rating a.r3-unit{left: 28px;}
-.unit-rating a.r3-unit:hover{width: 42px;}
-.unit-rating a.r4-unit{left: 42px;}
-.unit-rating a.r4-unit:hover{width: 56px;}
-.unit-rating a.r5-unit{left: 56px;}
-.unit-rating a.r5-unit:hover{width: 70px;}
-.unit-rating a.r6-unit{left: 70px;}
-.unit-rating a.r6-unit:hover{width: 84px;}
-.unit-rating a.r7-unit{left: 84px;}
-.unit-rating a.r7-unit:hover{width: 98px;}
-.unit-rating a.r8-unit{left: 98px;}
-.unit-rating a.r8-unit:hover{width: 112px;}
-.unit-rating a.r9-unit{left: 112px;}
-.unit-rating a.r9-unit:hover{width: 126px;}
-.unit-rating a.r10-unit{left: 126px;}
-.unit-rating a.r10-unit:hover{width: 140px;}
+.unit-rating a.r1-unit {
+	left: 0px;
+}
+
+.unit-rating a.r1-unit:hover {
+	width: 14px;
+}
+
+.unit-rating a.r2-unit {
+	left: 14px;
+}
+
+.unit-rating a.r2-unit:hover {
+	width: 28px;
+}
+
+.unit-rating a.r3-unit {
+	left: 28px;
+}
+
+.unit-rating a.r3-unit:hover {
+	width: 42px;
+}
+
+.unit-rating a.r4-unit {
+	left: 42px;
+}
+
+.unit-rating a.r4-unit:hover {
+	width: 56px;
+}
+
+.unit-rating a.r5-unit {
+	left: 56px;
+}
+
+.unit-rating a.r5-unit:hover {
+	width: 70px;
+}
+
+.unit-rating a.r6-unit {
+	left: 70px;
+}
+
+.unit-rating a.r6-unit:hover {
+	width: 84px;
+}
+
+.unit-rating a.r7-unit {
+	left: 84px;
+}
+
+.unit-rating a.r7-unit:hover {
+	width: 98px;
+}
+
+.unit-rating a.r8-unit {
+	left: 98px;
+}
+
+.unit-rating a.r8-unit:hover {
+	width: 112px;
+}
+
+.unit-rating a.r9-unit {
+	left: 112px;
+}
+
+.unit-rating a.r9-unit:hover {
+	width: 126px;
+}
+
+.unit-rating a.r10-unit {
+	left: 126px;
+}
+
+.unit-rating a.r10-unit:hover {
+	width: 140px;
+}
 
 .unit-rating li.current-rating {
-        background: url('/web/globalfiles/starrating.gif') left bottom;
-        position: absolute;
-        height: 14px;
-        display: block;
-        text-indent: -9000px;
-        z-index: 1;
-        }
+	background: url('/web/globalfiles/starrating.gif') left bottom;
+	position: absolute;
+	height: 14px;
+	display: block;
+	text-indent: -9000px;
+	z-index: 1;
+}
 
-.voted {color:#999;}
-.thanks {color:#36AA3D;}
-.static {color:#5D3126;}
+.voted {
+	color: #999;
+}
 
+.thanks {
+	color: #36AA3D;
+}
 
-
-
-
-
-
+.static {
+	color: #5D3126;
+}
 
 /*
      FILE ARCHIVED ON 21:13:26 Oct 27, 2007 AND RETRIEVED FROM THE
@@ -493,6 +541,7 @@ See readme.txt for full credit details.
      ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
      SECTION 108(a)(3)).
 */
+
 /*
 playback timings (ms):
   esindex: 0.014

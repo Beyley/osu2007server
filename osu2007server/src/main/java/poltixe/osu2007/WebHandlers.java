@@ -170,15 +170,10 @@ public class WebHandlers {
     private static String createStarPattern(int filled, int max) {
         String returnString = "";
 
-        int numberUnfilled = max - filled;
-
-        for (int i = 1; i <= filled; i++) {
-            returnString += "<img height=\"14\" width=\"14\" src=\"/web/globalfiles/star.png\">";
-        }
-
-        for (int i = 1; i <= numberUnfilled; i++) {
-            returnString += "<img height=\"14\" width=\"14\" src=\"/web/globalfiles/starn.png\">";
-        }
+        returnString += "<div class=\"starfield\" style=\"width:" + (max * 14) + "px;\">";
+        returnString += "<div class=\"active\" style=\"width:"
+                + ((double) ((double) filled / (double) max) * (double) 100.0) + "%;\"></div>";
+        returnString += "</div>";
 
         return returnString;
     }
