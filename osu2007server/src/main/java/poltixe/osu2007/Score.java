@@ -110,6 +110,8 @@ public class Score {
         this.mods = Integer.parseInt(splitString[13]);
         this.pass = Boolean.parseBoolean(splitString[14]);
 
+        this.timeSubmitted = (long) (System.currentTimeMillis() / 1000F);
+
         this.accuracy = calculateAccuracy();
     }
 

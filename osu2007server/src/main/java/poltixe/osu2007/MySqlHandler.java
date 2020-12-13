@@ -27,7 +27,6 @@ public class MySqlHandler {
     }
 
     public String getVersion() {
-
         String query = "SELECT VERSION()";
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
@@ -45,9 +44,19 @@ public class MySqlHandler {
     }
 
     public void checkForDatabase() {
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/";
+
+        Connection thisCon = null;
+
+        try {
+            thisCon = (Connection) DriverManager.getConnection(connectionUrl, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         String query = "CREATE DATABASE osu2007";
 
-        try (Statement st = (Statement) con.createStatement()) {
+        try (Statement st = (Statement) thisCon.createStatement()) {
 
             st.execute(query);
         } catch (SQLException ex) {
@@ -158,6 +167,8 @@ public class MySqlHandler {
                 System.out.println(ex.getMessage());
             }
         }
+
+        rankedTableExist = false;
 
         try {
             DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
@@ -509,12 +520,13 @@ public class MySqlHandler {
             rankedMapMd5s.add(map.md5);
         }
 
-        String query = "SELECT * FROM score_list WHERE `userid`=?";
+        String query = "SELECT * FROM score_list WHERE `userid`=? and pass=?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
 
             stmt.setInt(1, userId);
+            stmt.setBoolean(2, true);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -534,12 +546,13 @@ public class MySqlHandler {
     public int getTotalScoreOfUser(int userId) {
         int score = 0;
 
-        String query = "SELECT * FROM score_list WHERE `userid`=?";
+        String query = "SELECT * FROM score_list WHERE userid=? and pass=?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
 
             stmt.setInt(1, userId);
+            stmt.setBoolean(2, true);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -558,12 +571,13 @@ public class MySqlHandler {
     public List<Score> getAllScoresOfUser(int userId) {
         List<Score> scores = new ArrayList<Score>();
 
-        String query = "SELECT * FROM score_list WHERE userid = ? ORDER BY score DESC";
+        String query = "SELECT * FROM score_list WHERE userid = ? and pass=? ORDER BY score DESC";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
 
             stmt.setInt(1, userId);
+            stmt.setBoolean(2, true);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -759,8 +773,38 @@ public class MySqlHandler {
         }
     }
 
+    public void addFailedScore(Score score) {
+        String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass, timesubmitted)"
+                + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, score.mapHash);
+            stmt.setInt(2, score.userId);
+            stmt.setString(3, score.replayHash);
+            stmt.setInt(4, score.hit300);
+            stmt.setInt(5, score.hit100);
+            stmt.setInt(6, score.hit50);
+            stmt.setInt(7, score.hitGeki);
+            stmt.setInt(8, score.hitKatu);
+            stmt.setInt(9, score.hitMiss);
+            stmt.setInt(10, score.score);
+            stmt.setInt(11, score.maxCombo);
+            stmt.setBoolean(12, score.perfectCombo);
+            stmt.setString(13, Character.toString(score.grade));
+            stmt.setInt(14, score.mods);
+            stmt.setBoolean(15, score.pass);
+            stmt.setLong(16, score.timeSubmitted);
+
+            stmt.execute();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public List<Score> getMapLeaderboard(String mapHash) {
-        String query = "SELECT * FROM score_list WHERE maphash = ? ORDER BY score DESC LIMIT 50";
+        String query = "SELECT * FROM score_list WHERE maphash = ? and pass=? ORDER BY score DESC LIMIT 50";
 
         List<Score> scores = new ArrayList<Score>();
 
@@ -768,6 +812,7 @@ public class MySqlHandler {
             PreparedStatement stmt = con.prepareStatement(query);
 
             stmt.setString(1, mapHash);
+            stmt.setBoolean(2, true);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -784,11 +829,16 @@ public class MySqlHandler {
     }
 
     public List<Score> getAllScores() {
-        String query = "SELECT * FROM score_list ORDER BY score DESC";
+        String query = "SELECT * FROM score_list WHERE pass=? ORDER BY score DESC";
 
         List<Score> scores = new ArrayList<Score>();
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = (Statement) con.createStatement();) {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setBoolean(1, true);
+
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);

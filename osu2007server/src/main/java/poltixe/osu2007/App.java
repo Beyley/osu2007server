@@ -25,8 +25,6 @@ public class App {
 
         // Gets the MySQL version, and if something is wrong, print an error
         System.out.println("MySQL Server version : " + sqlHandler.getVersion());
-        // Sets up the databases and tables
-        sqlHandler.checkForDatabase();
         sqlHandler.checkForTables();
 
         FileHandler.rankedDatabaseCheck();

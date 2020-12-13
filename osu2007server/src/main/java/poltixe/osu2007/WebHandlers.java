@@ -511,9 +511,7 @@ public class WebHandlers {
 
         content = content.replace("%LEADERBOARDCONTENTS%", leaderboardContents);
 
-        return
-
-        createHtmlPage(content);
+        return createHtmlPage(content);
     }
 
     public static String getNameChangePage(Request req) {
@@ -966,6 +964,7 @@ public class WebHandlers {
 
         try {
             scoreToSubmit = new Score(scoreDetails);
+
         } catch (ParseException ex) {
             return "Parse exception";
         }
@@ -996,6 +995,10 @@ public class WebHandlers {
                     sqlHandler.updateScore(oldTopId, scoreToSubmit, replayData);
                 }
             }
+
+            sqlHandler.addToPlaycount(scoreToSubmit.userId);
+        } else if (user.userPassword.equals(password)) {
+            sqlHandler.addFailedScore(scoreToSubmit);
 
             sqlHandler.addToPlaycount(scoreToSubmit.userId);
         }
