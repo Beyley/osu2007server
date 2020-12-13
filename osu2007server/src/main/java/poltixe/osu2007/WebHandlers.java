@@ -334,7 +334,7 @@ public class WebHandlers {
             currentScore = currentScore.replace("%USERNAME%", sqlHandler.checkUserData(score.userId).displayUsername);
             currentScore = currentScore.replace("%MAXCOMBO%", String.valueOf(score.maxCombo));
 
-            if (topScore.perfectCombo) {
+            if (score.perfectCombo) {
                 currentScore = currentScore.replace("%ISPERFECT%", " - Perfect!");
             } else {
                 currentScore = currentScore.replace("%ISPERFECT%", "");
