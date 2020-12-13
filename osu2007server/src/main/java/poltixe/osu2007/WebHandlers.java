@@ -2,13 +2,13 @@ package poltixe.osu2007;
 
 import java.io.*;
 import java.security.MessageDigest;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import poltixe.osu2007.Html.Image;
 import spark.Request;
 
 public class WebHandlers {
@@ -162,6 +162,121 @@ public class WebHandlers {
         try {
             content = new String(is.readAllBytes());
         } catch (IOException e) {
+        }
+
+        return createHtmlPage(content);
+    }
+
+    private static String createStarPattern(int filled, int max) {
+        String returnString = "";
+
+        int numberUnfilled = max - filled;
+
+        for (int i = 1; i <= filled; i++) {
+            returnString += "<img height=\"14\" width=\"14\" src=\"/web/globalfiles/star.png\">";
+        }
+
+        for (int i = 1; i <= numberUnfilled; i++) {
+            returnString += "<img height=\"14\" width=\"14\" src=\"/web/globalfiles/starn.png\">";
+        }
+
+        return returnString;
+    }
+
+    public static String mapPage(Request req) {
+        String content = "";
+
+        String mapHash = req.queryParams("map");
+
+        Image xRank = new Image("/web/globalfiles/X.png");
+        Image sRank = new Image("/web/globalfiles/S.png");
+        Image aRank = new Image("/web/globalfiles/A.png");
+        Image bRank = new Image("/web/globalfiles/B.png");
+        Image cRank = new Image("/web/globalfiles/C.png");
+        Image dRank = new Image("/web/globalfiles/D.png");
+
+        Image xRankSmall = new Image("/web/globalfiles/X_small.png");
+        Image sRankSmall = new Image("/web/globalfiles/S_small.png");
+        Image aRankSmall = new Image("/web/globalfiles/A_small.png");
+        Image bRankSmall = new Image("/web/globalfiles/B_small.png");
+        Image cRankSmall = new Image("/web/globalfiles/C_small.png");
+        Image dRankSmall = new Image("/web/globalfiles/D_small.png");
+
+        List<BeatMap> rankedMaps = sqlHandler.getAllRankedMaps();
+
+        BeatMap map = null;
+
+        for (BeatMap currentMap : rankedMaps) {
+            if (currentMap.md5.equals(mapHash)) {
+                map = currentMap;
+            }
+        }
+
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/mappagepagecontent.html");
+
+        try {
+            content = new String(is.readAllBytes());
+        } catch (IOException e) {
+        }
+
+        content = content.replace("%ARTIST%", map.artist);
+        content = content.replace("%TITLE%", map.title);
+        content = content.replace("%CREATOR%", map.creator);
+        content = content.replace("%STARRATING%", new DecimalFormat("0.00").format(map.starRating));
+        content = content.replace("%ALLDIFFS%",
+                "<li><a class=\"active\" href=web/mappage?map=" + map.md5 + ">" + map.diffName + "</a></li>");
+        content = content.replace("%LENGTH%", new DecimalFormat("0").format(map.length / 1000));
+        content = content.replace("%DRAINTIME%", new DecimalFormat("0").format(map.drainTime / 1000));
+        content = content.replace("%BPM%", new DecimalFormat("0").format(map.bpm));
+
+        List<Score> allMapScores = sqlHandler.getMapLeaderboard(mapHash);
+
+        Score topScore = allMapScores.get(0);
+
+        content = content.replace("%NUMBERONENAME%", sqlHandler.checkUserData(topScore.userId).displayUsername);
+        content = content.replace("%NUMBERONESCORE%", String.valueOf(topScore.score));
+        content = content.replace("%NUMBERONEACCURACY%", new DecimalFormat("0.00").format(topScore.accuracy));
+        content = content.replace("%NUMBERONEMAXCOMBO%", String.valueOf(topScore.maxCombo));
+        content = content.replace("%NUMBERONE50%", String.valueOf(topScore.hit50));
+        content = content.replace("%NUMBERONE100%", String.valueOf(topScore.hit100));
+        content = content.replace("%NUMBERONE300%", String.valueOf(topScore.hit300));
+        content = content.replace("%NUMBERONEMISS%", String.valueOf(topScore.hitMiss));
+        content = content.replace("%NUMBERONEGEKI%", String.valueOf(topScore.hitGeki));
+        content = content.replace("%NUMBERONEKATU%", String.valueOf(topScore.hitKatu));
+        content = content.replace("%NUMBERONEMODS%", String.valueOf(topScore.mods));
+
+        content = content.replace("%CSSTARS%", createStarPattern((int) Math.round(map.circleSize), 10));
+        content = content.replace("%HPSTARS%", createStarPattern((int) Math.round(map.hpDrainRate), 10));
+        content = content.replace("%ODSTARS%", createStarPattern((int) Math.round(map.overallDifficulty), 10));
+
+        content = content.replace("%SRSTARS%", createStarPattern((int) Math.round(map.starRating), 5));
+
+        switch (topScore.grade) {
+            case 'S':
+                if (topScore.accuracy != 100) {
+                    content = content.replace("%RANKIMAGE%", sRank.getAsHtml());
+                } else {
+                    content = content.replace("%RANKIMAGE%", xRank.getAsHtml());
+                }
+                break;
+            case 'A':
+                content = content.replace("%RANKIMAGE%", aRank.getAsHtml());
+                break;
+            case 'B':
+                content = content.replace("%RANKIMAGE%", bRank.getAsHtml());
+                break;
+            case 'C':
+                content = content.replace("%RANKIMAGE%", cRank.getAsHtml());
+                break;
+            case 'D':
+                content = content.replace("%RANKIMAGE%", dRank.getAsHtml());
+                break;
+        }
+
+        if (topScore.perfectCombo) {
+            content = content.replace("%ISPERFECT%", "Perfect!");
+        } else {
+            content = content.replace("%ISPERFECT%", "");
         }
 
         return createHtmlPage(content);
@@ -360,7 +475,7 @@ public class WebHandlers {
                             + "</td> <td>" + score.grade + "</td> </tr>";
                 } else {
                     content += "<tr padding=\"1\"> <td style=\"text-align: center;\">" + rankedMap.getAsHtml()
-                            + "</td> <td>" + thisMap.artist + " - " + thisMap.songName + " (" + thisMap.creator + ") ["
+                            + "</td> <td>" + thisMap.artist + " - " + thisMap.title + " (" + thisMap.creator + ") ["
                             + thisMap.diffName + "]" + "</td> <td>" + score.score + "</td> <td>" + score.accuracy
                             + "</td> <td>" + score.grade + "</td> </tr>";
                 }
@@ -371,7 +486,7 @@ public class WebHandlers {
                             + "</td> <td>" + score.accuracy + "</td> <td>" + score.grade + "</td> </tr>";
                 } else {
                     content += "<tr class=\"odd\" padding=\"1\"> <td style=\"text-align: center;\">"
-                            + rankedMap.getAsHtml() + "</td> <td>" + thisMap.artist + " - " + thisMap.songName + " ("
+                            + rankedMap.getAsHtml() + "</td> <td>" + thisMap.artist + " - " + thisMap.title + " ("
                             + thisMap.creator + ") [" + thisMap.diffName + "]" + "</td> <td>" + score.score
                             + "</td> <td>" + score.accuracy + "</td> <td>" + score.grade + "</td> </tr>";
                 }

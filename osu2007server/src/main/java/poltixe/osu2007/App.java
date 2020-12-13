@@ -47,6 +47,7 @@ public class App {
         get("/web/download", (req, res) -> WebHandlers.downloadPage(req));
         get("/web/faq", (req, res) -> WebHandlers.faqPage(req));
         get("/web/maplisting", (req, res) -> WebHandlers.maplistingPage(req));
+        get("/web/mappage", (req, res) -> WebHandlers.mapPage(req));
         get("/web/top", (req, res) -> WebHandlers.getTopPlayers(req));
         get("/web/u", (req, res) -> WebHandlers.getUserPage(req));
         get("/web/namechange", (req, res) -> WebHandlers.getNameChangePage(req));

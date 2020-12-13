@@ -9,12 +9,12 @@ public class Score {
     public int userId;
     public String username;
     public String replayHash;
-    public int hit300Count;
-    public int hit100Count;
-    public int hit50Count;
-    public int hitGekiCount;
-    public int hitKatuCount;
-    public int hitMissCount;
+    public int hit300;
+    public int hit100;
+    public int hit50;
+    public int hitGeki;
+    public int hitKatu;
+    public int hitMiss;
     public int score;
     public int maxCombo;
     public boolean perfectCombo;
@@ -48,12 +48,12 @@ public class Score {
             throw new ParseException("Error when parsing replay hash", 2);
         }
 
-        this.hit300Count = Integer.parseInt(splitString[3]);
-        this.hit100Count = Integer.parseInt(splitString[4]);
-        this.hit50Count = Integer.parseInt(splitString[5]);
-        this.hitGekiCount = Integer.parseInt(splitString[6]);
-        this.hitKatuCount = Integer.parseInt(splitString[7]);
-        this.hitMissCount = Integer.parseInt(splitString[8]);
+        this.hit300 = Integer.parseInt(splitString[3]);
+        this.hit100 = Integer.parseInt(splitString[4]);
+        this.hit50 = Integer.parseInt(splitString[5]);
+        this.hitGeki = Integer.parseInt(splitString[6]);
+        this.hitKatu = Integer.parseInt(splitString[7]);
+        this.hitMiss = Integer.parseInt(splitString[8]);
         this.score = Integer.parseInt(splitString[9]);
         this.maxCombo = Integer.parseInt(splitString[10]);
         this.perfectCombo = Boolean.parseBoolean(splitString[11]);
@@ -90,12 +90,12 @@ public class Score {
             throw new ParseException("Error when parsing replay hash", 2);
         }
 
-        this.hit300Count = Integer.parseInt(splitString[3]);
-        this.hit100Count = Integer.parseInt(splitString[4]);
-        this.hit50Count = Integer.parseInt(splitString[5]);
-        this.hitGekiCount = Integer.parseInt(splitString[6]);
-        this.hitKatuCount = Integer.parseInt(splitString[7]);
-        this.hitMissCount = Integer.parseInt(splitString[8]);
+        this.hit300 = Integer.parseInt(splitString[3]);
+        this.hit100 = Integer.parseInt(splitString[4]);
+        this.hit50 = Integer.parseInt(splitString[5]);
+        this.hitGeki = Integer.parseInt(splitString[6]);
+        this.hitKatu = Integer.parseInt(splitString[7]);
+        this.hitMiss = Integer.parseInt(splitString[8]);
         this.score = Integer.parseInt(splitString[9]);
         this.maxCombo = Integer.parseInt(splitString[10]);
         this.perfectCombo = Boolean.parseBoolean(splitString[11]);
@@ -131,12 +131,12 @@ public class Score {
                 throw new ParseException("Error when parsing replay hash", 2);
             }
 
-            this.hit300Count = rs.getInt(5);
-            this.hit100Count = rs.getInt(6);
-            this.hit50Count = rs.getInt(7);
-            this.hitGekiCount = rs.getInt(8);
-            this.hitKatuCount = rs.getInt(9);
-            this.hitMissCount = rs.getInt(10);
+            this.hit300 = rs.getInt(5);
+            this.hit100 = rs.getInt(6);
+            this.hit50 = rs.getInt(7);
+            this.hitGeki = rs.getInt(8);
+            this.hitKatu = rs.getInt(9);
+            this.hitMiss = rs.getInt(10);
             this.score = rs.getInt(11);
             this.maxCombo = rs.getInt(12);
             this.perfectCombo = Boolean.parseBoolean(rs.getString(13));
@@ -157,10 +157,9 @@ public class Score {
     }
 
     public double calculateAccuracy() {
-        double acc = ((double) (300 * (double) this.hit300Count) + (double) (100 * (double) this.hit100Count)
-                + (double) (50 * (double) this.hit50Count))
-                / (double) (double) (300
-                        * (double) (this.hit300Count + this.hit100Count + this.hit50Count + this.hitMissCount));
+        double acc = ((double) (300 * (double) this.hit300) + (double) (100 * (double) this.hit100)
+                + (double) (50 * (double) this.hit50))
+                / (double) (double) (300 * (double) (this.hit300 + this.hit100 + this.hit50 + this.hitMiss));
 
         acc *= 100.0;
 
@@ -175,12 +174,12 @@ public class Score {
         combinedString += this.mapHash + ":";
         combinedString += sqlHandler.getUsername(this.userId) + ":";
         combinedString += this.replayHash + ":";
-        combinedString += this.hit300Count + ":";
-        combinedString += this.hit100Count + ":";
-        combinedString += this.hit50Count + ":";
-        combinedString += this.hitGekiCount + ":";
-        combinedString += this.hitKatuCount + ":";
-        combinedString += this.hitMissCount + ":";
+        combinedString += this.hit300 + ":";
+        combinedString += this.hit100 + ":";
+        combinedString += this.hit50 + ":";
+        combinedString += this.hitGeki + ":";
+        combinedString += this.hitKatu + ":";
+        combinedString += this.hitMiss + ":";
         combinedString += this.score + ":";
         combinedString += this.maxCombo + ":";
         combinedString += this.perfectCombo + ":";
@@ -198,12 +197,12 @@ public class Score {
         combinedString += this.username + ":";
         combinedString += this.score + ":";
         combinedString += this.maxCombo + ":";
-        combinedString += this.hit50Count + ":";
-        combinedString += this.hit100Count + ":";
-        combinedString += this.hit300Count + ":";
-        combinedString += this.hitMissCount + ":";
-        combinedString += this.hitKatuCount + ":";
-        combinedString += this.hitGekiCount + ":";
+        combinedString += this.hit50 + ":";
+        combinedString += this.hit100 + ":";
+        combinedString += this.hit300 + ":";
+        combinedString += this.hitMiss + ":";
+        combinedString += this.hitKatu + ":";
+        combinedString += this.hitGeki + ":";
         combinedString += this.perfectCombo + ":";
         combinedString += this.mods + "\n";
 

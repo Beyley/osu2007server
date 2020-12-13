@@ -54,7 +54,7 @@ public class MySqlHandler {
     }
 
     public void addRankedMapsToTable(List<BeatMap> rankedMaps) {
-        String query = "CREATE TABLE `osu2007`.`ranked_maps` ( `id` INT NOT NULL AUTO_INCREMENT, `md5` VARCHAR(100) NULL, `starrating` DOUBLE NOT NULL, `artist` VARCHAR(250) NULL, `songname` VARCHAR(250) NULL, `diffname` VARCHAR(250) NULL, `creator` VARCHAR(250) NULL, PRIMARY KEY (`id`));";
+        String query = "CREATE TABLE `osu2007`.`ranked_maps` ( `id` INT NOT NULL AUTO_INCREMENT, `md5` VARCHAR(100) NULL, `starrating` DOUBLE NOT NULL, `artist` VARCHAR(250) NULL, `songname` VARCHAR(250) NULL, `diffname` VARCHAR(250) NULL, `creator` VARCHAR(250) NULL, `circlesize` DOUBLE NULL, `hpdrainrate` DOUBLE NULL, `overalldifficulty` DOUBLE NULL, `slidervelocity` DOUBLE NULL, `slidertickrate` DOUBLE NULL, `bpm` DOUBLE NULL, `length` DOUBLE NULL, `draintime` DOUBLE NULL, PRIMARY KEY (`id`));";
 
         try (Statement st = (Statement) con.createStatement()) {
 
@@ -70,17 +70,25 @@ public class MySqlHandler {
                 map.artist = "none";
             }
 
-            query = "INSERT INTO `osu2007`.`ranked_maps` (`md5`, `starrating`, `artist`, `songname`, `diffname`, `creator`) VALUES (?, ?, ?, ?, ?, ?);";
+            query = "INSERT INTO `osu2007`.`ranked_maps` (`md5`, `starrating`, `artist`, `songname`, `diffname`, `creator`, `circlesize`, `hpdrainrate`, `overalldifficulty`, `slidervelocity`, `slidertickrate`, `bpm`, `length`, `draintime`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             try {
                 PreparedStatement stmt = con.prepareStatement(query);
 
                 stmt.setString(1, map.md5);
-                stmt.setDouble(2, map.starRating);
+                stmt.setString(2, String.valueOf(map.starRating));
                 stmt.setString(3, map.artist);
-                stmt.setString(4, map.songName);
+                stmt.setString(4, map.title);
                 stmt.setString(5, map.diffName);
                 stmt.setString(6, map.creator);
+                stmt.setString(7, String.valueOf(map.circleSize));
+                stmt.setString(8, String.valueOf(map.hpDrainRate));
+                stmt.setString(9, String.valueOf(map.overallDifficulty));
+                stmt.setString(10, String.valueOf(map.sliderVelocity));
+                stmt.setString(11, String.valueOf(map.sliderTickRate));
+                stmt.setString(12, String.valueOf(map.bpm));
+                stmt.setString(13, String.valueOf(map.length));
+                stmt.setString(14, String.valueOf(map.drainTime));
 
                 stmt.execute();
             } catch (SQLException ex) {
@@ -198,12 +206,12 @@ public class MySqlHandler {
                     stmt.setString(2, score.mapHash);
                     stmt.setInt(3, score.userId);
                     stmt.setString(4, score.replayHash);
-                    stmt.setInt(5, score.hit300Count);
-                    stmt.setInt(6, score.hit100Count);
-                    stmt.setInt(7, score.hit50Count);
-                    stmt.setInt(8, score.hitGekiCount);
-                    stmt.setInt(9, score.hitKatuCount);
-                    stmt.setInt(10, score.hitMissCount);
+                    stmt.setInt(5, score.hit300);
+                    stmt.setInt(6, score.hit100);
+                    stmt.setInt(7, score.hit50);
+                    stmt.setInt(8, score.hitGeki);
+                    stmt.setInt(9, score.hitKatu);
+                    stmt.setInt(10, score.hitMiss);
                     stmt.setInt(11, score.score);
                     stmt.setInt(12, score.maxCombo);
                     stmt.setBoolean(13, score.perfectCombo);
@@ -448,12 +456,12 @@ public class MySqlHandler {
             PreparedStatement stmt = con.prepareStatement(query);
 
             stmt.setString(1, newScore.replayHash);
-            stmt.setInt(2, newScore.hit300Count);
-            stmt.setInt(3, newScore.hit100Count);
-            stmt.setInt(4, newScore.hit50Count);
-            stmt.setInt(5, newScore.hitGekiCount);
-            stmt.setInt(6, newScore.hitKatuCount);
-            stmt.setInt(7, newScore.hitMissCount);
+            stmt.setInt(2, newScore.hit300);
+            stmt.setInt(3, newScore.hit100);
+            stmt.setInt(4, newScore.hit50);
+            stmt.setInt(5, newScore.hitGeki);
+            stmt.setInt(6, newScore.hitKatu);
+            stmt.setInt(7, newScore.hitMiss);
             stmt.setInt(8, newScore.score);
             stmt.setInt(9, newScore.maxCombo);
             stmt.setBoolean(10, newScore.perfectCombo);
@@ -569,12 +577,12 @@ public class MySqlHandler {
             stmt.setString(1, score.mapHash);
             stmt.setInt(2, score.userId);
             stmt.setString(3, score.replayHash);
-            stmt.setInt(4, score.hit300Count);
-            stmt.setInt(5, score.hit100Count);
-            stmt.setInt(6, score.hit50Count);
-            stmt.setInt(7, score.hitGekiCount);
-            stmt.setInt(8, score.hitKatuCount);
-            stmt.setInt(9, score.hitMissCount);
+            stmt.setInt(4, score.hit300);
+            stmt.setInt(5, score.hit100);
+            stmt.setInt(6, score.hit50);
+            stmt.setInt(7, score.hitGeki);
+            stmt.setInt(8, score.hitKatu);
+            stmt.setInt(9, score.hitMiss);
             stmt.setInt(10, score.score);
             stmt.setInt(11, score.maxCombo);
             stmt.setBoolean(12, score.perfectCombo);
@@ -605,8 +613,7 @@ public class MySqlHandler {
     }
 
     public List<Score> getMapLeaderboard(String mapHash) {
-
-        String query = "SELECT * FROM score_list WHERE maphash = ? ORDER BY score DESC";
+        String query = "SELECT * FROM score_list WHERE maphash = ? ORDER BY score DESC LIMIT 50";
 
         List<Score> scores = new ArrayList<Score>();
 

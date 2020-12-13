@@ -16,14 +16,7 @@ public class FileHandler {
             String data = myReader.nextLine();
             String[] split = data.split(":");
 
-            String artist = split[0];
-            String songName = split[1];
-            String diffName = split[2];
-            String creator = split[3];
-            String md5 = split[4];
-            String sr = split[5];
-
-            rankedMaps.add(new BeatMap(artist, songName, diffName, creator, md5, sr));
+            rankedMaps.add(new BeatMap(split));
         }
 
         myReader.close();
