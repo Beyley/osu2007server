@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.*;
 import java.util.concurrent.TimeUnit;
-import java.nio.*;
 
 public class GetAllReplays extends SimpleFileVisitor<Path> {
     // Print information about
@@ -35,7 +34,7 @@ public class GetAllReplays extends SimpleFileVisitor<Path> {
     // Print each directory visited.
     @Override
     public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
-        System.out.format("Directory: %s%n", dir);
+        // System.out.format("Directory: %s%n", dir);
         return CONTINUE;
     }
 
@@ -46,7 +45,7 @@ public class GetAllReplays extends SimpleFileVisitor<Path> {
     // is thrown.
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) {
-        System.err.println(exc);
+        // System.err.println(exc);
         return CONTINUE;
     }
 

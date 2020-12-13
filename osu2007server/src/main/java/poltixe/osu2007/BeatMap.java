@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 public class BeatMap {
     public String md5;
+
+    public String userPageDisplayName;
     public Score topScore;
     public String artist;
     public String title;
@@ -41,6 +43,9 @@ public class BeatMap {
         this.bpm = rs.getDouble(13);
         this.length = rs.getDouble(14);
         this.drainTime = rs.getDouble(15);
+
+        this.userPageDisplayName = String.format("<a href=\"/web/mappage?map=%s\">%s - %s (%s) [%s]", this.md5,
+                this.artist, this.title, this.creator, this.diffName);
     }
 
     BeatMap(String[] split) {

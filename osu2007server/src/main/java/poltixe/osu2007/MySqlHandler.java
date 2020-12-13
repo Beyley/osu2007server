@@ -1,15 +1,10 @@
 package poltixe.osu2007;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.*;
 import java.nio.file.*;
-import java.nio.file.attribute.*;
-import java.security.MessageDigest;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import com.mysql.cj.jdbc.DatabaseMetaData;
 
@@ -72,7 +67,42 @@ public class MySqlHandler {
 
         query = "";
 
+        List<MapSet> mapSets = new ArrayList<MapSet>();
+
         for (BeatMap map : rankedMaps) {
+            boolean isMapInAnySet = false;
+
+            for (MapSet set : mapSets) {
+                for (BeatMap mapSetMap : set.maps) {
+                    if (mapSetMap.artist.equals(map.artist) && mapSetMap.title.equals(map.title)
+                            && mapSetMap.creator.equals(map.creator)) {
+                        isMapInAnySet = true;
+                    }
+                }
+            }
+
+            if (!isMapInAnySet) {
+                MapSet setToAddTo = null;
+
+                for (MapSet set : mapSets) {
+                    for (BeatMap mapSetMap : set.maps) {
+                        if (mapSetMap.artist.equals(map.artist) && mapSetMap.title.equals(map.title)
+                                && mapSetMap.creator.equals(map.creator)) {
+                            setToAddTo = set;
+                        }
+                    }
+                }
+
+                if (setToAddTo == null) {
+                    MapSet tempSet = new MapSet();
+                    tempSet.maps.add(map);
+
+                    mapSets.add(tempSet);
+                } else {
+                    setToAddTo.maps.add(map);
+                }
+            }
+
             if (map.artist.equals("")) {
                 map.artist = "none";
             }
@@ -105,7 +135,6 @@ public class MySqlHandler {
     }
 
     public void checkForRankedTable() {
-
         boolean rankedTableExist = false;
 
         try {
@@ -122,6 +151,28 @@ public class MySqlHandler {
 
         if (rankedTableExist) {
             String query = "DROP TABLE `osu2007`.`ranked_maps`";
+
+            try (Statement st = (Statement) con.createStatement()) {
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+        try {
+            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
+
+            ResultSet rs1 = md.getTables(null, null, "mapset_list", null);
+
+            while (rs1.next()) {
+                rankedTableExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        if (rankedTableExist) {
+            String query = "DROP TABLE `osu2007`.`mapset_list`";
 
             try (Statement st = (Statement) con.createStatement()) {
                 st.execute(query);
@@ -323,20 +374,20 @@ public class MySqlHandler {
             }
         }
 
-        boolean dateSubmittedExist = false;
+        boolean timeSubmittedExist = false;
 
-        query = "SHOW COLUMNS FROM `score_list` LIKE 'datesubmitted';";
+        query = "SHOW COLUMNS FROM `score_list` LIKE 'timesubmitted';";
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
-                dateSubmittedExist = true;
+                timeSubmittedExist = true;
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
-        if (!dateSubmittedExist) {
+        if (!timeSubmittedExist) {
             query = "ALTER TABLE `osu2007`.`score_list` ADD COLUMN `timesubmitted` INT NULL AFTER `pass`";
 
             try (Statement st = (Statement) con.createStatement()) {
@@ -375,6 +426,48 @@ public class MySqlHandler {
         String query = "SELECT * FROM ranked_maps";
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                BeatMap currentMap = new BeatMap(rs);
+
+                maps.add(currentMap);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return maps;
+    }
+
+    public List<BeatMap> getRankedMaps(int startPos, int endPos) {
+        List<BeatMap> maps = new ArrayList<BeatMap>();
+
+        String query = "SELECT * FROM ranked_maps ORDER BY id LIMIT " + startPos + ", " + endPos;
+
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                BeatMap currentMap = new BeatMap(rs);
+
+                maps.add(currentMap);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return maps;
+    }
+
+    public List<BeatMap> searchRankedMaps(String searchQuery) {
+        List<BeatMap> maps = new ArrayList<BeatMap>();
+
+        String query = "SELECT * FROM ranked_maps WHERE songname LIKE ? ORDER BY id;";
+
+        try (Statement st = (Statement) con.createStatement()) {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, "%" + searchQuery + "%");
+
+            ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
                 BeatMap currentMap = new BeatMap(rs);
 
