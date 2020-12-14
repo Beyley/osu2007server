@@ -11,7 +11,8 @@ import com.mysql.cj.jdbc.DatabaseMetaData;
 import java.util.ArrayList;
 
 public class MySqlHandler {
-    private String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/osu2007?useSSL=false";
+    private String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort
+            + "/osu2007?useSSL=false&autoReconnect=true";
 
     private String user = App.mySqlUser;
     private String password = App.mySqlPass;
