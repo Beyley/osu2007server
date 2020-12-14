@@ -744,6 +744,11 @@ public class WebHandlers {
         return createHtmlPage(content);
     }
 
+    public static String[] disallowedNames = { "ppy", "peppy", "cookiezi", "shigetora", "whitecat", "btmc",
+            "beasttrollmc", "vaxei", "badeu", "legendre", "nathan on osu", "chocomint", "mrekk", "ryuk", "aeterna",
+            "merami", "idke", "flyingtuna", "fgsky", "mathi", "micca", "lifeline", "obito", "karthy", "rafis",
+            "paraqeet", "andros", "spare", "umbre", "fieryrage", "okinamo", "akolibed", "ayyeve" };
+
     // Handles a login request
     public static String login(Request req) {
         // The string to be returned to the osu! client, in this case has a default
@@ -762,6 +767,16 @@ public class WebHandlers {
             return "0";
         }
 
+        if (username.length() < 2) {
+            return "0";
+        }
+
+        for (String blacklistedName : disallowedNames) {
+            if (username.toLowerCase().contains(blacklistedName)) {
+                return "0";
+            }
+        }
+
         // Gets the users data of the person the client is attempting to sign in as
         Player userData = sqlHandler.checkUserData(sqlHandler.getUserId(username));
 
@@ -770,11 +785,17 @@ public class WebHandlers {
             // Checks if the password is wrong, if so, tell the client that the password was
             // incorrect
             if (!userData.userPassword.toLowerCase().equals(password))
-                returnString = "0";
+                return "0";
+
+            sqlHandler.updateUserIp(username, req.ip());
         } else {
+            if (sqlHandler.isIpInUse(req.ip())) {
+                return "0";
+            }
+
             // If the user does not exist, create a new user with the specified username and
             // password
-            sqlHandler.addUser(username, password);
+            sqlHandler.addUser(username, password, req.ip());
         }
 
         // Returns the string to be sent to the client

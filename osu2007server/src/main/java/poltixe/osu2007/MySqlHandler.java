@@ -414,6 +414,29 @@ public class MySqlHandler {
             } catch (IOException e) {
             }
         }
+
+        boolean ipColumnExist = false;
+
+        query = "SHOW COLUMNS FROM `osu_users` LIKE 'ip';";
+
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+
+            while (rs.next()) {
+                ipColumnExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        if (!ipColumnExist) {
+            query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `ip` LONGTEXT NULL AFTER `playcount`;";
+
+            try (Statement st = (Statement) con.createStatement()) {
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
     public void setTimeOfScore(int id, long time) {
@@ -593,14 +616,15 @@ public class MySqlHandler {
         return scores;
     }
 
-    public void addUser(String newUsersName, String newUsersPassword) {
-        String query = "INSERT INTO osu_users(username, password) VALUES(?, ?);";
+    public void addUser(String newUsersName, String newUsersPassword, String ip) {
+        String query = "INSERT INTO osu_users(username, password, ip) VALUES(?, ?, ?);";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
 
             stmt.setString(1, newUsersName);
             stmt.setString(2, newUsersPassword);
+            stmt.setString(3, ip);
 
             stmt.execute();
         } catch (SQLException ex) {
@@ -636,6 +660,43 @@ public class MySqlHandler {
         }
 
         FileHandler.saveReplayToFile(newScore.scoreId, replayData);
+    }
+
+    public void updateUserIp(String userName, String newIp) {
+        String query = "UPDATE osu_users SET ip=? WHERE username=?;";
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, newIp);
+            stmt.setString(2, userName);
+
+            stmt.execute();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public boolean isIpInUse(String ip) {
+        String query = "SELECT * FROM osu_users WHERE ip=?;";
+
+        boolean used = false;
+
+        try {
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setString(1, ip);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                used = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return used;
     }
 
     public void addToPlaycount(int userId) {
