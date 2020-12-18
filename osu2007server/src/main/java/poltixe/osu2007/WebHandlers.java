@@ -773,6 +773,7 @@ public class WebHandlers {
 
         for (String blacklistedName : disallowedNames) {
             if (username.toLowerCase().contains(blacklistedName)) {
+                System.out.println("IP:" + req.ip() + " tried to register with blacklisted name " + username);
                 return "0";
             }
         }
@@ -787,9 +788,11 @@ public class WebHandlers {
             if (!userData.userPassword.toLowerCase().equals(password))
                 return "0";
 
+            System.out.println(username + " has logged in from new location: " + req.ip());
             sqlHandler.updateUserIp(username, req.ip());
         } else {
             if (sqlHandler.isIpInUse(req.ip())) {
+                System.out.println("IP:" + req.ip() + " tried to register a second account with name " + username);
                 return "0";
             }
 
