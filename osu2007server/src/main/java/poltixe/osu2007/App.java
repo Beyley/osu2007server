@@ -2,7 +2,10 @@ package poltixe.osu2007;
 
 import static spark.Spark.*;
 
+import java.lang.reflect.*;
 import java.util.*;
+
+import poltixe.osu2007.HandlerFunctions.Path;
 
 public class App {
     // Global MySQL settings
@@ -44,26 +47,52 @@ public class App {
         int timeOutMillis = 30000;
         threadPool(maxThreads, minThreads, timeOutMillis);
 
+        GameHandlers gameHandlers = new GameHandlers();
+        Method[] gameHandlersMethods = gameHandlers.getClass().getMethods();
+        SiteHandlers siteHandlers = new SiteHandlers();
+        Method[] siteHandlersMethods = siteHandlers.getClass().getMethods();
+
         path("/web", () -> {
             // Registers the user site requests
-            get("/", (req, res) -> WebHandlers.newsPage(req));
-            get("/about", (req, res) -> WebHandlers.aboutPage(req));
-            get("/changelog", (req, res) -> WebHandlers.changelogPage(req));
-            get("/download", (req, res) -> WebHandlers.downloadPage(req));
-            get("/faq", (req, res) -> WebHandlers.faqPage(req));
-            get("/maplisting", (req, res) -> WebHandlers.maplistingPage(req));
-            get("/mappage", (req, res) -> WebHandlers.mapPage(req));
-            get("/top", (req, res) -> WebHandlers.getTopPlayers(req));
-            get("/u", (req, res) -> WebHandlers.getUserPage(req));
-            get("/namechange", (req, res) -> WebHandlers.getNameChangePage(req));
+            for (Method method : siteHandlersMethods) {
+                Path annos = method.getAnnotation(Path.class);
+                if (annos != null) {
+                    try {
+                        switch (annos.verb()) {
+                            case "get":
+                                get(annos.path(), (req, res) -> method.invoke(siteHandlers, req));
+                                break;
+                            case "post":
+                                post(annos.path(), (req, res) -> method.invoke(siteHandlers, req));
+                                break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         });
 
         path("/web", () -> {
             // Regsiters the game requests
-            get("/osu-login.php", (req, res) -> WebHandlers.login(req));
-            get("/osu-getscores.php", (req, res) -> WebHandlers.getScores(req));
-            post("/osu-submit.php", (req, res) -> WebHandlers.submit(req));
-            get("/osu-getreplay.php", (req, res) -> WebHandlers.getReplay(req));
+            for (Method method : gameHandlersMethods) {
+                Path annos = method.getAnnotation(Path.class);
+
+                if (annos != null) {
+                    try {
+                        switch (annos.verb()) {
+                            case "get":
+                                get(annos.path(), (req, res) -> method.invoke(gameHandlers, req));
+                                break;
+                            case "post":
+                                post(annos.path(), (req, res) -> method.invoke(gameHandlers, req));
+                                break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         });
     }
 }

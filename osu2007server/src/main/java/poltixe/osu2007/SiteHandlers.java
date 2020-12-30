@@ -3,91 +3,24 @@ package poltixe.osu2007;
 import java.io.*;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import poltixe.osu2007.HandlerFunctions.*;
 import poltixe.osu2007.Html.Image;
 import spark.Request;
 
-public class WebHandlers {
+public class SiteHandlers {
     // Gets a new instance of the MySQL handler
-    public static MySqlHandler sqlHandler = new MySqlHandler();
+    public MySqlHandler sqlHandler = null;
 
-    public static boolean isMD5(String s) {
-        return s.matches("^[a-fA-F0-9]{32}$");
+    SiteHandlers() {
+        this.sqlHandler = new MySqlHandler();
     }
 
-    public static boolean isAlphaNumeric(String s) {
-        return s != null && s.matches("^[a-zA-Z0-9]*$");
-    }
-
-    private static String toHexString(byte[] bytes) {
-        char[] hexArray = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-        char[] hexChars = new char[bytes.length * 2];
-        int v;
-        for (int j = 0; j < bytes.length; j++) {
-            v = bytes[j] & 0xFF;
-            hexChars[j * 2] = hexArray[v / 16];
-            hexChars[j * 2 + 1] = hexArray[v % 16];
-        }
-
-        return new String(hexChars);
-    }
-
-    public static String getNavbar() {
-        String returnString = "";
-
-        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/navbar.html");
-
-        try {
-            returnString = new String(is.readAllBytes());
-        } catch (IOException e) {
-        }
-
-        return returnString.toString();
-    }
-
-    public static String getStandardHeader() {
-        String returnString = "";
-
-        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/header.html");
-
-        try {
-            returnString = new String(is.readAllBytes());
-        } catch (IOException e) {
-        }
-
-        return returnString.toString();
-    }
-
-    public static String getFooter() {
-        String returnString = "";
-
-        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/footer.html");
-
-        try {
-            returnString = new String(is.readAllBytes());
-        } catch (IOException e) {
-        }
-
-        return returnString.toString();
-    }
-
-    public static String createHtmlPage(String content) {
-        StringBuilder returnString = new StringBuilder();
-
-        returnString.append(getStandardHeader() + "\n");
-
-        returnString.append(content);
-
-        returnString.append(getFooter());
-
-        return returnString.toString();
-    }
-
-    public static String newsPage(Request req) {
+    @Path(path = "/")
+    public String newsPage(Request req) {
         String content = "";
 
         for (NewsPost post : sqlHandler.getAllNewsPosts()) {
@@ -97,10 +30,11 @@ public class WebHandlers {
                     + "<br><br></span>  <span class=\"message\">" + post.content + "</span></div>";
         }
 
-        return createHtmlPage(content);
+        return HandlerFunctions.createHtmlPage(content);
     }
 
-    public static String aboutPage(Request req) {
+    @Path(path = "/about")
+    public String aboutPage(Request req) {
         String content = "";
 
         InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/aboutpagecontent.html");
@@ -110,10 +44,11 @@ public class WebHandlers {
         } catch (IOException e) {
         }
 
-        return createHtmlPage(content);
+        return HandlerFunctions.createHtmlPage(content);
     }
 
-    public static String changelogPage(Request req) {
+    @Path(path = "/changelog")
+    public String changelogPage(Request req) {
         String content = "";
 
         InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/changelogpagecontent.html");
@@ -123,10 +58,11 @@ public class WebHandlers {
         } catch (IOException e) {
         }
 
-        return createHtmlPage(content);
+        return HandlerFunctions.createHtmlPage(content);
     }
 
-    public static String downloadPage(Request req) {
+    @Path(path = "/download")
+    public String downloadPage(Request req) {
         String content = "";
 
         InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/downloadpagecontent.html");
@@ -138,10 +74,11 @@ public class WebHandlers {
         } catch (IOException e) {
         }
 
-        return createHtmlPage(content);
+        return HandlerFunctions.createHtmlPage(content);
     }
 
-    public static String faqPage(Request req) {
+    @Path(path = "/faq")
+    public String faqPage(Request req) {
         String content = "";
 
         InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/faqpagecontent.html");
@@ -151,10 +88,11 @@ public class WebHandlers {
         } catch (IOException e) {
         }
 
-        return createHtmlPage(content);
+        return HandlerFunctions.createHtmlPage(content);
     }
 
-    public static String maplistingPage(Request req) {
+    @Path(path = "/maplisting")
+    public String maplistingPage(Request req) {
         String content = "";
 
         int page = 1;
@@ -263,265 +201,11 @@ public class WebHandlers {
 
         content = content.replace("%MAPLISTCONTENTS%", mapListContents);
 
-        return createHtmlPage(content);
+        return HandlerFunctions.createHtmlPage(content);
     }
 
-    private static String createStarPattern(int filled, int max) {
-        String returnString = "";
-
-        returnString += "<div class=\"starfield\" style=\"width:" + (max * 14) + "px;\">";
-        returnString += "<div class=\"active\" style=\"width:"
-                + ((double) ((double) filled / (double) max) * (double) 100.0) + "%;\"></div>";
-        returnString += "</div>";
-
-        return returnString;
-    }
-
-    public static String getSecondsFixed(double seconds) {
-        double year = 31540000;
-        double month = 2628000; // assume 30 days in a month
-        double day = 86400;
-        double hour = 3600;
-        double minute = 60;
-
-        long years = (long) Math.floor(seconds / year);
-        long months = (long) Math.floor((seconds - years * year) / month);
-        long days = (long) Math.floor(((seconds - years * year) - months * month) / day);
-        long hours = (long) Math.floor((((seconds - years * year) - months * month) - days * day) / hour);
-        long minutes = (long) Math
-                .floor(((((seconds - years * year) - months * month) - days * day) - hours * hour) / minute);
-        // long seconds2 = (long) Math
-        // .floor(((((seconds - years * year) - months * month) - days * day) - hours *
-        // hour) - minutes * minute);
-
-        String str = "";
-        if (years != 0)
-            str += String.format("%s Year%s, ", years, years > 1 ? "s" : "");
-        if (months != 0)
-            str += String.format("%s Month%s, ", months, months > 1 ? "s" : "");
-        if (days != 0)
-            str += String.format("%s Day%s, ", days, days > 1 ? "s" : "");
-        if (hours != 0)
-            str += String.format("%s Hour%s, ", hours, hours > 1 ? "s" : "");
-        if (minutes != 0)
-            str += String.format("%s Minute%s, ", minutes, minutes > 1 ? "s" : "");
-        // if (seconds2 != 0)
-        // str += String.format("%s Second%s, ", seconds2, seconds2 > 1 ? "s" : "");
-
-        return str.substring(0, str.length() - 2);
-    }
-
-    public static String mapPage(Request req) {
-        String content = "";
-
-        String mapHash = req.queryParams("map");
-
-        Image xRank = new Image("/web/globalfiles/X.png");
-        Image sRank = new Image("/web/globalfiles/S.png");
-        Image aRank = new Image("/web/globalfiles/A.png");
-        Image bRank = new Image("/web/globalfiles/B.png");
-        Image cRank = new Image("/web/globalfiles/C.png");
-        Image dRank = new Image("/web/globalfiles/D.png");
-
-        Image xRankSmall = new Image("/web/globalfiles/X_small.png");
-        Image sRankSmall = new Image("/web/globalfiles/S_small.png");
-        Image aRankSmall = new Image("/web/globalfiles/A_small.png");
-        Image bRankSmall = new Image("/web/globalfiles/B_small.png");
-        Image cRankSmall = new Image("/web/globalfiles/C_small.png");
-        Image dRankSmall = new Image("/web/globalfiles/D_small.png");
-
-        List<BeatMap> rankedMaps = sqlHandler.getAllRankedMaps();
-
-        BeatMap map = null;
-
-        for (BeatMap currentMap : rankedMaps) {
-            if (currentMap.md5.equals(mapHash)) {
-                map = currentMap;
-            }
-        }
-
-        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/mappagepagecontent.html");
-
-        try {
-            content = new String(is.readAllBytes());
-        } catch (IOException e) {
-        }
-
-        content = content.replace("%ARTIST%", map.artist);
-        content = content.replace("%TITLE%", map.title);
-        content = content.replace("%CREATOR%", map.creator);
-        content = content.replace("%STARRATING%", new DecimalFormat("0.00").format(map.starRating));
-        content = content.replace("%ALLDIFFS%",
-                "<li><a class=\"active\" href=web/mappage?map=" + map.md5 + ">" + map.diffName + "</a></li>");
-        content = content.replace("%LENGTH%", new DecimalFormat("0").format(map.length / 1000));
-        content = content.replace("%DRAINTIME%", new DecimalFormat("0").format(map.drainTime / 1000));
-        content = content.replace("%BPM%", new DecimalFormat("0").format(map.bpm));
-
-        List<Score> allMapScores = sqlHandler.getMapLeaderboard(mapHash);
-
-        if (allMapScores.size() > 0) {
-            Score topScore = allMapScores.get(0);
-
-            content = content.replace("%NUMBERONENAME%", sqlHandler.checkUserData(topScore.userId).displayUsername);
-            content = content.replace("%NUMBERONESCORE%", String.valueOf(topScore.score));
-            content = content.replace("%NUMBERONEACCURACY%", new DecimalFormat("0.00").format(topScore.accuracy));
-            content = content.replace("%NUMBERONEMAXCOMBO%", String.valueOf(topScore.maxCombo));
-            content = content.replace("%NUMBERONE50%", String.valueOf(topScore.hit50));
-            content = content.replace("%NUMBERONE100%", String.valueOf(topScore.hit100));
-            content = content.replace("%NUMBERONE300%", String.valueOf(topScore.hit300));
-            content = content.replace("%NUMBERONEMISS%", String.valueOf(topScore.hitMiss));
-            content = content.replace("%NUMBERONEGEKI%", String.valueOf(topScore.hitGeki));
-            content = content.replace("%NUMBERONEKATU%", String.valueOf(topScore.hitKatu));
-            content = content.replace("%NUMBERONEMODS%", String.valueOf(topScore.mods));
-
-            long currentTime = (long) (System.currentTimeMillis() / 1000F);
-
-            content = content.replace("%NUMBERONENAMETIMESINCESUBMIT%",
-                    getSecondsFixed(currentTime - topScore.timeSubmitted));
-
-            switch (topScore.grade) {
-                case 'S':
-                    if (topScore.accuracy != 100) {
-                        content = content.replace("%RANKIMAGE%", sRank.getAsHtml());
-                    } else {
-                        content = content.replace("%RANKIMAGE%", xRank.getAsHtml());
-                    }
-                    break;
-                case 'A':
-                    content = content.replace("%RANKIMAGE%", aRank.getAsHtml());
-                    break;
-                case 'B':
-                    content = content.replace("%RANKIMAGE%", bRank.getAsHtml());
-                    break;
-                case 'C':
-                    content = content.replace("%RANKIMAGE%", cRank.getAsHtml());
-                    break;
-                case 'D':
-                    content = content.replace("%RANKIMAGE%", dRank.getAsHtml());
-                    break;
-            }
-
-            if (topScore.perfectCombo) {
-                content = content.replace("%ISPERFECT%", "Perfect!");
-            } else {
-                content = content.replace("%ISPERFECT%", "");
-            }
-        } else {
-            content = content.replace("%NUMBERONENAME%", "No one");
-            content = content.replace("%NUMBERONESCORE%", String.valueOf(0));
-            content = content.replace("%NUMBERONEACCURACY%", new DecimalFormat("0.00").format(00.00));
-            content = content.replace("%NUMBERONEMAXCOMBO%", String.valueOf(0));
-            content = content.replace("%NUMBERONE50%", String.valueOf(0));
-            content = content.replace("%NUMBERONE100%", String.valueOf(0));
-            content = content.replace("%NUMBERONE300%", String.valueOf(0));
-            content = content.replace("%NUMBERONEMISS%", String.valueOf(0));
-            content = content.replace("%NUMBERONEGEKI%", String.valueOf(0));
-            content = content.replace("%NUMBERONEKATU%", String.valueOf(0));
-            content = content.replace("%NUMBERONEMODS%", String.valueOf(0));
-
-            content = content.replace("%NUMBERONENAMETIMESINCESUBMIT%", "never");
-
-            content = content.replace("%RANKIMAGE%", sRank.getAsHtml());
-
-            content = content.replace("%ISPERFECT%", "");
-        }
-
-        content = content.replace("%CSSTARS%", createStarPattern((int) Math.round(map.circleSize), 10));
-        content = content.replace("%HPSTARS%", createStarPattern((int) Math.round(map.hpDrainRate), 10));
-        content = content.replace("%ODSTARS%", createStarPattern((int) Math.round(map.overallDifficulty), 10));
-
-        content = content.replace("%SRSTARS%", createStarPattern((int) Math.round(map.starRating), 5));
-
-        content = content.replace("%SUCCESSRATE%",
-                new DecimalFormat("0").format(sqlHandler.getMapSuccessRate(map.md5)));
-
-        content = content.replace("%PASSEDTRIES%",
-                new DecimalFormat("0").format(sqlHandler.getMapTotalPasses(map.md5)));
-        content = content.replace("%TOTALTRIES%", new DecimalFormat("0").format(sqlHandler.getMapTotalTries(map.md5)));
-
-        String leaderboardContents = "";
-
-        String oddScoreTemplate = "";
-
-        is = App.class.getClassLoader().getResourceAsStream("htmltemplates/oddmapscoretemplate.html");
-
-        try {
-            oddScoreTemplate = new String(is.readAllBytes());
-        } catch (IOException e) {
-        }
-
-        String evenScoreTemplate = "";
-
-        is = App.class.getClassLoader().getResourceAsStream("htmltemplates/evenmapscoretemplate.html");
-
-        try {
-            evenScoreTemplate = new String(is.readAllBytes());
-        } catch (IOException e) {
-        }
-
-        for (int rank = 1; rank < allMapScores.size(); rank++) {
-            Score score = allMapScores.get(rank);
-
-            String currentScore = "";
-
-            if ((rank | 1) > rank) {
-                currentScore = evenScoreTemplate;
-            } else {
-                currentScore = oddScoreTemplate;
-            }
-
-            currentScore = currentScore.replace("%RANK%", String.valueOf(rank + 1));
-
-            switch (score.grade) {
-                case 'S':
-                    if (score.accuracy != 100) {
-                        currentScore = currentScore.replace("%GRADEIMAGE%", sRankSmall.getAsHtml());
-                    } else {
-                        currentScore = currentScore.replace("%GRADEIMAGE%", xRankSmall.getAsHtml());
-                    }
-                    break;
-                case 'A':
-                    currentScore = currentScore.replace("%GRADEIMAGE%", aRankSmall.getAsHtml());
-                    break;
-                case 'B':
-                    currentScore = currentScore.replace("%GRADEIMAGE%", bRankSmall.getAsHtml());
-                    break;
-                case 'C':
-                    currentScore = currentScore.replace("%GRADEIMAGE%", cRankSmall.getAsHtml());
-                    break;
-                case 'D':
-                    currentScore = currentScore.replace("%GRADEIMAGE%", dRankSmall.getAsHtml());
-                    break;
-            }
-
-            currentScore = currentScore.replace("%SCORE%", String.valueOf(score.score));
-            currentScore = currentScore.replace("%ACCURACY%", new DecimalFormat("0.00").format(score.accuracy));
-            currentScore = currentScore.replace("%USERNAME%", sqlHandler.checkUserData(score.userId).displayUsername);
-            currentScore = currentScore.replace("%MAXCOMBO%", String.valueOf(score.maxCombo));
-
-            if (score.perfectCombo) {
-                currentScore = currentScore.replace("%ISPERFECT%", " - Perfect!");
-            } else {
-                currentScore = currentScore.replace("%ISPERFECT%", "");
-            }
-
-            currentScore = currentScore.replace("%HIT50%", String.valueOf(score.hit50));
-            currentScore = currentScore.replace("%HIT100%", String.valueOf(score.hit100));
-            currentScore = currentScore.replace("%HIT300%", String.valueOf(score.hit300));
-            currentScore = currentScore.replace("%HITMISS%", String.valueOf(score.hitMiss));
-            currentScore = currentScore.replace("%HITGEKI%", String.valueOf(score.hitGeki));
-            currentScore = currentScore.replace("%HITKATU%", String.valueOf(score.hitKatu));
-            currentScore = currentScore.replace("%MODS%", String.valueOf(score.mods));
-
-            leaderboardContents += currentScore;
-        }
-
-        content = content.replace("%LEADERBOARDCONTENTS%", leaderboardContents);
-
-        return createHtmlPage(content);
-    }
-
-    public static String getNameChangePage(Request req) {
+    @Path(path = "/namechange")
+    public String getNameChangePage(Request req) {
         String content = "<form action=\"/web/namechange\"> <label for=\"oldusername\">Old username:</label> <input type=\"text\" id=\"oldusername\" name=\"oldusername\"><br><br> <label for=\"newusername\">New username:</label><input type=\"text\" id=\"newusername\" name=\"newusername\"><br><br> <label for=\"password\">Password:</label><input type=\"password\" id=\"password\" name=\"password\"><br><br> <input type=\"submit\" value=\"Submit\"> </form>";
 
         if (req.queryParams("oldusername") != null && req.queryParams("newusername") != null
@@ -545,7 +229,7 @@ public class WebHandlers {
                 MessageDigest md = MessageDigest.getInstance("MD5");
                 md.update(password.getBytes());
                 byte[] digest = md.digest();
-                hashedPassword = toHexString(digest).toLowerCase();
+                hashedPassword = HandlerFunctions.toHexString(digest).toLowerCase();
             } catch (Exception ex) {
             }
 
@@ -560,10 +244,11 @@ public class WebHandlers {
         }
         // }
 
-        return createHtmlPage(content);
+        return HandlerFunctions.createHtmlPage(content);
     }
 
-    public static String getUserPage(Request req) {
+    @Path(path = "/u")
+    public String getUserPage(Request req) {
         String content = "";
 
         int userId = Integer.parseInt(req.queryParams("id"));
@@ -741,72 +426,12 @@ public class WebHandlers {
 
         // content += "</table></table></tr></td>";
 
-        return createHtmlPage(content);
-    }
-
-    public static String[] disallowedNames = { "ppy", "peppy", "cookiezi", "shigetora", "whitecat", "btmc",
-            "beasttrollmc", "vaxei", "badeu", "legendre", "nathan on osu", "chocomint", "mrekk", "ryuk", "aeterna",
-            "merami", "idke", "flyingtuna", "fgsky", "mathi", "micca", "lifeline", "obito", "karthy", "rafis",
-            "paraqeet", "andros", "spare", "umbre", "fieryrage", "okinamo", "akolibed", "ayyeve" };
-
-    // Handles a login request
-    public static String login(Request req) {
-        // The string to be returned to the osu! client, in this case has a default
-        // value of "1", to indicate the login was sucsessful
-        String returnString = "1";
-
-        // Gets the parameters for the login, in this case the username and the password
-        String username = req.queryParams("username");
-        String password = req.queryParams("password");
-
-        if (!isMD5(password)) {
-            return "0";
-        }
-
-        if (!isAlphaNumeric(username)) {
-            return "0";
-        }
-
-        if (username.length() < 2) {
-            return "0";
-        }
-
-        for (String blacklistedName : disallowedNames) {
-            if (username.toLowerCase().contains(blacklistedName)) {
-                System.out.println("IP:" + req.ip() + " tried to register with blacklisted name " + username);
-                return "0";
-            }
-        }
-
-        // Gets the users data of the person the client is attempting to sign in as
-        Player userData = sqlHandler.checkUserData(sqlHandler.getUserId(username));
-
-        // Checks if the user exists in the database or not
-        if (userData.userExists) {
-            // Checks if the password is wrong, if so, tell the client that the password was
-            // incorrect
-            if (!userData.userPassword.toLowerCase().equals(password))
-                return "0";
-
-            System.out.println(username + " has logged in from new location: " + req.ip());
-            sqlHandler.updateUserIp(username, req.ip());
-        } else {
-            if (sqlHandler.isIpInUse(req.ip())) {
-                System.out.println("IP:" + req.ip() + " tried to register a second account with name " + username);
-                return "0";
-            }
-
-            // If the user does not exist, create a new user with the specified username and
-            // password
-            sqlHandler.addUser(username, password, req.ip());
-        }
-
-        // Returns the string to be sent to the client
-        return returnString;
+        return HandlerFunctions.createHtmlPage(content);
     }
 
     // Handles a request to get all the top players
-    public static String getTopPlayers(Request req) {
+    @Path(path = "/top")
+    public String getTopPlayers(Request req) {
         // The string to be returned to the osu! client, in this case has the title text
         // to be added on to
         String content = "<h1>Global Rankings</h1>";
@@ -954,86 +579,220 @@ public class WebHandlers {
         }
 
         // Returns the string to the client
-        return createHtmlPage(content);
+        return HandlerFunctions.createHtmlPage(content);
     }
 
-    public static String getScores(Request req) {
-        String returnString = "";
-        String mapHash = req.queryParams("c");
+    @Path(path = "/mappage")
+    public String mapPage(Request req) {
+        String content = "";
 
-        List<Score> mapScores = sqlHandler.getMapLeaderboard(mapHash);
+        String mapHash = req.queryParams("map");
 
-        for (Score score : mapScores) {
-            returnString += score.asGetScoresString();
+        Image xRank = new Image("/web/globalfiles/X.png");
+        Image sRank = new Image("/web/globalfiles/S.png");
+        Image aRank = new Image("/web/globalfiles/A.png");
+        Image bRank = new Image("/web/globalfiles/B.png");
+        Image cRank = new Image("/web/globalfiles/C.png");
+        Image dRank = new Image("/web/globalfiles/D.png");
+
+        Image xRankSmall = new Image("/web/globalfiles/X_small.png");
+        Image sRankSmall = new Image("/web/globalfiles/S_small.png");
+        Image aRankSmall = new Image("/web/globalfiles/A_small.png");
+        Image bRankSmall = new Image("/web/globalfiles/B_small.png");
+        Image cRankSmall = new Image("/web/globalfiles/C_small.png");
+        Image dRankSmall = new Image("/web/globalfiles/D_small.png");
+
+        List<BeatMap> rankedMaps = sqlHandler.getAllRankedMaps();
+
+        BeatMap map = null;
+
+        for (BeatMap currentMap : rankedMaps) {
+            if (currentMap.md5.equals(mapHash)) {
+                map = currentMap;
+            }
         }
 
-        return returnString;
-    }
+        InputStream is = App.class.getClassLoader().getResourceAsStream("htmltemplates/mappagepagecontent.html");
 
-    public static byte[] getReplay(Request req) {
-        byte[] returnString = {};
-
-        String scoreId = req.queryParams("c");
-
-        try (FileInputStream fos = new FileInputStream("replays/" + scoreId + ".osr")) {
-            returnString = fos.readAllBytes();
+        try {
+            content = new String(is.readAllBytes());
         } catch (IOException e) {
         }
 
-        return returnString;
-    }
+        content = content.replace("%ARTIST%", map.artist);
+        content = content.replace("%TITLE%", map.title);
+        content = content.replace("%CREATOR%", map.creator);
+        content = content.replace("%STARRATING%", new DecimalFormat("0.00").format(map.starRating));
+        content = content.replace("%ALLDIFFS%",
+                "<li><a class=\"active\" href=web/mappage?map=" + map.md5 + ">" + map.diffName + "</a></li>");
+        content = content.replace("%LENGTH%", new DecimalFormat("0").format(map.length / 1000));
+        content = content.replace("%DRAINTIME%", new DecimalFormat("0").format(map.drainTime / 1000));
+        content = content.replace("%BPM%", new DecimalFormat("0").format(map.bpm));
 
-    public static String submit(Request req) {
-        String scoreDetails = req.queryParams("score");
-        String password = req.queryParams("pass");
+        List<Score> allMapScores = sqlHandler.getMapLeaderboard(mapHash);
 
-        byte[] rawBodyBytes = req.bodyAsBytes();
+        if (allMapScores.size() > 0) {
+            Score topScore = allMapScores.get(0);
 
-        byte[] replayData = FileHandler.parseBody(rawBodyBytes);
+            content = content.replace("%NUMBERONENAME%", sqlHandler.checkUserData(topScore.userId).displayUsername);
+            content = content.replace("%NUMBERONESCORE%", String.valueOf(topScore.score));
+            content = content.replace("%NUMBERONEACCURACY%", new DecimalFormat("0.00").format(topScore.accuracy));
+            content = content.replace("%NUMBERONEMAXCOMBO%", String.valueOf(topScore.maxCombo));
+            content = content.replace("%NUMBERONE50%", String.valueOf(topScore.hit50));
+            content = content.replace("%NUMBERONE100%", String.valueOf(topScore.hit100));
+            content = content.replace("%NUMBERONE300%", String.valueOf(topScore.hit300));
+            content = content.replace("%NUMBERONEMISS%", String.valueOf(topScore.hitMiss));
+            content = content.replace("%NUMBERONEGEKI%", String.valueOf(topScore.hitGeki));
+            content = content.replace("%NUMBERONEKATU%", String.valueOf(topScore.hitKatu));
+            content = content.replace("%NUMBERONEMODS%", String.valueOf(topScore.mods));
 
-        Score scoreToSubmit = null;
+            long currentTime = (long) (System.currentTimeMillis() / 1000F);
+
+            content = content.replace("%NUMBERONENAMETIMESINCESUBMIT%",
+                    HandlerFunctions.getSecondsFixed(currentTime - topScore.timeSubmitted));
+
+            switch (topScore.grade) {
+                case 'S':
+                    if (topScore.accuracy != 100) {
+                        content = content.replace("%RANKIMAGE%", sRank.getAsHtml());
+                    } else {
+                        content = content.replace("%RANKIMAGE%", xRank.getAsHtml());
+                    }
+                    break;
+                case 'A':
+                    content = content.replace("%RANKIMAGE%", aRank.getAsHtml());
+                    break;
+                case 'B':
+                    content = content.replace("%RANKIMAGE%", bRank.getAsHtml());
+                    break;
+                case 'C':
+                    content = content.replace("%RANKIMAGE%", cRank.getAsHtml());
+                    break;
+                case 'D':
+                    content = content.replace("%RANKIMAGE%", dRank.getAsHtml());
+                    break;
+            }
+
+            if (topScore.perfectCombo) {
+                content = content.replace("%ISPERFECT%", "Perfect!");
+            } else {
+                content = content.replace("%ISPERFECT%", "");
+            }
+        } else {
+            content = content.replace("%NUMBERONENAME%", "No one");
+            content = content.replace("%NUMBERONESCORE%", String.valueOf(0));
+            content = content.replace("%NUMBERONEACCURACY%", new DecimalFormat("0.00").format(00.00));
+            content = content.replace("%NUMBERONEMAXCOMBO%", String.valueOf(0));
+            content = content.replace("%NUMBERONE50%", String.valueOf(0));
+            content = content.replace("%NUMBERONE100%", String.valueOf(0));
+            content = content.replace("%NUMBERONE300%", String.valueOf(0));
+            content = content.replace("%NUMBERONEMISS%", String.valueOf(0));
+            content = content.replace("%NUMBERONEGEKI%", String.valueOf(0));
+            content = content.replace("%NUMBERONEKATU%", String.valueOf(0));
+            content = content.replace("%NUMBERONEMODS%", String.valueOf(0));
+
+            content = content.replace("%NUMBERONENAMETIMESINCESUBMIT%", "never");
+
+            content = content.replace("%RANKIMAGE%", sRank.getAsHtml());
+
+            content = content.replace("%ISPERFECT%", "");
+        }
+
+        content = content.replace("%CSSTARS%",
+                HandlerFunctions.createStarPattern((int) Math.round(map.circleSize), 10));
+        content = content.replace("%HPSTARS%",
+                HandlerFunctions.createStarPattern((int) Math.round(map.hpDrainRate), 10));
+        content = content.replace("%ODSTARS%",
+                HandlerFunctions.createStarPattern((int) Math.round(map.overallDifficulty), 10));
+
+        content = content.replace("%SRSTARS%", HandlerFunctions.createStarPattern((int) Math.round(map.starRating), 5));
+
+        content = content.replace("%SUCCESSRATE%",
+                new DecimalFormat("0").format(sqlHandler.getMapSuccessRate(map.md5)));
+
+        content = content.replace("%PASSEDTRIES%",
+                new DecimalFormat("0").format(sqlHandler.getMapTotalPasses(map.md5)));
+        content = content.replace("%TOTALTRIES%", new DecimalFormat("0").format(sqlHandler.getMapTotalTries(map.md5)));
+
+        String leaderboardContents = "";
+
+        String oddScoreTemplate = "";
+
+        is = App.class.getClassLoader().getResourceAsStream("htmltemplates/oddmapscoretemplate.html");
 
         try {
-            scoreToSubmit = new Score(scoreDetails);
-
-        } catch (ParseException ex) {
-            return "Parse exception";
+            oddScoreTemplate = new String(is.readAllBytes());
+        } catch (IOException e) {
         }
 
-        List<Score> mapScores = sqlHandler.getMapLeaderboard(scoreToSubmit.mapHash);
+        String evenScoreTemplate = "";
 
-        boolean newTopOnMap = true;
-        int oldTopId = -1;
+        is = App.class.getClassLoader().getResourceAsStream("htmltemplates/evenmapscoretemplate.html");
 
-        for (Score scoreToCheck : mapScores) {
-            if (scoreToCheck.userId == scoreToSubmit.userId) {
-                if (scoreToSubmit.score < scoreToCheck.score) {
-                    newTopOnMap = false;
-                } else {
-                    oldTopId = scoreToCheck.scoreId;
-                }
-            }
+        try {
+            evenScoreTemplate = new String(is.readAllBytes());
+        } catch (IOException e) {
         }
 
-        Player user = sqlHandler.checkUserData(scoreToSubmit.userId);
+        for (int rank = 1; rank < allMapScores.size(); rank++) {
+            Score score = allMapScores.get(rank);
 
-        if (scoreToSubmit.pass && user.userPassword.equals(password)) {
-            if (newTopOnMap) {
-                if (oldTopId == -1) {
-                    sqlHandler.addScore(scoreToSubmit, replayData);
-                } else {
-                    scoreToSubmit.scoreId = oldTopId;
-                    sqlHandler.updateScore(oldTopId, scoreToSubmit, replayData);
-                }
+            String currentScore = "";
+
+            if ((rank | 1) > rank) {
+                currentScore = evenScoreTemplate;
+            } else {
+                currentScore = oddScoreTemplate;
             }
 
-            sqlHandler.addToPlaycount(scoreToSubmit.userId);
-        } else if (user.userPassword.equals(password)) {
-            sqlHandler.addFailedScore(scoreToSubmit);
+            currentScore = currentScore.replace("%RANK%", String.valueOf(rank + 1));
 
-            sqlHandler.addToPlaycount(scoreToSubmit.userId);
+            switch (score.grade) {
+                case 'S':
+                    if (score.accuracy != 100) {
+                        currentScore = currentScore.replace("%GRADEIMAGE%", sRankSmall.getAsHtml());
+                    } else {
+                        currentScore = currentScore.replace("%GRADEIMAGE%", xRankSmall.getAsHtml());
+                    }
+                    break;
+                case 'A':
+                    currentScore = currentScore.replace("%GRADEIMAGE%", aRankSmall.getAsHtml());
+                    break;
+                case 'B':
+                    currentScore = currentScore.replace("%GRADEIMAGE%", bRankSmall.getAsHtml());
+                    break;
+                case 'C':
+                    currentScore = currentScore.replace("%GRADEIMAGE%", cRankSmall.getAsHtml());
+                    break;
+                case 'D':
+                    currentScore = currentScore.replace("%GRADEIMAGE%", dRankSmall.getAsHtml());
+                    break;
+            }
+
+            currentScore = currentScore.replace("%SCORE%", String.valueOf(score.score));
+            currentScore = currentScore.replace("%ACCURACY%", new DecimalFormat("0.00").format(score.accuracy));
+            currentScore = currentScore.replace("%USERNAME%", sqlHandler.checkUserData(score.userId).displayUsername);
+            currentScore = currentScore.replace("%MAXCOMBO%", String.valueOf(score.maxCombo));
+
+            if (score.perfectCombo) {
+                currentScore = currentScore.replace("%ISPERFECT%", " - Perfect!");
+            } else {
+                currentScore = currentScore.replace("%ISPERFECT%", "");
+            }
+
+            currentScore = currentScore.replace("%HIT50%", String.valueOf(score.hit50));
+            currentScore = currentScore.replace("%HIT100%", String.valueOf(score.hit100));
+            currentScore = currentScore.replace("%HIT300%", String.valueOf(score.hit300));
+            currentScore = currentScore.replace("%HITMISS%", String.valueOf(score.hitMiss));
+            currentScore = currentScore.replace("%HITGEKI%", String.valueOf(score.hitGeki));
+            currentScore = currentScore.replace("%HITKATU%", String.valueOf(score.hitKatu));
+            currentScore = currentScore.replace("%MODS%", String.valueOf(score.mods));
+
+            leaderboardContents += currentScore;
         }
 
-        return "";
+        content = content.replace("%LEADERBOARDCONTENTS%", leaderboardContents);
+
+        return HandlerFunctions.createHtmlPage(content);
     }
 }
