@@ -38,22 +38,32 @@ public class App {
         // Sets the webserver port
         port(Integer.parseInt(httpPort));
 
-        // Registers the user site requests
-        get("/web/", (req, res) -> WebHandlers.newsPage(req));
-        get("/web/about", (req, res) -> WebHandlers.aboutPage(req));
-        get("/web/changelog", (req, res) -> WebHandlers.changelogPage(req));
-        get("/web/download", (req, res) -> WebHandlers.downloadPage(req));
-        get("/web/faq", (req, res) -> WebHandlers.faqPage(req));
-        get("/web/maplisting", (req, res) -> WebHandlers.maplistingPage(req));
-        get("/web/mappage", (req, res) -> WebHandlers.mapPage(req));
-        get("/web/top", (req, res) -> WebHandlers.getTopPlayers(req));
-        get("/web/u", (req, res) -> WebHandlers.getUserPage(req));
-        get("/web/namechange", (req, res) -> WebHandlers.getNameChangePage(req));
+        // Sets amount of threads for the webserver to use
+        int maxThreads = 8;
+        int minThreads = 2;
+        int timeOutMillis = 30000;
+        threadPool(maxThreads, minThreads, timeOutMillis);
 
-        // Regsiters the game requests
-        get("/web/osu-login.php", (req, res) -> WebHandlers.login(req));
-        get("/web/osu-getscores.php", (req, res) -> WebHandlers.getScores(req));
-        post("/web/osu-submit.php", (req, res) -> WebHandlers.submit(req));
-        get("/web/osu-getreplay.php", (req, res) -> WebHandlers.getReplay(req));
+        path("/web", () -> {
+            // Registers the user site requests
+            get("/web/", (req, res) -> WebHandlers.newsPage(req));
+            get("/web/about", (req, res) -> WebHandlers.aboutPage(req));
+            get("/web/changelog", (req, res) -> WebHandlers.changelogPage(req));
+            get("/web/download", (req, res) -> WebHandlers.downloadPage(req));
+            get("/web/faq", (req, res) -> WebHandlers.faqPage(req));
+            get("/web/maplisting", (req, res) -> WebHandlers.maplistingPage(req));
+            get("/web/mappage", (req, res) -> WebHandlers.mapPage(req));
+            get("/web/top", (req, res) -> WebHandlers.getTopPlayers(req));
+            get("/web/u", (req, res) -> WebHandlers.getUserPage(req));
+            get("/web/namechange", (req, res) -> WebHandlers.getNameChangePage(req));
+        });
+
+        path("/web", () -> {
+            // Regsiters the game requests
+            get("/osu-login.php", (req, res) -> WebHandlers.login(req));
+            get("/osu-getscores.php", (req, res) -> WebHandlers.getScores(req));
+            post("/osu-submit.php", (req, res) -> WebHandlers.submit(req));
+            get("/osu-getreplay.php", (req, res) -> WebHandlers.getReplay(req));
+        });
     }
 }
