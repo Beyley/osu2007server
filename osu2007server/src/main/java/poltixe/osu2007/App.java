@@ -46,16 +46,16 @@ public class App {
 
         path("/web", () -> {
             // Registers the user site requests
-            get("/web/", (req, res) -> WebHandlers.newsPage(req));
-            get("/web/about", (req, res) -> WebHandlers.aboutPage(req));
-            get("/web/changelog", (req, res) -> WebHandlers.changelogPage(req));
-            get("/web/download", (req, res) -> WebHandlers.downloadPage(req));
-            get("/web/faq", (req, res) -> WebHandlers.faqPage(req));
-            get("/web/maplisting", (req, res) -> WebHandlers.maplistingPage(req));
-            get("/web/mappage", (req, res) -> WebHandlers.mapPage(req));
-            get("/web/top", (req, res) -> WebHandlers.getTopPlayers(req));
-            get("/web/u", (req, res) -> WebHandlers.getUserPage(req));
-            get("/web/namechange", (req, res) -> WebHandlers.getNameChangePage(req));
+            get("/", (req, res) -> WebHandlers.newsPage(req));
+            get("/about", (req, res) -> WebHandlers.aboutPage(req));
+            get("/changelog", (req, res) -> WebHandlers.changelogPage(req));
+            get("/download", (req, res) -> WebHandlers.downloadPage(req));
+            get("/faq", (req, res) -> WebHandlers.faqPage(req));
+            get("/maplisting", (req, res) -> WebHandlers.maplistingPage(req));
+            get("/mappage", (req, res) -> WebHandlers.mapPage(req));
+            get("/top", (req, res) -> WebHandlers.getTopPlayers(req));
+            get("/u", (req, res) -> WebHandlers.getUserPage(req));
+            get("/namechange", (req, res) -> WebHandlers.getNameChangePage(req));
         });
 
         path("/web", () -> {
