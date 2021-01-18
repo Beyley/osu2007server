@@ -32,7 +32,7 @@ public class App {
 
         FileHandler.rankedDatabaseCheck();
 
-        for (int i = 0; i < sqlHandler.getAllPlayers().size() + 100; i++) {
+        for (int i = 0; i < 1000000; i++) {
             knownNames.add(null);
         }
 
