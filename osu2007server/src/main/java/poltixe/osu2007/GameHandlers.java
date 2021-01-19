@@ -1,6 +1,7 @@
 package poltixe.osu2007;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.List;
 
@@ -167,6 +168,8 @@ public class GameHandlers {
 
         Player userInfo = sqlHandler.checkUserData(sqlHandler.getUserId(username));
 
+        DecimalFormat df = new DecimalFormat("#.00");
+
         if (userInfo.userExists) {
             userInfo.calculateUserRank();
             userInfo.calculateOverallAccuracy();
@@ -179,7 +182,7 @@ public class GameHandlers {
             returnData.append("|");
             returnData.append(userInfo.rankedScore);
             returnData.append("|");
-            returnData.append(userInfo.accuracy);
+            returnData.append(df.format(userInfo.accuracy));
             returnData.append("|");
             returnData.append(userInfo.userId);
         }
