@@ -159,4 +159,31 @@ public class GameHandlers {
 
         return returnString;
     }
+
+    @Path(path = "/osu-getuserinfo.php")
+    public String getUserInfo(Request req) {
+        StringBuilder returnData = new StringBuilder();
+        String username = req.queryParams("username");
+
+        Player userInfo = sqlHandler.checkUserData(sqlHandler.getUserId(username));
+
+        if (userInfo.userExists) {
+            userInfo.calculateUserRank();
+            userInfo.calculateOverallAccuracy();
+
+            returnData.append(userInfo.username);
+            returnData.append("|");
+            returnData.append(userInfo.globalRank);
+            returnData.append("|");
+            returnData.append(userInfo.playcount);
+            returnData.append("|");
+            returnData.append(userInfo.rankedScore);
+            returnData.append("|");
+            returnData.append(userInfo.accuracy);
+            returnData.append("|");
+            returnData.append(userInfo.userId);
+        }
+
+        return returnData.toString();
+    }
 }
