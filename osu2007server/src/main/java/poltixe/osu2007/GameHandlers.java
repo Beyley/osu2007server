@@ -198,15 +198,13 @@ public class GameHandlers {
         StringBuilder returnData = new StringBuilder();
 
         Date today = Calendar.getInstance().getTime();
-        long epochTime = today.getTime();
+        long currentEpochTime = today.getTime();
 
         DecimalFormat df = new DecimalFormat("#.00");
 
-        for (Player player : App.onlinePlayers) {
-            if (epochTime - player.lastPing > 15000) {
+        for (Player player : App.onlinePlayers)
+            if (currentEpochTime - player.lastPing > 15000)
                 App.onlinePlayers.remove(player);
-            }
-        }
 
         for (Player player : App.onlinePlayers) {
             returnData.append(player.username);
