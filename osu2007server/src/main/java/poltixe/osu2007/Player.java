@@ -15,6 +15,8 @@ public class Player {
     public int globalRank;
     public double accuracy;
 
+    public long lastPing;
+
     private static MySqlHandler sqlHandler = new MySqlHandler();
 
     Player(int userId) {

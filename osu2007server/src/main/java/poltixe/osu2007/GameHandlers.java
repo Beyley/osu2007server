@@ -3,6 +3,9 @@ package poltixe.osu2007;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import poltixe.osu2007.HandlerFunctions.*;
@@ -186,6 +189,74 @@ public class GameHandlers {
             returnData.append("|");
             returnData.append(userInfo.userId);
         }
+
+        return returnData.toString();
+    }
+
+    @Path(path = "/osu-getonlineusers.php")
+    public String getOnlineUsers(Request req) {
+        StringBuilder returnData = new StringBuilder();
+
+        Date today = Calendar.getInstance().getTime();
+        long epochTime = today.getTime();
+
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        for (Player player : App.onlinePlayers) {
+            if (epochTime - player.lastPing > 15000) {
+                App.onlinePlayers.remove(player);
+            }
+        }
+
+        for (Player player : App.onlinePlayers) {
+            returnData.append(player.username);
+            returnData.append("|");
+            returnData.append(player.globalRank);
+            returnData.append("|");
+            returnData.append(player.playcount);
+            returnData.append("|");
+            returnData.append(player.rankedScore);
+            returnData.append("|");
+            returnData.append(df.format(player.accuracy));
+            returnData.append("|");
+            returnData.append(player.userId);
+            returnData.append("\n");
+        }
+
+        if (returnData.length() > 0)
+            returnData.deleteCharAt(returnData.lastIndexOf("\n"));
+
+        return returnData.toString();
+    }
+
+    @Path(path = "/osu-onlineuserping.php")
+    public String onlineUserPing(Request req) {
+        StringBuilder returnData = new StringBuilder();
+
+        String username = req.queryParams("username");
+        String password = req.queryParams("password");
+
+        Date today = Calendar.getInstance().getTime();
+        long epochTime = today.getTime();
+
+        Player tempPlayer = new Player(sqlHandler.getUserId(username));
+
+        tempPlayer.calculateOverallAccuracy();
+        tempPlayer.calculateUserRank();
+
+        tempPlayer.lastPing = epochTime;
+
+        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+
+        for (Player player : tempOnlinePlayers) {
+            if (player.username.equals(username)) {
+                int id = App.onlinePlayers.indexOf(player);
+
+                App.onlinePlayers.remove(id);
+            }
+        }
+
+        App.onlinePlayers.add(tempPlayer);
 
         return returnData.toString();
     }
