@@ -203,7 +203,7 @@ public class GameHandlers {
         DecimalFormat df = new DecimalFormat("#.00");
 
         for (Player player : App.onlinePlayers)
-            if (currentEpochTime - player.lastPing > 15000)
+            if (currentEpochTime - player.lastPing > 5000)
                 App.onlinePlayers.remove(player);
 
         for (Player player : App.onlinePlayers) {
