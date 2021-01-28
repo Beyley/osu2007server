@@ -37,7 +37,6 @@ public class GameHandlers {
 
         try {
             scoreToSubmit = new Score(scoreDetails);
-
         } catch (ParseException ex) {
             return "Parse exception";
         }
