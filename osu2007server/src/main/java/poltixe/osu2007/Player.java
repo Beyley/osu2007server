@@ -16,6 +16,7 @@ public class Player {
     public double accuracy;
 
     public long lastPing;
+    public String token;
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 

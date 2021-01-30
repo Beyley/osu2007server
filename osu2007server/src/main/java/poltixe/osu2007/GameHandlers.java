@@ -3,17 +3,20 @@ package poltixe.osu2007;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import com.google.protobuf.Message;
 
 import poltixe.osu2007.HandlerFunctions.*;
+import poltixe.osu2007.clientpackets.SendMessagePacket;
+import poltixe.osu2007.serverpackets.RecieveChatMessagePacket;
 import spark.Request;
 
 public class GameHandlers {
     // Gets a new instance of the MySQL handler
     public MySqlHandler sqlHandler = null;
+
+    Random r = new Random();
 
     GameHandlers() {
         this.sqlHandler = new MySqlHandler();
@@ -81,9 +84,10 @@ public class GameHandlers {
     // Handles a login request
     @Path(path = "/osu-login.php")
     public String login(Request req) {
-        // The string to be returned to the osu! client, in this case has a default
-        // value of "1", to indicate the login was sucsessful
-        String returnString = "1";
+        int randomNumber = r.nextInt(10000000);
+        String randomSentence = RandomHelper.getRandomEsperantoWords();
+
+        String returnString = randomSentence + String.valueOf(randomNumber);
 
         // Gets the parameters for the login, in this case the username and the password
         String username = req.queryParams("username");
@@ -131,22 +135,42 @@ public class GameHandlers {
             sqlHandler.addUser(username, password, req.ip());
         }
 
+        Date today = Calendar.getInstance().getTime();
+        long epochTime = today.getTime();
+
+        Player tempPlayer = new Player(sqlHandler.getUserId(username));
+
+        tempPlayer.lastPing = epochTime;
+        tempPlayer.token = returnString;
+
+        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+
+        for (Player player : tempOnlinePlayers) {
+            if (player.username.equals(username)) {
+                int id = App.onlinePlayers.indexOf(player);
+
+                App.onlinePlayers.remove(id);
+            }
+        }
+
+        App.onlinePlayers.add(tempPlayer);
+
         // Returns the string to be sent to the client
         return returnString;
     }
 
     @Path(path = "/osu-getreplay.php")
     public byte[] getReplay(Request req) {
-        byte[] returnString = {};
+        byte[] returnData = {};
 
         String scoreId = req.queryParams("c");
 
         try (FileInputStream fos = new FileInputStream("replays/" + scoreId + ".osr")) {
-            returnString = fos.readAllBytes();
+            returnData = fos.readAllBytes();
         } catch (IOException e) {
         }
 
-        return returnString;
+        return returnData;
     }
 
     @Path(path = "/osu-getscores.php")
@@ -201,11 +225,13 @@ public class GameHandlers {
 
         DecimalFormat df = new DecimalFormat("#.00");
 
-        for (Player player : App.onlinePlayers)
-            if (currentEpochTime - player.lastPing > 5000)
+        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempOnlinePlayers)
+            if (currentEpochTime - player.lastPing > 15000)
                 App.onlinePlayers.remove(player);
 
-        for (Player player : App.onlinePlayers) {
+        tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempOnlinePlayers) {
             returnData.append(player.username);
             returnData.append("|");
             returnData.append(player.globalRank);
@@ -230,30 +256,54 @@ public class GameHandlers {
     public String onlineUserPing(Request req) {
         StringBuilder returnData = new StringBuilder();
 
-        String username = req.queryParams("username");
-        String password = req.queryParams("password");
+        String token = req.queryParams("token");
 
-        Date today = Calendar.getInstance().getTime();
-        long epochTime = today.getTime();
+        if (token == null)
+            return "";
 
-        Player tempPlayer = new Player(sqlHandler.getUserId(username));
-
-        tempPlayer.calculateOverallAccuracy();
-        tempPlayer.calculateUserRank();
-
-        tempPlayer.lastPing = epochTime;
+        Player thisPlayer = null;
 
         List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
-
         for (Player player : tempOnlinePlayers) {
-            if (player.username.equals(username)) {
-                int id = App.onlinePlayers.indexOf(player);
+            if (player.token.equals(token)) {
+                thisPlayer = player;
 
-                App.onlinePlayers.remove(id);
+                break;
             }
         }
 
-        App.onlinePlayers.add(tempPlayer);
+        if (thisPlayer == null)
+            return "";
+
+        List<BasicPacket> requestPackets = BasicPacket.parseRequest(req.body());
+
+        for (BasicPacket packet : requestPackets) {
+            switch (packet.packetId) {
+                case ClientPackets.sendMessage: {
+                    SendMessagePacket paresdPacket = new SendMessagePacket(packet.data, thisPlayer);
+
+                    MessageToSend tempMessage = new MessageToSend(paresdPacket);
+
+                    tempMessage.alreadySentTo.add(thisPlayer);
+
+                    App.onlineChat.add(tempMessage);
+                }
+            }
+        }
+
+        // #region SEND NEW MESSAGES TO CLIENT
+        List<MessageToSend> tempOnlineChat = new ArrayList<MessageToSend>(App.onlineChat);
+
+        for (MessageToSend message : tempOnlineChat) {
+            if (message.alreadySentTo.contains(thisPlayer)) {
+                break;
+            } else {
+                returnData.append(new RecieveChatMessagePacket(message.packet.message, message.packet.sender) + "\n");
+            }
+        }
+        // #endregion
+
+        returnData.deleteCharAt(returnData.lastIndexOf("\n"));
 
         return returnData.toString();
     }

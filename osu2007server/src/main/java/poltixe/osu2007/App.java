@@ -6,6 +6,7 @@ import java.lang.reflect.*;
 import java.util.*;
 
 import poltixe.osu2007.HandlerFunctions.Path;
+import poltixe.osu2007.clientpackets.*;
 
 public class App {
     // Global MySQL settings
@@ -19,6 +20,7 @@ public class App {
     public static List<String> knownNames = new ArrayList<String>();
 
     public static List<Player> onlinePlayers = new ArrayList<Player>();
+    public static List<MessageToSend> onlineChat = new ArrayList<MessageToSend>();
 
     public static void main(String[] args) throws Exception {
         // Gets a new properties value
