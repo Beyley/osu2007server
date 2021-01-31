@@ -1,0 +1,8 @@
+-- Client Packets --
+0: Send Message
+    String: Message Contents
+
+-- Server Packets --
+1: Recieve Chat Message
+    String: Message Sender
+    String: Message Contents

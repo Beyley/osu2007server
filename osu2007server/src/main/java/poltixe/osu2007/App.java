@@ -19,6 +19,7 @@ public class App {
     public static List<String> knownNames = new ArrayList<String>();
 
     public static List<Player> onlinePlayers = new ArrayList<Player>();
+    public static List<MessageToSend> onlineChat = new ArrayList<MessageToSend>();
 
     public static void main(String[] args) throws Exception {
         // Gets a new properties value

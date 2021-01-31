@@ -3,17 +3,18 @@ package poltixe.osu2007;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import poltixe.osu2007.HandlerFunctions.*;
+import poltixe.osu2007.clientpackets.SendMessagePacket;
+import poltixe.osu2007.serverpackets.RecieveChatMessagePacket;
 import spark.Request;
 
 public class GameHandlers {
     // Gets a new instance of the MySQL handler
     public MySqlHandler sqlHandler = null;
+
+    Random r = new Random();
 
     GameHandlers() {
         this.sqlHandler = new MySqlHandler();
@@ -81,13 +82,30 @@ public class GameHandlers {
     // Handles a login request
     @Path(path = "/osu-login.php")
     public String login(Request req) {
-        // The string to be returned to the osu! client, in this case has a default
-        // value of "1", to indicate the login was sucsessful
-        String returnString = "1";
+        Date today = Calendar.getInstance().getTime();
+        long currentEpochTime = today.getTime();
 
+        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempOnlinePlayers)
+            if (currentEpochTime - player.lastPing > 5000) {
+                System.out.println(player.username + " logged off!");
+                App.onlinePlayers.remove(player);
+            }
+
+        // #region CHECK IF PROPER USERNAME
         // Gets the parameters for the login, in this case the username and the password
         String username = req.queryParams("username");
         String password = req.queryParams("password");
+
+        if (username == null || password == null)
+            return "0";
+
+        // #region GENERATE TOKEN
+        long randomNumber = r.nextInt(1000000000);
+        String randomSentence = RandomHelper.getRandomEsperantoWords();
+
+        String returnString = username + " estas " + randomSentence + String.valueOf(randomNumber);
+        // #endregion
 
         if (!HandlerFunctions.isMD5(password)) {
             return "0";
@@ -107,7 +125,9 @@ public class GameHandlers {
                 return "0";
             }
         }
+        // #endregion
 
+        // #region CHECK IF PASSWORD CORRECT AND THIS IS FIRST ACCOUNT
         // Gets the users data of the person the client is attempting to sign in as
         Player userData = sqlHandler.checkUserData(sqlHandler.getUserId(username));
 
@@ -130,6 +150,34 @@ public class GameHandlers {
             // password
             sqlHandler.addUser(username, password, req.ip());
         }
+        // #endregion
+
+        // #region ADD USER TO ONLINE USERS
+        Player tempPlayer = new Player(sqlHandler.getUserId(username));
+
+        tempPlayer.lastPing = currentEpochTime;
+        tempPlayer.token = returnString;
+
+        tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempOnlinePlayers) {
+            if (player.username.equals(username)) {
+                int id = App.onlinePlayers.indexOf(player);
+
+                App.onlinePlayers.remove(id);
+            }
+        }
+
+        App.onlinePlayers.add(tempPlayer);
+
+        List<MessageToSend> tempOnlineChat = new ArrayList<MessageToSend>(App.onlineChat);
+        for (MessageToSend message : tempOnlineChat) {
+            MessageToSend tempMessage = message;
+
+            tempMessage.alreadySentTo.add(App.onlinePlayers.get(App.onlinePlayers.indexOf(tempPlayer)));
+
+            App.onlineChat.set(tempOnlineChat.indexOf(tempMessage), tempMessage);
+        }
+        // #endregion
 
         // Returns the string to be sent to the client
         return returnString;
@@ -137,16 +185,16 @@ public class GameHandlers {
 
     @Path(path = "/osu-getreplay.php")
     public byte[] getReplay(Request req) {
-        byte[] returnString = {};
+        byte[] returnData = {};
 
         String scoreId = req.queryParams("c");
 
         try (FileInputStream fos = new FileInputStream("replays/" + scoreId + ".osr")) {
-            returnString = fos.readAllBytes();
+            returnData = fos.readAllBytes();
         } catch (IOException e) {
         }
 
-        return returnString;
+        return returnData;
     }
 
     @Path(path = "/osu-getscores.php")
@@ -196,16 +244,10 @@ public class GameHandlers {
     public String getOnlineUsers(Request req) {
         StringBuilder returnData = new StringBuilder();
 
-        Date today = Calendar.getInstance().getTime();
-        long currentEpochTime = today.getTime();
-
         DecimalFormat df = new DecimalFormat("#.00");
 
-        for (Player player : App.onlinePlayers)
-            if (currentEpochTime - player.lastPing > 5000)
-                App.onlinePlayers.remove(player);
-
-        for (Player player : App.onlinePlayers) {
+        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempOnlinePlayers) {
             returnData.append(player.username);
             returnData.append("|");
             returnData.append(player.globalRank);
@@ -230,30 +272,78 @@ public class GameHandlers {
     public String onlineUserPing(Request req) {
         StringBuilder returnData = new StringBuilder();
 
-        String username = req.queryParams("username");
-        String password = req.queryParams("password");
+        String token = req.queryParams("token");
 
         Date today = Calendar.getInstance().getTime();
-        long epochTime = today.getTime();
-
-        Player tempPlayer = new Player(sqlHandler.getUserId(username));
-
-        tempPlayer.calculateOverallAccuracy();
-        tempPlayer.calculateUserRank();
-
-        tempPlayer.lastPing = epochTime;
+        long currentEpochTime = today.getTime();
 
         List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempOnlinePlayers)
+            if (currentEpochTime - player.lastPing > 100000) {
+                System.out.println(player.username + " logged off!");
+                App.onlinePlayers.remove(player);
+            }
 
+        if (token == null)
+            return "";
+
+        Player thisPlayer = null;
+
+        tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
         for (Player player : tempOnlinePlayers) {
-            if (player.username.equals(username)) {
-                int id = App.onlinePlayers.indexOf(player);
+            if (player.token.equals(token)) {
+                thisPlayer = player;
 
-                App.onlinePlayers.remove(id);
+                thisPlayer.lastPing = currentEpochTime;
+
+                App.onlinePlayers.set(tempOnlinePlayers.indexOf(player), thisPlayer);
+
+                break;
             }
         }
 
-        App.onlinePlayers.add(tempPlayer);
+        if (thisPlayer == null)
+            return "";
+
+        // #region PARSE CLIENT PACKETS
+        List<BasicPacket> requestPackets = BasicPacket.parseRequest(req.headers("packet-data"));
+
+        for (BasicPacket packet : requestPackets) {
+            switch (packet.packetId) {
+                case ClientPackets.sendMessage: {
+                    SendMessagePacket parsedPacket = new SendMessagePacket(packet.data, thisPlayer);
+
+                    MessageToSend tempMessage = new MessageToSend(parsedPacket);
+
+                    tempMessage.alreadySentTo.add(thisPlayer);
+
+                    App.onlineChat.add(tempMessage);
+
+                    System.out
+                            .println("IRC: " + tempMessage.packet.sender.username + " : " + tempMessage.packet.message);
+                }
+            }
+        }
+        // #endregion
+
+        // #region SEND NEW MESSAGES TO CLIENT
+        List<MessageToSend> tempOnlineChat = new ArrayList<MessageToSend>(App.onlineChat);
+
+        for (MessageToSend message : tempOnlineChat) {
+            if (message.alreadySentTo.contains(thisPlayer)) {
+                continue;
+            } else {
+                returnData.append(
+                        new RecieveChatMessagePacket(message.packet.message, message.packet.sender).getFinalPacket()
+                                + "\n");
+
+                message.alreadySentTo.add(thisPlayer);
+            }
+        }
+
+        if (returnData.length() > 0)
+            returnData.deleteCharAt(returnData.lastIndexOf("\n"));
+        // #endregion
 
         return returnData.toString();
     }
