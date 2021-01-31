@@ -6,7 +6,6 @@ import java.lang.reflect.*;
 import java.util.*;
 
 import poltixe.osu2007.HandlerFunctions.Path;
-import poltixe.osu2007.clientpackets.*;
 
 public class App {
     // Global MySQL settings

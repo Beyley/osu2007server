@@ -5,8 +5,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.*;
 
-import com.google.protobuf.Message;
-
 import poltixe.osu2007.HandlerFunctions.*;
 import poltixe.osu2007.clientpackets.SendMessagePacket;
 import poltixe.osu2007.serverpackets.RecieveChatMessagePacket;
@@ -84,14 +82,30 @@ public class GameHandlers {
     // Handles a login request
     @Path(path = "/osu-login.php")
     public String login(Request req) {
-        int randomNumber = r.nextInt(10000000);
-        String randomSentence = RandomHelper.getRandomEsperantoWords();
+        Date today = Calendar.getInstance().getTime();
+        long currentEpochTime = today.getTime();
 
-        String returnString = randomSentence + String.valueOf(randomNumber);
+        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempOnlinePlayers)
+            if (currentEpochTime - player.lastPing > 5000) {
+                System.out.println(player.username + " logged off!");
+                App.onlinePlayers.remove(player);
+            }
 
+        // #region CHECK IF PROPER USERNAME
         // Gets the parameters for the login, in this case the username and the password
         String username = req.queryParams("username");
         String password = req.queryParams("password");
+
+        if (username == null || password == null)
+            return "0";
+
+        // #region GENERATE TOKEN
+        long randomNumber = r.nextInt(1000000000);
+        String randomSentence = RandomHelper.getRandomEsperantoWords();
+
+        String returnString = username + " estas " + randomSentence + String.valueOf(randomNumber);
+        // #endregion
 
         if (!HandlerFunctions.isMD5(password)) {
             return "0";
@@ -111,7 +125,9 @@ public class GameHandlers {
                 return "0";
             }
         }
+        // #endregion
 
+        // #region CHECK IF PASSWORD CORRECT AND THIS IS FIRST ACCOUNT
         // Gets the users data of the person the client is attempting to sign in as
         Player userData = sqlHandler.checkUserData(sqlHandler.getUserId(username));
 
@@ -134,17 +150,15 @@ public class GameHandlers {
             // password
             sqlHandler.addUser(username, password, req.ip());
         }
+        // #endregion
 
-        Date today = Calendar.getInstance().getTime();
-        long epochTime = today.getTime();
-
+        // #region ADD USER TO ONLINE USERS
         Player tempPlayer = new Player(sqlHandler.getUserId(username));
 
-        tempPlayer.lastPing = epochTime;
+        tempPlayer.lastPing = currentEpochTime;
         tempPlayer.token = returnString;
 
-        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
-
+        tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
         for (Player player : tempOnlinePlayers) {
             if (player.username.equals(username)) {
                 int id = App.onlinePlayers.indexOf(player);
@@ -154,6 +168,16 @@ public class GameHandlers {
         }
 
         App.onlinePlayers.add(tempPlayer);
+
+        List<MessageToSend> tempOnlineChat = new ArrayList<MessageToSend>(App.onlineChat);
+        for (MessageToSend message : tempOnlineChat) {
+            MessageToSend tempMessage = message;
+
+            tempMessage.alreadySentTo.add(App.onlinePlayers.get(App.onlinePlayers.indexOf(tempPlayer)));
+
+            App.onlineChat.set(tempOnlineChat.indexOf(tempMessage), tempMessage);
+        }
+        // #endregion
 
         // Returns the string to be sent to the client
         return returnString;
@@ -220,17 +244,9 @@ public class GameHandlers {
     public String getOnlineUsers(Request req) {
         StringBuilder returnData = new StringBuilder();
 
-        Date today = Calendar.getInstance().getTime();
-        long currentEpochTime = today.getTime();
-
         DecimalFormat df = new DecimalFormat("#.00");
 
         List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
-        for (Player player : tempOnlinePlayers)
-            if (currentEpochTime - player.lastPing > 15000)
-                App.onlinePlayers.remove(player);
-
-        tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
         for (Player player : tempOnlinePlayers) {
             returnData.append(player.username);
             returnData.append("|");
@@ -258,15 +274,29 @@ public class GameHandlers {
 
         String token = req.queryParams("token");
 
+        Date today = Calendar.getInstance().getTime();
+        long currentEpochTime = today.getTime();
+
+        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempOnlinePlayers)
+            if (currentEpochTime - player.lastPing > 100000) {
+                System.out.println(player.username + " logged off!");
+                App.onlinePlayers.remove(player);
+            }
+
         if (token == null)
             return "";
 
         Player thisPlayer = null;
 
-        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+        tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
         for (Player player : tempOnlinePlayers) {
             if (player.token.equals(token)) {
                 thisPlayer = player;
+
+                thisPlayer.lastPing = currentEpochTime;
+
+                App.onlinePlayers.set(tempOnlinePlayers.indexOf(player), thisPlayer);
 
                 break;
             }
@@ -275,35 +305,45 @@ public class GameHandlers {
         if (thisPlayer == null)
             return "";
 
-        List<BasicPacket> requestPackets = BasicPacket.parseRequest(req.body());
+        // #region PARSE CLIENT PACKETS
+        List<BasicPacket> requestPackets = BasicPacket.parseRequest(req.headers("packet-data"));
 
         for (BasicPacket packet : requestPackets) {
             switch (packet.packetId) {
                 case ClientPackets.sendMessage: {
-                    SendMessagePacket paresdPacket = new SendMessagePacket(packet.data, thisPlayer);
+                    SendMessagePacket parsedPacket = new SendMessagePacket(packet.data, thisPlayer);
 
-                    MessageToSend tempMessage = new MessageToSend(paresdPacket);
+                    MessageToSend tempMessage = new MessageToSend(parsedPacket);
 
                     tempMessage.alreadySentTo.add(thisPlayer);
 
                     App.onlineChat.add(tempMessage);
+
+                    System.out
+                            .println("IRC: " + tempMessage.packet.sender.username + " : " + tempMessage.packet.message);
                 }
             }
         }
+        // #endregion
 
         // #region SEND NEW MESSAGES TO CLIENT
         List<MessageToSend> tempOnlineChat = new ArrayList<MessageToSend>(App.onlineChat);
 
         for (MessageToSend message : tempOnlineChat) {
             if (message.alreadySentTo.contains(thisPlayer)) {
-                break;
+                continue;
             } else {
-                returnData.append(new RecieveChatMessagePacket(message.packet.message, message.packet.sender) + "\n");
+                returnData.append(
+                        new RecieveChatMessagePacket(message.packet.message, message.packet.sender).getFinalPacket()
+                                + "\n");
+
+                message.alreadySentTo.add(thisPlayer);
             }
         }
-        // #endregion
 
-        returnData.deleteCharAt(returnData.lastIndexOf("\n"));
+        if (returnData.length() > 0)
+            returnData.deleteCharAt(returnData.lastIndexOf("\n"));
+        // #endregion
 
         return returnData.toString();
     }

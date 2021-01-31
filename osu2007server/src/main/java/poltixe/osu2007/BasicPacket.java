@@ -7,14 +7,17 @@ public class BasicPacket {
     public String[] data;
 
     public BasicPacket(String raw) {
-        String[] split = raw.split("|");
+        String[] split = raw.split("\\|");
 
         this.packetId = Integer.parseInt(split[0]);
-        this.data = Arrays.copyOfRange(split, 1, raw.length() - 1);
+        this.data = Arrays.copyOfRange(split, 1, raw.length());
     }
 
     public static List<BasicPacket> parseRequest(String raw) {
         List<BasicPacket> parsedPackets = new ArrayList<BasicPacket>();
+
+        if (raw.length() < 2)
+            return parsedPackets;
 
         String[] split = raw.split("\n");
 

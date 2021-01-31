@@ -1,9 +1,6 @@
 package poltixe.osu2007.serverpackets;
 
-import java.text.*;
-import java.util.*;
-
-import poltixe.osu2007.Player;
+import poltixe.osu2007.*;
 
 public class RecieveChatMessagePacket {
     public Player sender;
@@ -15,10 +12,6 @@ public class RecieveChatMessagePacket {
     }
 
     public String getFinalPacket() {
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        Date currentDate = new Date();
-        String currentDateString = dateFormat.format(currentDate);
-
-        return String.format("%s <%s> %s", currentDateString, this.sender.username, this.message);
+        return String.format("%d|%s|%s", ServerPackets.recieveMessage, this.sender.username, this.message);
     }
 }
