@@ -271,7 +271,7 @@ public class GameHandlers {
         return returnData.toString();
     }
 
-    @Path(path = "/osu-onlineuserping.php")
+    @Path(path = "/osu-onlineuserping.php", verb = "post")
     public String onlineUserPing(Request req) {
         StringBuilder returnData = new StringBuilder();
 
@@ -309,7 +309,7 @@ public class GameHandlers {
             return "PLAYER NOT FOUND!";
 
         // #region PARSE CLIENT PACKETS
-        List<BasicPacket> requestPackets = BasicPacket.parseRequest(req.headers("packet-data"));
+        List<BasicPacket> requestPackets = BasicPacket.parseRequest(req.body());
 
         for (BasicPacket packet : requestPackets) {
             switch (packet.packetId) {
