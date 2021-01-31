@@ -318,8 +318,6 @@ public class GameHandlers {
 
                     MessageToSend tempMessage = new MessageToSend(parsedPacket);
 
-                    tempMessage.alreadySentTo.add(thisPlayer);
-
                     App.onlineChat.add(tempMessage);
 
                     System.out
