@@ -544,21 +544,22 @@ public class MySqlHandler {
             rankedMapMd5s.add(map.md5);
         }
 
-        String query = "SELECT * FROM score_list WHERE `userid`=? and pass=?";
+        String query = "SELECT * FROM score_list WHERE `userid`=? and pass='1' ORDER BY score DESC";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
 
             stmt.setInt(1, userId);
-            stmt.setBoolean(2, true);
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Score currentScore = new Score(rs);
 
-                if (rankedMapMd5s.contains(currentScore.mapHash))
+                if (rankedMapMd5s.contains(currentScore.mapHash)) {
                     score += currentScore.score;
+                    rankedMapMd5s.remove(rankedMapMd5s.indexOf(currentScore.mapHash));
+                }
             }
         } catch (SQLException | ParseException ex) {
             System.out.println(ex.getMessage());
