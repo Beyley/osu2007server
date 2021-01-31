@@ -87,7 +87,7 @@ public class GameHandlers {
 
         List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
         for (Player player : tempOnlinePlayers)
-            if (currentEpochTime - player.lastPing > 5000) {
+            if (currentEpochTime - player.lastPing > 15000) {
                 System.out.println(player.username + " logged off!");
                 App.onlinePlayers.remove(player);
             }
@@ -282,13 +282,13 @@ public class GameHandlers {
 
         List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
         for (Player player : tempOnlinePlayers)
-            if (currentEpochTime - player.lastPing > 100000) {
+            if (currentEpochTime - player.lastPing > 15000) {
                 System.out.println(player.username + " logged off!");
                 App.onlinePlayers.remove(player);
             }
 
         if (token == null)
-            return "";
+            return "NO TOKEN PROVIDED";
 
         Player thisPlayer = null;
 
@@ -306,7 +306,7 @@ public class GameHandlers {
         }
 
         if (thisPlayer == null)
-            return "";
+            return "PLAYER NOT FOUND!";
 
         // #region PARSE CLIENT PACKETS
         List<BasicPacket> requestPackets = BasicPacket.parseRequest(req.headers("packet-data"));
