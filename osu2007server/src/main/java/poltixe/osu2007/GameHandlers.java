@@ -248,6 +248,9 @@ public class GameHandlers {
 
         List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
         for (Player player : tempOnlinePlayers) {
+            player.calculateOverallAccuracy();
+            player.calculateUserRank();
+
             returnData.append(player.username);
             returnData.append("|");
             returnData.append(player.globalRank);
