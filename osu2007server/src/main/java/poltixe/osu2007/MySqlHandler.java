@@ -45,7 +45,7 @@ public class MySqlHandler {
     }
 
     public void checkForDatabase() {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/";
+        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/?autoReconnect=true";
 
         Connection thisCon = null;
 

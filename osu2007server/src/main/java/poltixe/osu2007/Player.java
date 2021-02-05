@@ -17,6 +17,7 @@ public class Player {
 
     public long lastPing;
     public String token;
+    public List<String> packetQueue = Collections.synchronizedList(new ArrayList<String>());
 
     private static MySqlHandler sqlHandler = new MySqlHandler();
 

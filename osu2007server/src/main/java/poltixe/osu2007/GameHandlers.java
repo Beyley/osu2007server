@@ -168,15 +168,6 @@ public class GameHandlers {
         }
 
         App.onlinePlayers.add(tempPlayer);
-
-        List<MessageToSend> tempOnlineChat = new ArrayList<MessageToSend>(App.onlineChat);
-        for (MessageToSend message : tempOnlineChat) {
-            MessageToSend tempMessage = message;
-
-            tempMessage.alreadySentTo.add(App.onlinePlayers.get(App.onlinePlayers.indexOf(tempPlayer)));
-
-            App.onlineChat.set(tempOnlineChat.indexOf(tempMessage), tempMessage);
-        }
         // #endregion
 
         // Returns the string to be sent to the client
@@ -192,6 +183,7 @@ public class GameHandlers {
         try (FileInputStream fos = new FileInputStream("replays/" + scoreId + ".osr")) {
             returnData = fos.readAllBytes();
         } catch (IOException e) {
+            System.out.println(new String("ERROR REPLAY MAYBE NOT EXIST " + e));
         }
 
         return returnData;
@@ -316,36 +308,26 @@ public class GameHandlers {
                 case ClientPackets.sendMessage: {
                     SendMessagePacket parsedPacket = new SendMessagePacket(packet.data, thisPlayer);
 
-                    MessageToSend tempMessage = new MessageToSend(parsedPacket);
+                    tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
+                    for (Player player : tempOnlinePlayers) {
+                        player.packetQueue.add(new RecieveChatMessagePacket(parsedPacket.message, parsedPacket.sender)
+                                .getFinalPacket());
+                    }
 
-                    App.onlineChat.add(tempMessage);
-
-                    System.out
-                            .println("IRC: " + tempMessage.packet.sender.username + " : " + tempMessage.packet.message);
+                    System.out.println("IRC: " + parsedPacket.sender.username + " : " + parsedPacket.message);
                 }
             }
         }
         // #endregion
 
-        // #region SEND NEW MESSAGES TO CLIENT
-        List<MessageToSend> tempOnlineChat = new ArrayList<MessageToSend>(App.onlineChat);
-
-        for (MessageToSend message : tempOnlineChat) {
-            if (message.alreadySentTo.contains(thisPlayer)) {
-                continue;
-            } else {
-                returnData.append(
-                        new RecieveChatMessagePacket(message.packet.message, message.packet.sender).getFinalPacket()
-                                + "\n");
-
-                message.alreadySentTo.add(thisPlayer);
-            }
+        // #region SEND NEW PACKETS TO CLIENT
+        for (String packet : thisPlayer.packetQueue) {
+            returnData.append(packet + "\n");
         }
 
-        if (returnData.length() > 0)
-            returnData.deleteCharAt(returnData.lastIndexOf("\n"));
+        thisPlayer.packetQueue.clear();
         // #endregion
 
-        return returnData.toString();
+        return returnData.toString().trim();
     }
 }
