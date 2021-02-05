@@ -310,6 +310,9 @@ public class GameHandlers {
 
                     tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
                     for (Player player : tempOnlinePlayers) {
+                        if (player == thisPlayer)
+                            continue;
+
                         player.packetQueue.add(new RecieveChatMessagePacket(parsedPacket.message, parsedPacket.sender)
                                 .getFinalPacket());
                     }
