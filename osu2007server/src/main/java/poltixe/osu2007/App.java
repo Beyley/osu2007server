@@ -30,6 +30,8 @@ public class App {
 
         // Gets the MySQL version, and if something is wrong, print an error
         System.out.println("MySQL Server version : " + sqlHandler.getVersion());
+
+        sqlHandler.checkForDatabase();
         sqlHandler.checkForTables();
 
         FileHandler.rankedDatabaseCheck();

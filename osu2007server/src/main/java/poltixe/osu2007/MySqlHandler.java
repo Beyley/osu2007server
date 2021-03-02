@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class MySqlHandler {
     private String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort
-            + "/osu2007?useSSL=false&autoReconnect=true";
+            + "/?useSSL=false&autoReconnect=true";
 
     private String user = App.mySqlUser;
     private String password = App.mySqlPass;
@@ -31,9 +31,7 @@ public class MySqlHandler {
         String query = "SELECT VERSION()";
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-
             if (rs.next()) {
-
                 return rs.getString(1);
             }
 
@@ -45,20 +43,9 @@ public class MySqlHandler {
     }
 
     public void checkForDatabase() {
-        String connectionUrl = "jdbc:mysql://" + App.mySqlServer + ":" + App.mySqlPort + "/?autoReconnect=true";
-
-        Connection thisCon = null;
-
-        try {
-            thisCon = (Connection) DriverManager.getConnection(connectionUrl, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         String query = "CREATE DATABASE osu2007";
 
-        try (Statement st = (Statement) thisCon.createStatement()) {
-
+        try (Statement st = (Statement) con.createStatement()) {
             st.execute(query);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -215,7 +202,6 @@ public class MySqlHandler {
             query = "CREATE TABLE `osu2007`.`score_list` ( `id` INT NOT NULL AUTO_INCREMENT, `maphash` VARCHAR(100) NOT NULL, `userid` INT NOT NULL, `replayhash` VARCHAR(100) NOT NULL, `hit300` INT NOT NULL, `hit100` INT NOT NULL, `hit50` INT NOT NULL, `hitgeki` INT NOT NULL, `hitkatu` INT NOT NULL, `hitmiss` INT NOT NULL, `score` INT NOT NULL, `maxcombo` INT NOT NULL, `perfect` VARCHAR(5) NOT NULL, `grade` VARCHAR(1) NOT NULL, `mods` INT NOT NULL, `pass` VARCHAR(5) NOT NULL, `timesubmitted` INT NULL, PRIMARY KEY (`id`));";
 
             try (Statement st = (Statement) con.createStatement()) {
-
                 st.execute(query);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
@@ -244,7 +230,6 @@ public class MySqlHandler {
             query = "ALTER TABLE `osu2007`.`users` RENAME TO `osu2007`.`osu_users`;";
 
             try (Statement st = (Statement) con.createStatement()) {
-
                 st.execute(query);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
@@ -268,7 +253,7 @@ public class MySqlHandler {
             PreparedStatement stmt = null;
 
             for (Score score : scores) {
-                query = "INSERT INTO score_list(id, maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                query = "INSERT INTO `osu2007`.`score_list`(id, maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 try {
                     stmt = con.prepareStatement(query);
@@ -300,7 +285,6 @@ public class MySqlHandler {
             query = "DROP TABLE `osu2007`.`scores`;";
 
             try (Statement st = (Statement) con.createStatement()) {
-
                 st.execute(query);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
@@ -365,10 +349,9 @@ public class MySqlHandler {
 
         boolean playcountColumnExist = false;
 
-        query = "SHOW COLUMNS FROM `osu_users` LIKE 'playcount';";
+        query = "SHOW COLUMNS FROM `osu2007`.`osu_users` LIKE 'playcount';";
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-
             while (rs.next()) {
                 playcountColumnExist = true;
             }
@@ -388,10 +371,9 @@ public class MySqlHandler {
 
         boolean timeSubmittedExist = false;
 
-        query = "SHOW COLUMNS FROM `score_list` LIKE 'timesubmitted';";
+        query = "SHOW COLUMNS FROM `osu2007`.`score_list` LIKE 'timesubmitted';";
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-
             while (rs.next()) {
                 timeSubmittedExist = true;
             }
@@ -418,10 +400,9 @@ public class MySqlHandler {
 
         boolean ipColumnExist = false;
 
-        query = "SHOW COLUMNS FROM `osu_users` LIKE 'ip';";
+        query = "SHOW COLUMNS FROM `osu2007`.`osu_users` LIKE 'ip';";
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-
             while (rs.next()) {
                 ipColumnExist = true;
             }
@@ -441,7 +422,7 @@ public class MySqlHandler {
     }
 
     public void setTimeOfScore(int id, long time) {
-        String query = "UPDATE score_list SET timesubmitted=? WHERE id=?";
+        String query = "UPDATE `osu2007`.`score_list` SET timesubmitted=? WHERE id=?";
 
         try (Statement st = (Statement) con.createStatement()) {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -458,7 +439,7 @@ public class MySqlHandler {
     public List<BeatMap> getAllRankedMaps() {
         List<BeatMap> maps = new ArrayList<BeatMap>();
 
-        String query = "SELECT * FROM ranked_maps";
+        String query = "SELECT * FROM `osu2007`.`ranked_maps`";
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
             while (rs.next()) {
@@ -476,7 +457,7 @@ public class MySqlHandler {
     public List<BeatMap> getRankedMaps(int startPos, int endPos) {
         List<BeatMap> maps = new ArrayList<BeatMap>();
 
-        String query = "SELECT * FROM ranked_maps ORDER BY id LIMIT " + startPos + ", " + endPos;
+        String query = "SELECT * FROM `osu2007`.`ranked_maps` ORDER BY id LIMIT " + startPos + ", " + endPos;
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
             while (rs.next()) {
@@ -494,7 +475,7 @@ public class MySqlHandler {
     public List<BeatMap> searchRankedMaps(String searchQuery) {
         List<BeatMap> maps = new ArrayList<BeatMap>();
 
-        String query = "SELECT * FROM ranked_maps WHERE songname LIKE ? ORDER BY id;";
+        String query = "SELECT * FROM `osu2007`.`ranked_maps` WHERE songname LIKE ? ORDER BY id;";
 
         try (Statement st = (Statement) con.createStatement()) {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -518,7 +499,7 @@ public class MySqlHandler {
     public List<NewsPost> getAllNewsPosts() {
         List<NewsPost> posts = new ArrayList<NewsPost>();
 
-        String query = "SELECT * FROM news_posts ";
+        String query = "SELECT * FROM `osu2007`.`news_posts` ";
 
         try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
             while (rs.next()) {
@@ -544,7 +525,7 @@ public class MySqlHandler {
             rankedMapMd5s.add(map.md5);
         }
 
-        String query = "SELECT * FROM score_list WHERE `userid`=? and pass='1' ORDER BY score DESC";
+        String query = "SELECT * FROM `osu2007`.`score_list` WHERE `userid`=? and pass='1' ORDER BY score DESC";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -571,7 +552,7 @@ public class MySqlHandler {
     public int getTotalScoreOfUser(int userId) {
         int score = 0;
 
-        String query = "SELECT * FROM score_list WHERE userid=? and pass=?";
+        String query = "SELECT * FROM `osu2007`.`score_list` WHERE userid=? and pass=?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -596,7 +577,7 @@ public class MySqlHandler {
     public List<Score> getAllScoresOfUser(int userId) {
         List<Score> scores = new ArrayList<Score>();
 
-        String query = "SELECT * FROM score_list WHERE userid = ? and pass=? ORDER BY score DESC";
+        String query = "SELECT * FROM `osu2007`.`score_list` WHERE userid = ? and pass=? ORDER BY score DESC";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -619,7 +600,7 @@ public class MySqlHandler {
     }
 
     public void addUser(String newUsersName, String newUsersPassword, String ip) {
-        String query = "INSERT INTO osu_users(username, password, ip) VALUES(?, ?, ?);";
+        String query = "INSERT INTO `osu2007`.`osu_users`(username, password, ip) VALUES(?, ?, ?);";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -635,7 +616,7 @@ public class MySqlHandler {
     }
 
     public void updateScore(int oldId, Score newScore, byte[] replayData) {
-        String query = "UPDATE score_list SET replayhash=?, hit300=?, hit100=?, hit50=?, hitgeki=?, hitkatu=?, hitmiss=?, score=?, maxcombo=?, perfect=?, grade=?, mods=?, pass=?, timesubmitted=? WHERE id=?;";
+        String query = "UPDATE `osu2007`.`score_list` SET replayhash=?, hit300=?, hit100=?, hit50=?, hitgeki=?, hitkatu=?, hitmiss=?, score=?, maxcombo=?, perfect=?, grade=?, mods=?, pass=?, timesubmitted=? WHERE id=?;";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -665,7 +646,7 @@ public class MySqlHandler {
     }
 
     public void updateUserIp(String userName, String newIp) {
-        String query = "UPDATE osu_users SET ip=? WHERE username=?;";
+        String query = "UPDATE `osu2007`.`osu_users` SET ip=? WHERE username=?;";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -680,7 +661,7 @@ public class MySqlHandler {
     }
 
     public boolean isIpInUse(String ip) {
-        String query = "SELECT * FROM osu_users WHERE ip=?;";
+        String query = "SELECT * FROM `osu2007`.`osu_users` WHERE ip=?;";
 
         boolean used = false;
 
@@ -702,7 +683,7 @@ public class MySqlHandler {
     }
 
     public void addToPlaycount(int userId) {
-        String query = "UPDATE `osu_users` SET playcount = playcount + '1' WHERE id = ?";
+        String query = "UPDATE `osu2007`.`osu_users` SET playcount = playcount + '1' WHERE id = ?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -718,7 +699,7 @@ public class MySqlHandler {
     public int getUserId(String userName) {
         int userId = -1;
 
-        String query = "SELECT * FROM osu_users WHERE username=?";
+        String query = "SELECT * FROM `osu2007`.`osu_users` WHERE username=?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -745,7 +726,7 @@ public class MySqlHandler {
             return username;
         }
 
-        String query = "SELECT * FROM osu_users WHERE id=?";
+        String query = "SELECT * FROM `osu2007`.`osu_users` WHERE id=?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -771,7 +752,7 @@ public class MySqlHandler {
     public int getPlaycountOfUser(int userId) {
         int playcount = 0;
 
-        String query = "SELECT * FROM osu_users WHERE id=?";
+        String query = "SELECT * FROM `osu2007`.`osu_users` WHERE id=?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -791,7 +772,7 @@ public class MySqlHandler {
     }
 
     public void addScore(Score score, byte[] replayData) {
-        String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass, timesubmitted)"
+        String query = "INSERT INTO `osu2007`.`score_list`(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass, timesubmitted)"
                 + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
@@ -819,7 +800,7 @@ public class MySqlHandler {
             System.out.println(ex.getMessage());
         }
 
-        query = "SELECT * FROM score_list WHERE replayhash=?";
+        query = "SELECT * FROM `osu2007`.`score_list` WHERE replayhash=?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(query);
@@ -837,7 +818,7 @@ public class MySqlHandler {
     }
 
     public void addFailedScore(Score score) {
-        String query = "INSERT INTO score_list(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass, timesubmitted)"
+        String query = "INSERT INTO `osu2007`.`score_list`(maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass, timesubmitted)"
                 + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
@@ -867,7 +848,7 @@ public class MySqlHandler {
     }
 
     public List<Score> getMapLeaderboard(String mapHash) {
-        String query = "SELECT * FROM score_list WHERE maphash = ? and pass=? ORDER BY score DESC LIMIT 50";
+        String query = "SELECT * FROM `osu2007`.`score_list` WHERE maphash = ? and pass=? ORDER BY score DESC LIMIT 50";
 
         List<Score> scores = new ArrayList<Score>();
 
@@ -892,7 +873,7 @@ public class MySqlHandler {
     }
 
     public double getMapSuccessRate(String mapHash) {
-        String query = "SELECT * FROM score_list WHERE maphash = ? ORDER BY score DESC";
+        String query = "SELECT * FROM `osu2007`.`score_list` WHERE maphash = ? ORDER BY score DESC";
 
         List<Score> scores = new ArrayList<Score>();
 
@@ -924,7 +905,7 @@ public class MySqlHandler {
     }
 
     public double getMapTotalTries(String mapHash) {
-        String query = "SELECT * FROM score_list WHERE maphash = ? ORDER BY score DESC";
+        String query = "SELECT * FROM `osu2007`.`score_list` WHERE maphash = ? ORDER BY score DESC";
 
         List<Score> scores = new ArrayList<Score>();
 
@@ -948,7 +929,7 @@ public class MySqlHandler {
     }
 
     public double getMapTotalPasses(String mapHash) {
-        String query = "SELECT * FROM score_list WHERE maphash = ? ORDER BY score DESC";
+        String query = "SELECT * FROM `osu2007`.`score_list` WHERE maphash = ? ORDER BY score DESC";
 
         List<Score> scores = new ArrayList<Score>();
 
@@ -978,7 +959,7 @@ public class MySqlHandler {
     }
 
     public List<Score> getAllScores() {
-        String query = "SELECT * FROM score_list WHERE pass=? ORDER BY score DESC";
+        String query = "SELECT * FROM `osu2007`.`score_list` WHERE pass=? ORDER BY score DESC";
 
         List<Score> scores = new ArrayList<Score>();
 
@@ -1002,7 +983,7 @@ public class MySqlHandler {
     }
 
     public List<Integer> getAllPlayers() {
-        String query = "SELECT * FROM osu_users";
+        String query = "SELECT * FROM `osu2007`.`osu_users`";
 
         List<Integer> allPlayers = new ArrayList<Integer>();
 
@@ -1019,7 +1000,7 @@ public class MySqlHandler {
     }
 
     public Player checkUserData(int userId) {
-        String query = "SELECT * FROM osu_users WHERE id=?";
+        String query = "SELECT * FROM `osu2007`.`osu_users` WHERE id=?";
 
         boolean userExist = false;
         String userPassword = "";
@@ -1057,7 +1038,7 @@ public class MySqlHandler {
         }
 
         App.knownNames.clear();
-        for (int i = 0; i < getAllPlayers().size() + 1; i++) {
+        for (int i = 0; i < 1000000; i++) {
             App.knownNames.add(null);
         }
     }
