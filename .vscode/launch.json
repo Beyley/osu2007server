@@ -8,14 +8,16 @@
             "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "args": "-Djava.net.preferIPv4Stack=true"
         },
         {
             "type": "java",
             "name": "Debug (Launch)-App<osu2007server>",
             "request": "launch",
             "mainClass": "poltixe.osu2007.App",
-            "projectName": "osu2007server"
+            "projectName": "osu2007server",
+            "args": "-Djava.net.preferIPv4Stack=true"
         }
     ]
 }

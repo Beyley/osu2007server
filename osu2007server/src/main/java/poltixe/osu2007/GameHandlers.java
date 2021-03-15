@@ -85,12 +85,12 @@ public class GameHandlers {
         Date today = Calendar.getInstance().getTime();
         long currentEpochTime = today.getTime();
 
-        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
-        for (Player player : tempOnlinePlayers)
+        for (Player player : App.onlinePlayers) {
             if (currentEpochTime - player.lastPing > 15000) {
                 System.out.println(player.username + " logged off!");
                 App.onlinePlayers.remove(player);
             }
+        }
 
         // #region CHECK IF PROPER USERNAME
         // Gets the parameters for the login, in this case the username and the password
@@ -158,8 +158,7 @@ public class GameHandlers {
         tempPlayer.lastPing = currentEpochTime;
         tempPlayer.token = returnString;
 
-        tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
-        for (Player player : tempOnlinePlayers) {
+        for (Player player : App.onlinePlayers) {
             if (player.username.equals(username)) {
                 int id = App.onlinePlayers.indexOf(player);
 
@@ -238,8 +237,7 @@ public class GameHandlers {
 
         DecimalFormat df = new DecimalFormat("#.00");
 
-        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
-        for (Player player : tempOnlinePlayers) {
+        for (Player player : App.onlinePlayers) {
             player.calculateOverallAccuracy();
             player.calculateUserRank();
 
@@ -265,15 +263,18 @@ public class GameHandlers {
 
     @Path(path = "/osu-onlineuserping.php", verb = "post")
     public String onlineUserPing(Request req) {
+        // Create a stringbuilder for the return data
         StringBuilder returnData = new StringBuilder();
 
+        // Get the provided token
         String token = req.queryParams("token");
 
+        // Get the current time
         Date today = Calendar.getInstance().getTime();
+        // Get the current time as epoch time
         long currentEpochTime = today.getTime();
 
-        List<Player> tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
-        for (Player player : tempOnlinePlayers)
+        for (Player player : App.onlinePlayers)
             if (currentEpochTime - player.lastPing > 15000) {
                 System.out.println(player.username + " logged off!");
                 App.onlinePlayers.remove(player);
@@ -283,15 +284,14 @@ public class GameHandlers {
             return "NO TOKEN PROVIDED";
 
         Player thisPlayer = null;
-
-        tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
-        for (Player player : tempOnlinePlayers) {
+        for (Player player : App.onlinePlayers) {
             if (player.token.equals(token)) {
                 thisPlayer = player;
 
                 thisPlayer.lastPing = currentEpochTime;
 
-                App.onlinePlayers.set(tempOnlinePlayers.indexOf(player), thisPlayer);
+                player = thisPlayer;
+                // App.onlinePlayers.set(tempOnlinePlayers.indexOf(player), thisPlayer);
 
                 break;
             }
@@ -305,20 +305,19 @@ public class GameHandlers {
 
         for (BasicPacket packet : requestPackets) {
             switch (packet.packetId) {
-                case ClientPackets.sendMessage: {
-                    SendMessagePacket parsedPacket = new SendMessagePacket(packet.data, thisPlayer);
+            case ClientPackets.sendMessage: {
+                SendMessagePacket parsedPacket = new SendMessagePacket(packet.data, thisPlayer);
 
-                    tempOnlinePlayers = new ArrayList<Player>(App.onlinePlayers);
-                    for (Player player : tempOnlinePlayers) {
-                        if (player == thisPlayer)
-                            continue;
+                for (Player player : App.onlinePlayers) {
+                    if (player == thisPlayer)
+                        continue;
 
-                        player.packetQueue.add(new RecieveChatMessagePacket(parsedPacket.message, parsedPacket.sender)
-                                .getFinalPacket());
-                    }
-
-                    System.out.println("IRC: " + parsedPacket.sender.username + " : " + parsedPacket.message);
+                    player.packetQueue.add(
+                            new RecieveChatMessagePacket(parsedPacket.message, parsedPacket.sender).getFinalPacket());
                 }
+
+                System.out.println("IRC: " + parsedPacket.sender.username + " : " + parsedPacket.message);
+            }
             }
         }
         // #endregion

@@ -64,7 +64,6 @@ public class Player {
 
         // Creates a list to store all unique players and their ranked score
         List<Player> allPlayers = new ArrayList<Player>();
-
         List<BeatMap> allMaps = new ArrayList<BeatMap>();
 
         // Loops through all submitted scores

@@ -14,11 +14,11 @@ public class App {
     public static String mySqlUser;
     public static String mySqlPass;
 
+    // Port that the webserver uses
     public static String httpPort;
 
-    public static List<String> knownNames = new ArrayList<String>();
-
-    public static List<Player> onlinePlayers = new ArrayList<Player>();
+    public static List<String> knownNames = Collections.synchronizedList(new ArrayList<String>());
+    public static List<Player> onlinePlayers = Collections.synchronizedList(new ArrayList<Player>());
 
     public static void main(String[] args) throws Exception {
         // Gets a new properties value
@@ -63,12 +63,12 @@ public class App {
                 if (annos != null) {
                     try {
                         switch (annos.verb()) {
-                            case "get":
-                                get(annos.path(), (req, res) -> method.invoke(siteHandlers, req));
-                                break;
-                            case "post":
-                                post(annos.path(), (req, res) -> method.invoke(siteHandlers, req));
-                                break;
+                        case "get":
+                            get(annos.path(), (req, res) -> method.invoke(siteHandlers, req));
+                            break;
+                        case "post":
+                            post(annos.path(), (req, res) -> method.invoke(siteHandlers, req));
+                            break;
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -85,12 +85,12 @@ public class App {
                 if (annos != null) {
                     try {
                         switch (annos.verb()) {
-                            case "get":
-                                get(annos.path(), (req, res) -> method.invoke(gameHandlers, req));
-                                break;
-                            case "post":
-                                post(annos.path(), (req, res) -> method.invoke(gameHandlers, req));
-                                break;
+                        case "get":
+                            get(annos.path(), (req, res) -> method.invoke(gameHandlers, req));
+                            break;
+                        case "post":
+                            post(annos.path(), (req, res) -> method.invoke(gameHandlers, req));
+                            break;
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
