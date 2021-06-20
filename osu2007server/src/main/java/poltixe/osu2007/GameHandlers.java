@@ -276,7 +276,8 @@ public class GameHandlers {
         // Get the current time as epoch time
         long currentEpochTime = today.getTime();
 
-        for (Player player : App.onlinePlayers)
+        List<Player> tempPlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempPlayers)
             if (currentEpochTime - player.lastPing > 15000) {
                 System.out.println(player.username + " logged off!");
                 App.onlinePlayers.remove(player);
@@ -286,6 +287,7 @@ public class GameHandlers {
             return "NO TOKEN PROVIDED";
 
         Player thisPlayer = null;
+        // tempPlayers = new ArrayList<Player>(App.onlinePlayers);
         for (Player player : App.onlinePlayers) {
             if (player.token.equals(token)) {
                 thisPlayer = player;
