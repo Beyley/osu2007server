@@ -186,17 +186,17 @@ public class MySqlHandler {
 
         boolean scoreListExist = false;
 
-        try {
-            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
+        // try {
+        //     DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
-            ResultSet rs1 = md.getTables(null, null, "score_list", null);
+        //     ResultSet rs1 = md.getTables(null, null, "score_list", null);
 
-            while (rs1.next()) {
-                scoreListExist = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        //     while (rs1.next()) {
+        //         scoreListExist = true;
+        //     }
+        // } catch (SQLException ex) {
+        //     System.out.println(ex.getMessage());
+        // }
 
         if (!scoreListExist) {
             query = "CREATE TABLE `osu2007`.`score_list` ( `id` INT NOT NULL AUTO_INCREMENT, `maphash` VARCHAR(100) NOT NULL, `userid` INT NOT NULL, `replayhash` VARCHAR(100) NOT NULL, `hit300` INT NOT NULL, `hit100` INT NOT NULL, `hit50` INT NOT NULL, `hitgeki` INT NOT NULL, `hitkatu` INT NOT NULL, `hitmiss` INT NOT NULL, `score` INT NOT NULL, `maxcombo` INT NOT NULL, `perfect` VARCHAR(5) NOT NULL, `grade` VARCHAR(1) NOT NULL, `mods` INT NOT NULL, `pass` VARCHAR(5) NOT NULL, `timesubmitted` INT NULL, PRIMARY KEY (`id`));";
@@ -208,102 +208,102 @@ public class MySqlHandler {
             }
         }
 
-        boolean oldScoreListExist = false;
+        // boolean oldScoreListExist = false;
 
-        try {
+        // try {
 
-            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
+        //     DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
-            ResultSet rs1 = md.getTables(null, null, "scores", null);
+        //     ResultSet rs1 = md.getTables(null, null, "scores", null);
 
-            while (rs1.next()) {
-                oldScoreListExist = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        //     while (rs1.next()) {
+        //         oldScoreListExist = true;
+        //     }
+        // } catch (SQLException ex) {
+        //     System.out.println(ex.getMessage());
+        // }
 
-        if (oldScoreListExist) {
-            // CONVERT DATABASE TO NEW FORMAT
+        // if (oldScoreListExist) {
+        //     // CONVERT DATABASE TO NEW FORMAT
 
-            // Rename users table
-            query = "ALTER TABLE `osu2007`.`users` RENAME TO `osu2007`.`osu_users`;";
+        //     // Rename users table
+        //     query = "ALTER TABLE `osu2007`.`users` RENAME TO `osu2007`.`osu_users`;";
 
-            try (Statement st = (Statement) con.createStatement()) {
-                st.execute(query);
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+        //     try (Statement st = (Statement) con.createStatement()) {
+        //         st.execute(query);
+        //     } catch (SQLException ex) {
+        //         // System.out.println(ex.getMessage());
+        //     }
 
-            query = "SELECT * FROM scores";
+        //     query = "SELECT * FROM scores";
 
-            List<Score> scores = new ArrayList<Score>();
+        //     List<Score> scores = new ArrayList<Score>();
 
-            try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        //     try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
-                while (rs.next()) {
-                    Score currentScore = new Score(rs.getString(2), rs.getInt(1));
+        //         while (rs.next()) {
+        //             Score currentScore = new Score(rs.getString(2), rs.getInt(1));
 
-                    scores.add(currentScore);
-                }
-            } catch (SQLException | ParseException ex) {
-                System.out.println(ex.getMessage());
-            }
+        //             scores.add(currentScore);
+        //         }
+        //     } catch (SQLException | ParseException ex) {
+        //         System.out.println(ex.getMessage());
+        //     }
 
-            PreparedStatement stmt = null;
+        //     PreparedStatement stmt = null;
 
-            for (Score score : scores) {
-                query = "INSERT INTO `osu2007`.`score_list`(id, maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        //     for (Score score : scores) {
+        //         query = "INSERT INTO `osu2007`.`score_list`(id, maphash, userid, replayhash, hit300, hit100, hit50, hitgeki, hitkatu, hitmiss, score, maxcombo, perfect, grade, mods, pass) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                try {
-                    stmt = con.prepareStatement(query);
-                    stmt.setInt(1, score.scoreId);
-                    stmt.setString(2, score.mapHash);
-                    stmt.setInt(3, score.userId);
-                    stmt.setString(4, score.replayHash);
-                    stmt.setInt(5, score.hit300);
-                    stmt.setInt(6, score.hit100);
-                    stmt.setInt(7, score.hit50);
-                    stmt.setInt(8, score.hitGeki);
-                    stmt.setInt(9, score.hitKatu);
-                    stmt.setInt(10, score.hitMiss);
-                    stmt.setInt(11, score.score);
-                    stmt.setInt(12, score.maxCombo);
-                    stmt.setBoolean(13, score.perfectCombo);
-                    stmt.setString(14, Character.toString(score.grade));
-                    stmt.setInt(15, score.mods);
-                    stmt.setBoolean(16, score.pass);
+        //         try {
+        //             stmt = con.prepareStatement(query);
+        //             stmt.setInt(1, score.scoreId);
+        //             stmt.setString(2, score.mapHash);
+        //             stmt.setInt(3, score.userId);
+        //             stmt.setString(4, score.replayHash);
+        //             stmt.setInt(5, score.hit300);
+        //             stmt.setInt(6, score.hit100);
+        //             stmt.setInt(7, score.hit50);
+        //             stmt.setInt(8, score.hitGeki);
+        //             stmt.setInt(9, score.hitKatu);
+        //             stmt.setInt(10, score.hitMiss);
+        //             stmt.setInt(11, score.score);
+        //             stmt.setInt(12, score.maxCombo);
+        //             stmt.setBoolean(13, score.perfectCombo);
+        //             stmt.setString(14, Character.toString(score.grade));
+        //             stmt.setInt(15, score.mods);
+        //             stmt.setBoolean(16, score.pass);
 
-                    stmt.execute();
+        //             stmt.execute();
 
-                    stmt.close();
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }
+        //             stmt.close();
+        //         } catch (SQLException ex) {
+        //             System.out.println(ex.getMessage());
+        //         }
+        //     }
 
-            query = "DROP TABLE `osu2007`.`scores`;";
+        //     query = "DROP TABLE `osu2007`.`scores`;";
 
-            try (Statement st = (Statement) con.createStatement()) {
-                st.execute(query);
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+        //     try (Statement st = (Statement) con.createStatement()) {
+        //         st.execute(query);
+        //     } catch (SQLException ex) {
+        //         // System.out.println(ex.getMessage());
+        //     }
+        // }
 
         boolean usersExist = false;
 
-        try {
-            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
+        // try {
+        //     DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
-            ResultSet rs1 = md.getTables(null, null, "osu_users", null);
+        //     ResultSet rs1 = md.getTables(null, null, "osu_users", null);
 
-            while (rs1.next()) {
-                usersExist = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        //     while (rs1.next()) {
+        //         usersExist = true;
+        //     }
+        // } catch (SQLException ex) {
+        //     System.out.println(ex.getMessage());
+        // }
 
         if (!usersExist) {
             query = "CREATE TABLE `osu2007`.`osu_users` (`id` INT NOT NULL AUTO_INCREMENT, `username` VARCHAR(50) NULL, `password` VARCHAR(500) NULL, PRIMARY KEY (`id`));";
@@ -317,17 +317,17 @@ public class MySqlHandler {
 
         boolean newsExist = false;
 
-        try {
-            DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
+        // try {
+        //     DatabaseMetaData md = (DatabaseMetaData) con.getMetaData();
 
-            ResultSet rs1 = md.getTables(null, null, "news_posts", null);
+        //     ResultSet rs1 = md.getTables(null, null, "news_posts", null);
 
-            while (rs1.next()) {
-                newsExist = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        //     while (rs1.next()) {
+        //         newsExist = true;
+        //     }
+        // } catch (SQLException ex) {
+        //     System.out.println(ex.getMessage());
+        // }
 
         if (!newsExist) {
             query = "CREATE TABLE `osu2007`.`news_posts` (`id` INT NOT NULL AUTO_INCREMENT, `creator` VARCHAR(100) NULL, `time` DATETIME NULL DEFAULT current_timestamp, `content` LONGTEXT NULL, `title` LONGTEXT NULL, PRIMARY KEY (`id`));";
@@ -347,78 +347,78 @@ public class MySqlHandler {
             }
         }
 
-        boolean playcountColumnExist = false;
+        // boolean playcountColumnExist = false;
 
-        query = "SHOW COLUMNS FROM `osu2007`.`osu_users` LIKE 'playcount';";
+        // query = "SHOW COLUMNS FROM `osu2007`.`osu_users` LIKE 'playcount';";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-            while (rs.next()) {
-                playcountColumnExist = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        // try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        //     while (rs.next()) {
+        //         playcountColumnExist = true;
+        //     }
+        // } catch (SQLException ex) {
+        //     System.out.println(ex.getMessage());
+        // }
 
-        if (!playcountColumnExist) {
-            query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `playcount` INT NULL DEFAULT 0 AFTER `password`;";
+        // if (!playcountColumnExist) {
+        //     query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `playcount` INT NULL DEFAULT 0 AFTER `password`;";
 
-            try (Statement st = (Statement) con.createStatement()) {
-                st.execute(query);
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+        //     try (Statement st = (Statement) con.createStatement()) {
+        //         st.execute(query);
+        //     } catch (SQLException ex) {
+        //         System.out.println(ex.getMessage());
+        //     }
+        // }
 
         boolean timeSubmittedExist = false;
 
-        query = "SHOW COLUMNS FROM `osu2007`.`score_list` LIKE 'timesubmitted';";
+        // query = "SHOW COLUMNS FROM `osu2007`.`score_list` LIKE 'timesubmitted';";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-            while (rs.next()) {
-                timeSubmittedExist = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        // try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        //     while (rs.next()) {
+        //         timeSubmittedExist = true;
+        //     }
+        // } catch (SQLException ex) {
+        //     System.out.println(ex.getMessage());
+        // }
 
-        if (!timeSubmittedExist) {
-            query = "ALTER TABLE `osu2007`.`score_list` ADD COLUMN `timesubmitted` INT NULL AFTER `pass`";
+        // if (!timeSubmittedExist) {
+        //     query = "ALTER TABLE `osu2007`.`score_list` ADD COLUMN `timesubmitted` INT NULL AFTER `pass`";
 
-            try (Statement st = (Statement) con.createStatement()) {
-                st.execute(query);
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+        //     try (Statement st = (Statement) con.createStatement()) {
+        //         st.execute(query);
+        //     } catch (SQLException ex) {
+        //         System.out.println(ex.getMessage());
+        //     }
 
-            Path startingDir = Paths.get("replays");
-            GetAllReplays gar = new GetAllReplays();
-            try {
-                Files.walkFileTree(startingDir, gar);
-            } catch (IOException e) {
-            }
-        }
+        //     Path startingDir = Paths.get("replays");
+        //     GetAllReplays gar = new GetAllReplays();
+        //     try {
+        //         Files.walkFileTree(startingDir, gar);
+        //     } catch (IOException e) {
+        //     }
+        // }
 
         boolean ipColumnExist = false;
 
-        query = "SHOW COLUMNS FROM `osu2007`.`osu_users` LIKE 'ip';";
+        // query = "SHOW COLUMNS FROM `osu2007`.`osu_users` LIKE 'ip';";
 
-        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-            while (rs.next()) {
-                ipColumnExist = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        // try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        //     while (rs.next()) {
+        //         ipColumnExist = true;
+        //     }
+        // } catch (SQLException ex) {
+        //     System.out.println(ex.getMessage());
+        // }
 
-        if (!ipColumnExist) {
-            query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `ip` LONGTEXT NULL AFTER `playcount`;";
+        // if (!ipColumnExist) {
+        //     query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `ip` LONGTEXT NULL AFTER `playcount`;";
 
-            try (Statement st = (Statement) con.createStatement()) {
-                st.execute(query);
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+        //     try (Statement st = (Statement) con.createStatement()) {
+        //         st.execute(query);
+        //     } catch (SQLException ex) {
+        //         System.out.println(ex.getMessage());
+        //     }
+        // }
     }
 
     public void setTimeOfScore(int id, long time) {
