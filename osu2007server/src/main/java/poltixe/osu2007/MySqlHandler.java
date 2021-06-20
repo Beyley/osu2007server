@@ -400,25 +400,25 @@ public class MySqlHandler {
 
         boolean ipColumnExist = false;
 
-        // query = "SHOW COLUMNS FROM `osu2007`.`osu_users` LIKE 'ip';";
+        query = "SHOW COLUMNS FROM `osu2007`.`osu_users` LIKE 'ip';";
 
-        // try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-        //     while (rs.next()) {
-        //         ipColumnExist = true;
-        //     }
-        // } catch (SQLException ex) {
-        //     System.out.println(ex.getMessage());
-        // }
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                ipColumnExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
 
-        // if (!ipColumnExist) {
-        //     query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `ip` LONGTEXT NULL AFTER `playcount`;";
+        if (!ipColumnExist) {
+            query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `ip` LONGTEXT NULL AFTER `playcount`;";
 
-        //     try (Statement st = (Statement) con.createStatement()) {
-        //         st.execute(query);
-        //     } catch (SQLException ex) {
-        //         System.out.println(ex.getMessage());
-        //     }
-        // }
+            try (Statement st = (Statement) con.createStatement()) {
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
     public void setTimeOfScore(int id, long time) {
