@@ -347,56 +347,56 @@ public class MySqlHandler {
             // }
         }
 
-        // boolean playcountColumnExist = false;
+        boolean playcountColumnExist = false;
 
-        // query = "SHOW COLUMNS FROM `osu2007`.`osu_users` LIKE 'playcount';";
+        query = "SHOW COLUMNS FROM `osu2007`.`osu_users` LIKE 'playcount';";
 
-        // try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-        //     while (rs.next()) {
-        //         playcountColumnExist = true;
-        //     }
-        // } catch (SQLException ex) {
-        //     System.out.println(ex.getMessage());
-        // }
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                playcountColumnExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
 
-        // if (!playcountColumnExist) {
-        //     query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `playcount` INT NULL DEFAULT 0 AFTER `password`;";
+        if (!playcountColumnExist) {
+            query = "ALTER TABLE `osu2007`.`osu_users` ADD COLUMN `playcount` INT NULL DEFAULT 0 AFTER `password`;";
 
-        //     try (Statement st = (Statement) con.createStatement()) {
-        //         st.execute(query);
-        //     } catch (SQLException ex) {
-        //         System.out.println(ex.getMessage());
-        //     }
-        // }
+            try (Statement st = (Statement) con.createStatement()) {
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
 
         boolean timeSubmittedExist = false;
 
-        // query = "SHOW COLUMNS FROM `osu2007`.`score_list` LIKE 'timesubmitted';";
+        query = "SHOW COLUMNS FROM `osu2007`.`score_list` LIKE 'timesubmitted';";
 
-        // try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
-        //     while (rs.next()) {
-        //         timeSubmittedExist = true;
-        //     }
-        // } catch (SQLException ex) {
-        //     System.out.println(ex.getMessage());
-        // }
+        try (Statement st = (Statement) con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                timeSubmittedExist = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
 
-        // if (!timeSubmittedExist) {
-        //     query = "ALTER TABLE `osu2007`.`score_list` ADD COLUMN `timesubmitted` INT NULL AFTER `pass`";
+        if (!timeSubmittedExist) {
+            query = "ALTER TABLE `osu2007`.`score_list` ADD COLUMN `timesubmitted` INT NULL AFTER `pass`";
 
-        //     try (Statement st = (Statement) con.createStatement()) {
-        //         st.execute(query);
-        //     } catch (SQLException ex) {
-        //         System.out.println(ex.getMessage());
-        //     }
+            try (Statement st = (Statement) con.createStatement()) {
+                st.execute(query);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
 
-        //     Path startingDir = Paths.get("replays");
-        //     GetAllReplays gar = new GetAllReplays();
-        //     try {
-        //         Files.walkFileTree(startingDir, gar);
-        //     } catch (IOException e) {
-        //     }
-        // }
+            Path startingDir = Paths.get("replays");
+            GetAllReplays gar = new GetAllReplays();
+            try {
+                Files.walkFileTree(startingDir, gar);
+            } catch (IOException e) {
+            }
+        }
 
         boolean ipColumnExist = false;
 
