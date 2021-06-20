@@ -338,13 +338,13 @@ public class MySqlHandler {
                 System.out.println(ex.getMessage());
             }
 
-            query = "INSERT INTO `osu2007`.`news_posts` (`title`, `creator`, `content`) VALUES ('Test Post', 'PoltixeTheDerg', 'This is an example post!');";
+            // query = "INSERT INTO `osu2007`.`news_posts` (`title`, `creator`, `content`) VALUES ('Test Post', 'PoltixeTheDerg', 'This is an example post!');";
 
-            try (Statement st = (Statement) con.createStatement()) {
-                st.execute(query);
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+            // try (Statement st = (Statement) con.createStatement()) {
+            //     st.execute(query);
+            // } catch (SQLException ex) {
+            //     System.out.println(ex.getMessage());
+            // }
         }
 
         // boolean playcountColumnExist = false;
