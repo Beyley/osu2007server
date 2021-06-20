@@ -85,7 +85,8 @@ public class GameHandlers {
         Date today = Calendar.getInstance().getTime();
         long currentEpochTime = today.getTime();
 
-        for (Player player : App.onlinePlayers) {
+        List<Player> tempPlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempPlayers) {
             if (currentEpochTime - player.lastPing > 15000) {
                 System.out.println(player.username + " logged off!");
                 App.onlinePlayers.remove(player);
@@ -158,7 +159,8 @@ public class GameHandlers {
         tempPlayer.lastPing = currentEpochTime;
         tempPlayer.token = returnString;
 
-        for (Player player : App.onlinePlayers) {
+        tempPlayers = new ArrayList<Player>(App.onlinePlayers);
+        for (Player player : tempPlayers) {
             if (player.username.equals(username)) {
                 int id = App.onlinePlayers.indexOf(player);
 
